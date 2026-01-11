@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>inheritance</title>
+</head>
+<body>
+    <script>
+        class user {
+            constructor(name,age,email) {
+                this.name = name;
+                this.age= age;
+                this.email = email;
+            }
+            showAge(){
+                console.log('from parent class',this.age);
+            }
+            static password(){
+                return 'abc@123ABC'
+            }
+        }
+
+        class Teacher extends user {
+           
+                // super(name,age,email);
+            
+            showName(){
+                this.fuckyou = "ohh"
+                console.log(this);
+            }
+        }
+        let t1 = new Teacher("mamoon",20,"mamoonkhan@gmail.com")
+        let dokan = new  user("dokandar")
+        t1.showName()
+     </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Getter | Setter</title>
+</head>
+<body>
+    <script>
+        class user {
+            constructor(name,password) {
+                this.name = name;
+                this.password = password;
+            }
+            set name(value){
+                this._name = value;
+            }
+            get name(){
+                return `${this._name.toUpperCase()}`
+            }
+            set password(value){
+                this._password = value
+                // we are setting or storing the orignal value
+            }
+            get password(){
+                // but when someone call the value he don't get the orignal value but the one we give 
+                return `bitch${this._password}bitch`;
+            }
+        }
+        let customer = new user("mamoonkhan","Mamoonkhan@");
+        console.log(customer.name);
+        
+    </script>
+</body>
+</html>

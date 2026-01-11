@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Bmi Calculater</title>
+</head>
+<body>
+         <header>
+        <nav>
+            <a href="../home.html">Home</a>
+        </nav>
+    </header>
+
+    <H1>BMI Calculater</H1>
+    <form id="Form">
+        <p><label>height in CM</label><br><input type="text" placeholder="Enter Centimeter" id="height"></p>
+        <p><label>Weight in KG</label><br><input type="text" placeholder="Enter Centimeter" id="weight"></p>
+        <h2 id="result"></h3>
+        <button type="submit">Submit</button>
+    </form>
+    <h3 id ="showresult">
+    </h3>
+    <div id="bmiResult">
+
+    </div>
+</body>
+<script>
+    let form = document.querySelector("#Form");
+    console.log(form);
+    form.addEventListener('submit',(e)=>{
+        e.preventDefault();
+        let height = parseInt(document.querySelector("#height").value);
+        let weight = parseInt(document.querySelector("#weight").value);
+        if (height == " " || isNaN(height) || height < 0) {
+            console.log(`the height is not Valid ${height}`);
+            let h1 = document.querySelector("#result")
+            h1.innerHTML = `the height is not Valid <span>${height}<span>`
+        }
+        else if(weight == " " || isNaN(weight) || weight < 0){
+            console.log(`the weight is not Valid `);
+            let textnode = document.createTextNode("the weight is not Valid <span>${weight}<span>")
+            let h1 = document.querySelector("#result")
+            h1.innerHTML = `the weight is not Valid <span>${weight}<span>`
+                h1.appendChild(textnode)
+            }
+        else
+        {
+           let bmi = (weight / (height * height)) * 703
+           
+           let R = document.querySelector("#showresult");
+           R.innerHTML = `BMI : ${bmi.toFixed(2)}`
+           console.log(bmi);
+           if(bmi<18){
+                let bmiDiv = document.querySelector("#bmiResult");
+                bmiDiv.innerHTML = "<h3>very Small BMI</h3>"
+           }
+           else if (bmi>18&&bmi<27){
+                let bmiDiv = document.querySelector("#bmiResult");
+                bmiDiv.innerHTML = "<h3>very Normal BMI</h3>"
+           }
+           else {
+                let bmiDiv = document.querySelector("#bmiResult");
+                bmiDiv.innerHTML = "<h3>very High BMI</h3>"
+           }
+
+        }
+
+    })
+</script>
+<style>
+    body{
+        text-align: center;
+        align-items: center;
+    }
+</style>
+</html>

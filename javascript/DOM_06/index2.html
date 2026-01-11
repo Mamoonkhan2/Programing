@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>item slector</title>
+</head>
+<body class="body" id="parent">
+    <div class="week_days">
+        <h2>days</h2>
+        <div class="day" >monday</div>
+        <div class="day" >thuesday</div>
+        <div class="day" >wensday</div>
+        <div class="day" >friday</div>
+    </div>
+</body>
+<script>
+    // from parent to child
+    
+    let p = document.querySelector('.week_days');
+    // listing the child
+    // console.log(p.childNodes);
+    
+    // console.log(p.children); // will give html collection 
+    // console.log(p.children[0]);// an html collection like array we can acces value through indexing
+    
+    // performing on the child nodes
+    // console.log(dayOne.parentElement.innerText);// jumping from child --> parent nodes
+    
+    for (let i = 0; i < p.children.length; i++) { // now we can also run the tradition for loop on it because we can acces the value through the index so we can also modify it through the for loop
+    // p.children[i].style.color = 'green';
+    }
+
+    // console.log(p.firstElementChild.innerText);// will give the firstchild or element of parent class
+    // console.log(p.lastElementChild.innerText); // will give the lastchild or element of class
+    
+    // from child to parent
+    // adding element
+    let dayOne = document.querySelector('.day');
+    // console.log(dayOne.innerText); // printing the the text in it
+    // console.log(dayOne.nextElementSibling.innerText); // will go tothe nighibour element
+    // creating element through js 
+    let addElement = (text,color,bgcolor,tag)=>{
+        let anyTag = document.createElement(tag);//create anyTag
+        anyTag.innerText = text // insert text hello world
+        anyTag.style.color = color; // styel white
+        anyTag.style.backgroundColor = bgcolor; // bg color to blue
+        
+        // document.body.appendChild(anyTag) // apend or add it in the body
+        return anyTag
+    }
+    let h5 = addElement("mamoonkhan","green","gray",'h5')
+    let sdiv = addElement(null,null,null,'div');
+    sdiv.appendChild(h5);
+    document.body.appendChild(sdiv)
+    console.log(sdiv);
+    
+    
+</script>
+</html>

@@ -1,0 +1,173 @@
+/* Import a nice font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* --- Global Reset --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+}
+
+/* --- Navigation --- */
+header {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    padding: 1rem 2rem;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 8px 16px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+nav a:hover {
+    background: white;
+    color: #764ba2;
+}
+
+/* --- Main Game Container --- */
+#con {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 450px;
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    margin: 20px;
+}
+
+/* --- Typography --- */
+h3 {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+    color: #444;
+}
+
+/* --- Form Elements --- */
+input#inp {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-bottom: 15px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+input#inp:focus {
+    border-color: #764ba2;
+}
+
+input#sub {
+    width: 100%;
+    padding: 12px;
+    background: #212121;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.3s;
+}
+
+input#sub:hover {
+    background: #444;
+    transform: translateY(-2px);
+}
+
+input#sub:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* --- Results Section --- */
+.display {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.display h3 {
+    font-size: 0.9rem;
+    margin: 0;
+    color: #666;
+}
+
+span.pre, span.rem {
+    font-weight: 700;
+    color: #764ba2;
+    font-size: 1.1rem;
+}
+
+/* --- Message & End Game Buttons --- */
+.resPara {
+    margin-top: 20px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    min-height: 40px;
+}
+
+/* Styling buttons injected by JS */
+#startGame, #clear {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    color: white;
+    transition: opacity 0.3s;
+}
+
+#startGame {
+    background-color: #28a745; /* Green */
+}
+
+#clear {
+    background-color: #dc3545; /* Red */
+}
+
+#startGame:hover, #clear:hover {
+    opacity: 0.9;
+}
+
+/* --- History Table --- */
+.table {
+    margin-top: 20px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9rem;
+    color: #555;
+    background: #f1f1f1;
+    padding: 10px;
+    border-radius: 8px;
+    max-height: 150px;
+    overflow-y: auto;
+    text-align: left;
+}

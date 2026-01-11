@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object Descripter</title>
+</head>
+<body>
+    <script>
+        let obj = {
+            name:"mamoonkhan",
+            age : 20,
+            language:"javascript",
+            purpose:'web-Dev',
+            greeting:()=>{
+                console.log("hello world");
+            }
+        }
+        
+
+        Object.defineProperty(obj,'name',{
+                configurable: false,
+                // enumerable: false,
+                // value: 3.141592653589793,
+             writable: false
+        })
+        obj.name = "haroon"
+        for (const [key,val] of Object.entries(obj)) {
+            // console.log(typeof val);
+            if(typeof val !== 'function')
+            {
+                console.log(key," ",val);
+            }
+        }
+        // console.log(Object.getOwnPropertyDescriptor(Math,'PI'));
+        
+        
+    </script>
+</body>
+</html>

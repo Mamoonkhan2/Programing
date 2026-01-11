@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>form</title>
+</head>
+<style>
+    body{
+        background-color: #414141;
+        color: #fff;
+    }
+    button{
+        border-radius: 1px;
+        box-shadow: 10px;
+        border-color: green;
+    }
+</style>
+<body>
+    <h1>forms in html</h1>
+    <form action="get" method="get">
+        <label for="fn">First name</label><br>
+        <input type="text" placeholder="hello name" id="fn">
+        <br>
+        <label for="fsn">Last name</label><br>
+        <input type="text" placeholder="hello last name" id="fsn">
+        <br><br>
+        <label for="fn">pass 5-8</label><br>
+        <input type="password" name="password"
+        placeholder="password" id="password"  minlength="5" maxlength="8" >
+        <br>
+        <button type="submit">
+            clicking hello
+        </button>
+        <br><br>
+        <button type="reset" value="reset">
+            reset
+        </button>
+    </form>
+</body>
+</html>

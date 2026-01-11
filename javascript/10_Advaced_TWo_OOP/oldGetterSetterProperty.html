@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Old methood</title>
+</head>
+<body>
+    <script>
+        function setname(name) {
+            this._name = name;
+        }
+        function user(name,pass) {
+            setname.call(this,name);
+            this._pass = pass;
+            Object.defineProperty(this,'name',{
+                get:function(){
+                    return this._name.toUpperCase()
+                },
+                
+                set:function(value){
+                    this._name = value
+                }
+            })
+            Object.defineProperty(this,'pass',{
+                get:function(){
+                    this.strings =Array.from(p1._pass)
+                        .map((val)=>
+                        {
+                            return ` ${val}${parseInt((Math.random() * 100 ) + 2)}`;
+                        })
+                                
+                    return `${this.strings.toString()}`
+                },
+                
+                set:function(value){
+                    this._pass = value
+                }
+            })
+       
+        }
+        let users = {
+            __email : "mamoonkhan@gmail.com",
+            __pass  : "mamoonkhan123abc",
+            set email(value){
+                this.__email = value;
+            },
+            get email(){
+                return this.__email;
+            }
+        }
+        let a = [1,2,3,4]
+        a.length
+        let s =  users;
+        console.log(s);
+        console.log(s.__email);
+
+        
+        
+    </script>
+</body>
+</html>

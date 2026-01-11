@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Random Password Generator</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        min-height: 100vh;
+        font-family: "Segoe UI", system-ui, sans-serif;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        display: grid;
+        place-items: center;
+      }
+
+      .main {
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(10px);
+        padding: 3rem 2.5rem;
+        border-radius: 20px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+        text-align: center;
+        width: min(90%, 420px);
+      }
+
+      h1 {
+        font-size: 2.4rem;
+        margin-bottom: 2rem;
+        line-height: 1.1;
+      }
+
+      .display {
+        background: rgba(0, 0, 0, 0.3);
+        padding: 1rem 1.2rem;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 1.8rem;
+      }
+
+      input {
+        flex: 1;
+        background: transparent;
+        border: none;
+        outline: none;
+        color: white;
+        font-size: 1.4rem;
+        font-family: "Courier New", Courier, monospace;
+        letter-spacing: 1px;
+      }
+
+      input::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      .copy-btn {
+        width: 38px;
+        height: 38px;
+        cursor: pointer;
+        transition: transform 0.2s;
+      }
+
+      .copy-btn:hover {
+        transform: scale(1.15);
+      }
+
+      button {
+        background: #4f46e5;
+        color: white;
+        border: none;
+        padding: 1rem 2rem;
+        font-size: 1.2rem;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s;
+        width: 100%;
+      }
+
+      button:hover {
+        background: #4338ca;
+        transform: translateY(-2px);
+      }
+
+      button:active {
+        transform: translateY(0);
+      }
+      #Lenght-btn {
+        /* background: #4f46e5; */
+        color: white;
+        border: none;
+        padding: 1rem 2rem;
+        font-size: 1.2rem;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s;
+        width: 100%;
+        /* background: transparent; */
+        margin-bottom: 5px;
+        background-color: rgba(0, 0, 0, 0.3);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <h1>Generate<br />Random Password</h1>
+
+      <div class="display">
+        <input
+          type="text"
+          id="password"
+          readonly
+          placeholder="Click Generate!"
+        />
+        <img
+          class="copy-btn"
+          src="https://img.icons8.com/?size=100&id=82790&format=png&color=ffffff"
+          alt="copy"
+          id="copyBtn"
+        />
+      </div>
+      <input type="number" id="Lenght-btn" placeholder="length" />
+      <!-- <button id="generateBtn">Generate Password</button> -->
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>

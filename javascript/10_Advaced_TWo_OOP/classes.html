@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classes</title>
+</head>
+<body>
+    <script>
+
+
+        // function user(username,Class,age) {
+        //     this.username = username;
+        //     this.Class = Class
+        //     this.age = age
+        //     this.detail = ()=>{
+        //         console.log(`name : ${this.username} class : ${this.Class} age : ${this.age}`);
+        //     }
+        //     // console.log(this);``
+            
+        //     // return this     
+        // }
+        // // steps after using the new keyword
+        // // this{emptyObject} <-- new 
+        // // argument <--- constaracter will give us argument values
+        // // every value is store in constracter and we get it by return
+        // let userOne =  new user("mamoonkhan",12,18);
+        // let userTwo =  new user("Harron",16,25);
+        
+        
+        // function user2(params) {
+        //     this.params = params;
+        //     this.greatting = ()=>{
+        //         console.log(this.params);
+        //     }
+        // }
+        // // let name = new user2("mamoonkhan")
+        // console.log(name.params);
+        
+        // class userData {
+        //     constructor(name,age,email) {
+        //         this.name = name;
+        //         this.age = age;
+        //         this.email = email
+        //     }
+        //     showName(){
+        //         console.log(`sta nom da  ${this.name}`);
+        //     }
+        //     changeName(hello){
+        //         this.name = hello
+        //         console.log(this.name);
+                
+        //     }
+        // }
+        function user(name) {
+            this.name = name;
+            this.count = 1;
+            console.log('the name is ',this.count++,this.name); 
+        }
+        function userData(name,age,email) {
+            user.call(this,name);
+            this.age = age;
+            this.email = email;
+            
+        }
+        userData.prototype.showName=function(){
+            console.log(`sta nom da  ${this.name}`)
+            console.log(this.name,this.age,this.email);
+        }
+        userData.prototype.changeName=function(hello){
+            this.name = hello
+            console.log(this.name);
+        }
+        let user1 = new userData("mamoonkhan",18,"anyname@gmail.com");
+        user1.changeName("haroon");
+        user1.showName()
+    </script>
+</body>
+</html>

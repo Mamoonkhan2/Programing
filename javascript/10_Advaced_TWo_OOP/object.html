@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Object Prototype</title>
+</head>
+<body>
+<script>
+
+
+
+
+
+
+
+
+
+
+
+function user(name,score) {
+	this.name = name;
+	this.score  = score
+}
+user.prototype.printme = function(){
+	console.log(this.name);	
+}
+
+let p1 = {
+	fname:"mamoon",
+	greating:function(){
+		console.log("hello world")
+	}
+}
+let p2 ={
+	lname:"khan",
+	__proto__ : p1,
+}
+let p3 ={
+	k:"amsdmf",
+	greating:function(){
+		console.log("hello world 22")
+	},
+	__proto__ : p2,
+	
+}
+console.log("hell",p3.__proto__);
+
+let p4 = function(){
+	this.name = "mamoonkhan"
+	
+}
+Object.setPrototypeOf(p4,p3)
+let x =  p4();
+console.log(x);
+
+let string = "mamoonkhan    ";
+let arras = ["hello",'asdf','asdf','adlf','helloworld'];
+let obj = {
+	username : "mamoonkhan",
+}
+function names (){
+	this.k = "h"
+	return this;
+}
+
+let users = {
+	name : "mamoonkhan",
+	lastname:"yousufzai",
+}
+
+// inharatance
+let Teacher = {
+	t:"mamoon_nada",
+	// old class syntax
+	// mean acces all properties/methoods of the users object
+	__proto__ :users
+}
+// modern syntax
+Object.setPrototypeOf(Teacher,users)
+// console.log(Teacher);
+
+let name = "mamoonkhan   ";
+// String.prototype.trueLength = function(){
+// 	// in this case the current contax is the the string value
+// 	// mamonkhan is the this --> mamoonkhan
+// 	console.log(this);
+// 	console.log(`true length is ${this.trim().length}`);
+// }
+// console.log(String.prototype);
+
+// name.trueLength()
+// "haroonkhan".trueLength()
+// "aminkhan".trueLength()
+// "amirkhan".trueLength()
+function s(params) {
+	this.a = params
+	this.g = "ha"
+	this.getdate = ()=>{
+		console.log("inside the object");
+		
+	}
+	// this.__proto__ = Teacher,
+
+	// Object.setPrototypeOf(this,Teacher)
+	// return this	
+}
+console.log(window);
+
+s.prototype.hello = function name(){
+		console.log("hello",this.a)
+};
+let a = new  s("mamoon")
+let aa = new s("haroon")
+console.log(a.hello());
+// console.log(aa);
+
+</script> 
+</body>
+</html>

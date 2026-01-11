@@ -1,0 +1,52 @@
+body{
+    width: 100%;
+    height:100% ;
+    flex: 50%;
+    background-color: rgba(30, 168, 210, 0.488);
+}
+#heading{
+    background-color: aqua;
+}
+#Color_contaner{
+    position-try-order: inherit;
+    position:sticky;
+    background-color: antiquewhite;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+#white{
+    
+
+    background-color: aliceblue;
+    padding: 10px 10px 10px 20px;
+}
+#gray{
+    background-color: gray;
+
+    padding: 10px 10px 10px 20px;
+
+}
+#black{
+    color: antiquewhite;
+    background-color: black;
+
+    padding: 10px 10px 10px 20px;
+
+}
+        header {
+            background-color: #333;
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #4CAF50;
+        }

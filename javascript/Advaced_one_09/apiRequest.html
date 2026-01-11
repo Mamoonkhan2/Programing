@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Api</title>
+</head>
+<style>
+    img{
+        width: 100px;
+        height: 100px;
+    }
+</style>
+<body>
+    <div class="mai">
+        <div id="fir"></div>
+        <button id="sec" type="button">Click</button>
+    </div>
+</body>
+<script>
+    let main = document.querySelector(".mai");
+    let first = document.querySelector("#fir")
+    let secound = document.querySelector("#sec")
+    let url = 'https://jsonplaceholder.typicode.com/todos/1'
+    let senddata = (e) => {
+        const data = xmlrequest(url,"GET").then((resolve)=>{
+           first.innerHTML = `
+           <img src = "${resolve.avatar_url}">
+           <h3>Account_Name : ${resolve.title}</h3>
+           <h3>title : ${resolve.userId}</h3>
+           `
+            console.log(resolve);
+            
+        })
+        .catch(
+            (error)=>{
+                console.log(error);
+                
+            }
+            
+    )
+
+      
+        
+}
+    secound.addEventListener('click',senddata);
+    
+    
+    function xmlrequest(url,methood) {
+    
+        const myFirstPromise = new Promise((resolve, reject) => {
+      
+        const xhr = new XMLHttpRequest();
+
+        xhr.open(methood,url);
+
+        xhr.responseType = 'json';
+
+        xhr.onload = ()=>{
+            resolve(xhr.response)
+            console.log(xhr.response);
+            
+        }
+        xhr.onerror = ()=>{
+            if (xhr.status >= 400) {
+                reject("you have a problem")
+            }
+            if (xhr.status === 0) {
+                reject("your url not find")
+            }
+        }
+        xhr.send();
+    });
+    
+    return myFirstPromise;
+}
+
+
+</script>
+</html>

@@ -1,0 +1,12 @@
+body{
+    background-color:  #414141;
+    color: white;
+}
+#love{
+    border-color: rgb(255, 0, 0);
+    image-resolution: initial;
+    border-image:500px;
+    left: 50;
+    border-top-left-radius: 500px;
+    border-bottom-left-radius: 500px;
+}
