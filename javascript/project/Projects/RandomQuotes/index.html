@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Random Vibes – Quote Drop</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    :root {
+      --bg: #0f0f17;
+      --card: #161b33;
+      --accent: #7c3aed;
+      --accent-glow: #a78bfa;
+      --text: #e2e8f0;
+      --text-light: #94a3b8;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100dvh;
+      background: linear-gradient(135deg, #0f0f17 0%, #13151f 100%);
+      color: var(--text);
+      font-family: system-ui, -apple-system, sans-serif;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 540px;
+      background: var(--card);
+      border-radius: 24px;
+      padding: 3rem 2.2rem;
+      box-shadow: 0 25px 60px -15px rgba(0,0,0,0.6),
+                  0 0 0 1px rgba(124,58,237,0.12) inset;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .quote-box {
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin: 1.5rem 0 2.5rem;
+      position: relative;
+    }
+
+    .quote-text {
+      font-size: 1.8rem;
+      line-height: 1.38;
+      font-weight: 300;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.4rem;
+    }
+
+    .author {
+      font-size: 1.1rem;
+      color: var(--text-light);
+      font-weight: 500;
+      text-align: right;
+      padding-right: 0.8rem;
+    }
+
+    .quote-text::before,
+    .quote-text::after {
+      font-size: 4rem;
+      opacity: 0.15;
+      position: absolute;
+      font-family: Georgia, serif;
+    }
+
+    .quote-text::before { content: '“'; left: -12px; top: -20px; }
+    .quote-text::after  { content: '”'; right: -12px; bottom: -40px; }
+
+    .buttons {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn {
+      padding: 14px 28px;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border: none;
+    }
+
+    .btn-new {
+      background: var(--accent);
+      color: white;
+    }
+
+    .btn-new:hover {
+      background: var(--accent-glow);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px -10px rgba(124,58,237,0.5);
+    }
+
+    .btn-tweet {
+      background: #1d9bf0;
+      color: white;
+    }
+
+    .btn-tweet:hover {
+      background: #1a8cd8;
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px -10px #1d9bf055;
+    }
+
+    .btn-tweet i {
+      font-size: 1.3rem;
+    }
+
+    .loading {
+      opacity: 0.6;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="quote-box">
+    <div class="quote-text" id="quote">
+      The best way to predict the future is to create it.
+    </div>
+    <div class="author" id="author">— Peter Drucker</div>
+  </div>
+
+  <div class="buttons">
+    <button class="btn btn-new" id="newQuote">
+      <i class="fas fa-dice"></i> New Quote
+    </button>
+    
+    <button class="btn btn-tweet" id="tweetBtn">
+      <i class="fa-brands fa-x-twitter"></i> Post to X
+    </button>
+  </div>
+</div>
+<script>
+    let url = "https://strangerthingsquotes.shadowdev.xyz/api/quotes";
+    let quote_Element = document.getElementById('quote');
+    let author_Element = document.getElementById("author");
+    let new_Quotes_btn = document.getElementById("newQuote");
+    let tweetBtn = document.getElementById("tweetBtn")
+    console.log(new_Quotes_btn);
+    
+    new_Quotes_btn.addEventListener("click",Update)
+    async function getData() {
+        try {
+            let responseData = await fetch(url);
+            let responseJson = await responseData.json();
+            return responseJson
+        } catch (error) {
+            console.log(error);
+            
+        }
+    }
+   async function Update(e) {
+        let data = await getData()
+        quote_Element.innerHTML = `${data[0].quote}`
+        author_Element.innerText = `—${data[0].author}`
+        quote_Element.style.opacity = 0;
+        setTimeout(() => {
+            quote_Element.style.opacity = 1;
+        }, 100);
+    }
+    tweetBtn.addEventListener('click', () => {
+        let text = quote_Element.innerText;
+        let author = author_Element.innerText;
+        const tweet = `"${text}"\n\n${author}\n\n#quotes #motivation`;
+        window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(tweet)}`,"width=600px,height=600px")
+    });
+</script>
+</body>
+</html>
