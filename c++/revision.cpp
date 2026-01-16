@@ -560,12 +560,12 @@ int main()
     //     }
     // }
 
-    for (int i : arr)
-    {
-        cout << i;
-    }
-    return 0;
-}
+//     for (int i : arr)
+//     {
+//         cout << i;
+//     }
+//     return 0;
+// }
 bool canprint(vector<int> vec, int cow, int painters)
 {
     int cows = 1;
@@ -594,4 +594,5 @@ bool isCow(vector<int> stall, int cow, int allowedmidistance)
         }
     }
     return cows <= cow; // now we will se that the cows which we place in the feild are greater than the actual cow so then we will return false becase the allowed distance is larger we need low distance
+}
 }
