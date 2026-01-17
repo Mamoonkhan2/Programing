@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <ul style="display: none;">
+            <li><a href="./Login.html">Login</a></li>
+        </ul>
+    </header>
+    <div class="contaner">
+        <div>
+            <form>
+                <Label>name</Label><br>
+                <input type="text" id="Name" placeholder="Enter your Full Name"><br>
+                <Label>Age</Label><br>
+                <input type="number" id="Age" placeholder="Enter your age" ><br>
+                <Label>Password</Label><br>
+                <input type="text" id="Password" placeholder="Enter your password"><br>
+                <button id="Submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</body>
+<script>
+    let uName = document.getElementById('Name')
+    let uAge  = document.getElementById('Age')
+    let uPassword =  document.getElementById('Password')
+    let submit = document.getElementById('Submit')
+    let STORAGE_KEY = "StudentFormData"
+    let Dataobj = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    function CheckUp() {
+        if(!uName.value || !uAge.value || !uPassword.value )
+        {
+            return false;
+        }
+        return true   
+    }
+    function SaveData() {
+        localStorage.setItem(STORAGE_KEY,JSON.stringify(Dataobj));
+    }
+    function Submit(e) {
+        e.preventDefault() 
+        let check = CheckUp();
+        console.log();
+        
+        if(!check) return alert("Empty Feild");
+        let userObj = {
+            name: uName.value,
+            age : uAge.value,
+            password:uPassword.value
+        }
+        Dataobj.unshift(userObj);
+        SaveData()
+        ClearEverything()
+        document.querySelector('ul').style.display = 'block'
+    }
+    function ClearEverything() {
+        uName.value = ''
+        uAge.value = ''
+        uPassword.value = ''
+    }
+    submit.addEventListener('click',Submit);
+</script>
+</html>

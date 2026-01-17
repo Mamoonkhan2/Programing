@@ -1,4 +1,4 @@
-function areYouPlayingBanjo(name: string):string {
+function areYouPlayingBanjo(name:string):string {
   // Implement me
   let char:number = name.charCodeAt(0);
   console.log(char);
@@ -12,3 +12,4 @@ function areYouPlayingBanjo(name: string):string {
 }
 
 console.log(areYouPlayingBanjo("ramoon"))
+console.log('hello world');

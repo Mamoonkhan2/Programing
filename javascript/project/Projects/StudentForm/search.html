@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+        <li>
+            <a href="./Login.html">Login</a>
+        </li>
+        <li>
+            <a href="./search.html">search</a>
+        </li>
+    </ul>
+    <div class="contaner">
+        <form style="display: flex;">
+            <input type="text" id="input" placeholder="searh for the name">
+            <button id="Search" type="submit">Search</button>
+        </form>
+        
+        <div id="result">
+
+        </div>
+    </div>
+</body>
+<script>
+    let input = document.querySelector("#input");
+    let search = document.querySelector("#Search");
+    let STORAGE_KEY = "StudentFormData"
+    let DataObj = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    function Validation(e){
+    
+        e.preventDefault()
+        if(!input.value) return alert("please enter the name");
+        let resultObj = DataObj.filter(element => (element.name == input.value));
+        if(resultObj.length == 0){
+            return alert("no name found");
+        }
+        else
+        {
+            let result = document.querySelector("#result");
+            let div = document.createElement('div')
+            ClearEverything(div)
+            div.innerHTML = 
+            `
+                name: ${resultObj[0].name}
+                age:  ${resultObj[0].age }
+            `
+            result.appendChild(div)
+        }
+
+    }
+    function ClearEverything(div) {
+        div.innerHTML = ''
+        result.innerHTML = ''
+        input.value = ''
+    }
+    search.addEventListener("click",Validation)
+</script>
+</html>

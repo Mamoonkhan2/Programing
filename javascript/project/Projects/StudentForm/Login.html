@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<body>
+    <div class="contaner">
+        <div class="login">
+            <form>
+                <label>Username</label><br>
+                <input type="text" id="name" placeholder="Enter your username"><br>
+                <label>Password</label><br>
+                <input type="text" id="Password" placeholder="enter your Password"><br>
+                <button id="submit">Submit</button><br>
+            </form>
+        </div><br>
+        <div class="signup">
+            <button><a href="./StudentForm.html">signup</a></button>
+        </div><br>        
+        <div class="search" style="display: none">
+            <button><a href="./search.html">search</a></button>
+        </div>
+    </div>
+
+</body>
+<script>
+    let uName = document.querySelector("#name")
+    let uPassword = document.querySelector("#Password")
+    let submit = document.querySelector("#submit")
+    let STORAGE_KEY = "StudentFormData"
+    let Dataobj = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    function CheckUp() {
+        if(!uName.value || !uPassword.value )
+        {
+            return false;
+        }
+        return true   
+    }
+    function ClearEverything() {
+        uName.value = ''
+        // uAge.value = ''
+        uPassword.value = ''
+    }
+    function UpdateData(e){
+        e.preventDefault()
+        let check = CheckUp();
+        if(!check) return alert("empty field");
+        console.log("done");
+        let checkobj = Dataobj.filter(element => (element.password == uPassword.value && element.name == uName.value));
+        if(checkobj.length == 0){
+            ClearEverything()
+            return alert('not found')
+        }
+        else{
+            document.querySelector(".search").style.display = 'block';
+            document.querySelector('.signup').disabled = true;
+            document.querySelector('.signup').style.display = 'none';
+            uName.disabled = true;
+            uPassword.disabled = true;
+            submit.disabled = true;
+            ClearEverything()
+        }
+        
+    }
+    submit.addEventListener('click',UpdateData);
+
+</script>
+</html>
