@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SnackBar / Toast Notification</title>
+
+<style>
+  /* ============== SnackBar ============== */
+  .snackbar-container {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    pointer-events: none;
+  }
+
+  .snackbar {
+    min-width: 280px;
+    max-width: 90vw;
+    background-color: #333;
+    color: white;
+    padding: 16px 24px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.35);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: auto;
+  }
+
+  .snackbar.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Different types/variations */
+  .snackbar.success { background-color: #2e7d32; }
+  .snackbar.error   { background-color: #c62828; }
+  .snackbar.info    { background-color: #01579b; }
+  .snackbar.warning { background-color: #f57c00; }
+
+  .snackbar-icon {
+    font-size: 1.4rem;
+    line-height: 1;
+  }
+
+  .snackbar-message {
+    flex: 1;
+    font-size: 0.97rem;
+  }
+
+  .snackbar-action {
+    background: rgba(255,255,255,0.18);
+    border: none;
+    color: white;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .snackbar-action:hover {
+    background: rgba(255,255,255,0.3);
+  }
+
+  /* Position variations */
+  .snackbar-container.top    { top: 30px; bottom: auto; }
+  .snackbar-container.left   { left: 24px; transform: none; }
+  .snackbar-container.right  { left: auto; right: 24px; transform: none; }
+</style>
+</head>
+<body>
+
+<!-- Just some test buttons -->
+<div style="padding: 40px; text-align:center;">
+  <h2>SnackBar / Toast Demo</h2>
+  
+  <button onclick="showSnack('success', 'Item added to cart!')">Success</button>
+  <button onclick="showSnack('error', 'Failed to save changes')">Error</button>
+  <button onclick="showSnack('info', 'New version available')">Info</button>
+  <button onclick="showSnack('warning', 'Low battery (18%)')">Warning</button>
+  
+  <br><br>
+  
+  <button onclick="showSnack('success', 'Saved successfully!', {position: 'top'})">
+    Success (top)
+  </button>
+  
+  <button onclick="showSnack('error', 'Connection lost!', {position: 'left', duration: 6000})">
+    Error (left - long)
+  </button>
+</div>
+
+<!-- SnackBar container -->
+<div class="snackbar-container" id="snackContainer"></div>
+
+<script>
+// ================== SnackBar Function ==================
+function showSnack(type = 'info', message, options = {}) {
+  const defaults = {
+    duration: 3500,
+    position: 'bottom',      // bottom | top | left | right
+    showAction: false,
+    actionText: 'UNDO',
+    actionCallback: null
+  };
+
+  const config = { ...defaults, ...options };
+
+  // Create snackbar element
+  const snack = document.createElement('div');
+  snack.className = `snackbar ${type}`;
+  
+  let icon = '';
+  switch(type) {
+    case 'success': icon = '✓'; break;
+    case 'error':   icon = '✕'; break;
+    case 'warning': icon = '!'; break;
+    case 'info':    icon = 'ℹ'; break;
+  }
+
+  snack.innerHTML = `
+    <span class="snackbar-icon">${icon}</span>
+    <span class="snackbar-message">${message}</span>
+    ${config.showAction ? 
+      `<button class="snackbar-action">${config.actionText}</button>` : ''}
+  `;
+
+  // Container positioning
+  const container = document.getElementById('snackContainer');
+  container.className = 'snackbar-container ' + config.position;
+
+  // Add to DOM
+  container.appendChild(snack);
+
+  // Small delay for animation to trigger
+  setTimeout(() => snack.classList.add('show'), 10);
+
+  // Auto hide
+  const timeoutId = setTimeout(() => {
+    hideSnack(snack);
+  }, config.duration);
+
+  // Action button (optional)
+  if (config.showAction) {
+    const actionBtn = snack.querySelector('.snackbar-action');
+    actionBtn.addEventListener('click', () => {
+      if (config.actionCallback) config.actionCallback();
+      hideSnack(snack);
+      clearTimeout(timeoutId);
+    });
+  }
+
+  // Click anywhere on snack to dismiss
+  snack.addEventListener('click', () => {
+    hideSnack(snack);
+    clearTimeout(timeoutId);
+  });
+}
+
+// ================== Hide Animation ==================
+function hideSnack(snackElement) {
+  snackElement.classList.remove('show');
+  
+  // Remove from DOM after animation finishes
+  snackElement.addEventListener('transitionend', () => {
+    snackElement.remove();
+  }, { once: true });
+}
+</script>
+</body>
+</html>
