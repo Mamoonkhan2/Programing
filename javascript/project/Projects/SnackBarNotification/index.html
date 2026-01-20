@@ -1,178 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>SnackBar / Toast Notification</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Toast Notifications</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f0f2f5;
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+    }
 
-<style>
-  /* ============== SnackBar ============== */
-  .snackbar-container {
-    position: fixed;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 1000;
-    pointer-events: none;
-  }
+    .button-group {
+      display: flex;
+      gap: 15px;
+    }
 
-  .snackbar {
-    min-width: 280px;
-    max-width: 90vw;
-    background-color: #333;
-    color: white;
-    padding: 16px 24px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.35);
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-    pointer-events: auto;
-  }
+    button {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: white;
+    }
 
-  .snackbar.show {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+    }
 
-  /* Different types/variations */
-  .snackbar.success { background-color: #2e7d32; }
-  .snackbar.error   { background-color: #c62828; }
-  .snackbar.info    { background-color: #01579b; }
-  .snackbar.warning { background-color: #f57c00; }
+    .error-btn   { background: #ff4d4f; }
+    .success-btn { background: #52c41a; }
+    .cross-btn   { background: #faad14; }
 
-  .snackbar-icon {
-    font-size: 1.4rem;
-    line-height: 1;
-  }
+    /* Toast container */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      min-width: 320px;
+      padding: 16px 20px;
+      border-radius: 8px;
+      color: white;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+      transform: translateX(120%);
+      opacity: 0;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 1000;
+    }
 
-  .snackbar-message {
-    flex: 1;
-    font-size: 0.97rem;
-  }
+    .toast.show {
+      transform: translateX(0);
+      opacity: 1;
+    }
 
-  .snackbar-action {
-    background: rgba(255,255,255,0.18);
-    border: none;
-    color: white;
-    padding: 6px 14px;
-    border-radius: 6px;
-    font-size: 0.85rem;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
+    /* Toast types */
+    .toast.error   { background: #ff4d4f; }
+    .toast.success { background: #52c41a; }
+    .toast.cross   { background: #faad14; }
 
-  .snackbar-action:hover {
-    background: rgba(255,255,255,0.3);
-  }
+    .toast::before {
+      content: "";
+      width: 24px;
+      height: 24px;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
 
-  /* Position variations */
-  .snackbar-container.top    { top: 30px; bottom: auto; }
-  .snackbar-container.left   { left: 24px; transform: none; }
-  .snackbar-container.right  { left: auto; right: 24px; transform: none; }
-</style>
+    .toast.error::before   { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z'/%3E%3C/svg%3E"); }
+    .toast.success::before { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z'/%3E%3C/svg%3E"); }
+    .toast.cross::before   { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z'/%3E%3C/svg%3E"); }
+  </style>
 </head>
 <body>
 
-<!-- Just some test buttons -->
-<div style="padding: 40px; text-align:center;">
-  <h2>SnackBar / Toast Demo</h2>
-  
-  <button onclick="showSnack('success', 'Item added to cart!')">Success</button>
-  <button onclick="showSnack('error', 'Failed to save changes')">Error</button>
-  <button onclick="showSnack('info', 'New version available')">Info</button>
-  <button onclick="showSnack('warning', 'Low battery (18%)')">Warning</button>
-  
-  <br><br>
-  
-  <button onclick="showSnack('success', 'Saved successfully!', {position: 'top'})">
-    Success (top)
-  </button>
-  
-  <button onclick="showSnack('error', 'Connection lost!', {position: 'left', duration: 6000})">
-    Error (left - long)
-  </button>
-</div>
+  <div class="button-group">
+    <button class="error-btn"   onclick="showToast('error',1000)">Error</button>
+    <button class="success-btn" onclick="showToast('success',1500)">Success</button>
+    <button class="cross-btn"   onclick="showToast('cross',2000)">Warning</button>
+  </div>
 
-<!-- SnackBar container -->
-<div class="snackbar-container" id="snackContainer"></div>
+  <!-- Toast element -->
+  <div class="toast" id="toast"></div>
 
-<script>
-// ================== SnackBar Function ==================
-function showSnack(type = 'info', message, options = {}) {
-  const defaults = {
-    duration: 3500,
-    position: 'bottom',      // bottom | top | left | right
-    showAction: false,
-    actionText: 'UNDO',
-    actionCallback: null
-  };
+  <script>
+  let toast  = document.querySelector('.toast')
+   async function showToast(name,d){
+      let message = "";
+      if (name === "error")   message = "Something went wrong!";
+      if (name === "success") message = "Operation completed successfully!";
+      if (name === "cross")   message = "Are you sure about this?";
 
-  const config = { ...defaults, ...options };
+      toast.textContent = message;
+      toast.className = "toast " + name;
+      setTimeout(() => {
+        toast.classList.add("show");
+      }, d);
 
-  // Create snackbar element
-  const snack = document.createElement('div');
-  snack.className = `snackbar ${type}`;
-  
-  let icon = '';
-  switch(type) {
-    case 'success': icon = '✓'; break;
-    case 'error':   icon = '✕'; break;
-    case 'warning': icon = '!'; break;
-    case 'info':    icon = 'ℹ'; break;
+      // Auto hide after 3 seconds
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 3000);
   }
+   
+  </script>
 
-  snack.innerHTML = `
-    <span class="snackbar-icon">${icon}</span>
-    <span class="snackbar-message">${message}</span>
-    ${config.showAction ? 
-      `<button class="snackbar-action">${config.actionText}</button>` : ''}
-  `;
-
-  // Container positioning
-  const container = document.getElementById('snackContainer');
-  container.className = 'snackbar-container ' + config.position;
-
-  // Add to DOM
-  container.appendChild(snack);
-
-  // Small delay for animation to trigger
-  setTimeout(() => snack.classList.add('show'), 10);
-
-  // Auto hide
-  const timeoutId = setTimeout(() => {
-    hideSnack(snack);
-  }, config.duration);
-
-  // Action button (optional)
-  if (config.showAction) {
-    const actionBtn = snack.querySelector('.snackbar-action');
-    actionBtn.addEventListener('click', () => {
-      if (config.actionCallback) config.actionCallback();
-      hideSnack(snack);
-      clearTimeout(timeoutId);
-    });
-  }
-
-  // Click anywhere on snack to dismiss
-  snack.addEventListener('click', () => {
-    hideSnack(snack);
-    clearTimeout(timeoutId);
-  });
-}
-
-// ================== Hide Animation ==================
-function hideSnack(snackElement) {
-  snackElement.classList.remove('show');
-  
-  // Remove from DOM after animation finishes
-  snackElement.addEventListener('transitionend', () => {
-    snackElement.remove();
-  }, { once: true });
-}
-</script>
 </body>
 </html>

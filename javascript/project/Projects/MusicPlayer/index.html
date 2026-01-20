@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>JS Music Player - Learning Focus</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #111;
+      color: white;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      margin: 0;
+    }
+
+    .player {
+      width: 420px;
+      background: #1a1a2e;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+    }
+
+    .cover img {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    .info {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .title { font-size: 1.8rem; margin: 0; }
+    .artist { color: #aaa; margin: 8px 0 0; }
+
+    .progress-container {
+      height: 8px;
+      background: #333;
+      border-radius: 4px;
+      margin: 20px 0;
+      cursor: pointer;
+    }
+
+    .progress {
+      height: 100%;
+      width: 0%;
+      background: #bb86fc;
+      border-radius: 4px;
+      transition: width 0.1s linear;
+    }
+
+    .time {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+      color: #ccc;
+      margin-bottom: 15px;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      margin: 25px 0;
+    }
+
+    .btn {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      border: none;
+      background: #2d2d44;
+      color: white;
+      font-size: 1.3rem;
+      cursor: pointer;
+    }
+
+    .btn.play-pause {
+      width: 70px;
+      height: 70px;
+      font-size: 1.8rem;
+      background: #6200ea;
+    }
+
+    .volume-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    input[type="range"] {
+      width: 120px;
+      accent-color: #bb86fc;
+    }
+  </style>
+</head>
+<body>
+
+<div class="player">
+  <div class="cover">
+    <img src="13-52-20-655_200x200.webp" alt="Album">
+  </div>
+
+  <audio id="audio">
+    <source src="chinese-lunar-new-year-465871.mp3" type="audio/mpeg">
+    <!-- Put your music file in same folder or use online link -->
+  </audio>
+
+  <div class="info">
+    <h2 class="title">Lunar Celebration</h2>
+    <p class="artist">Traditional • Chinese New Year</p>
+  </div>
+
+  <div class="progress-container" id="progressContainer">
+    <div class="progress" id="progressBar"></div>
+  </div>
+
+  <div class="time">
+    <span id="currentTime">0:00</span>
+    <span id="totalTime">0:00</span>
+  </div>
+
+  <div class="controls">
+    <button class="btn" id="shuffleBtn"><i class="fas fa-random"></i></button>
+    <button class="btn" id="prevBtn"><i class="fas fa-backward-step"></i></button>
+    <button class="btn play-pause" id="playPauseBtn"><i class="fas fa-play"></i></button>
+    <button class="btn" id="nextBtn"><i class="fas fa-forward-step"></i></button>
+    <button class="btn" id="repeatBtn"><i class="fas fa-repeat"></i></button>
+  </div>
+
+  <div class="volume-container" style="justify-content: center;">
+    <i class="fas fa-volume-low"></i>
+    <input type="range" min="0" max="1" step="0.01" value="0.8" id="volumeSlider">
+  </div>
+</div>
+
+<script>
+// === JavaScript Learning Focus ===
+
+const audio = document.getElementById('audio');
+const playPauseBtn = document.getElementById('playPauseBtn');
+const progressBar = document.getElementById('progressBar');
+const progressContainer = document.getElementById('progressContainer');
+const currentTimeDisplay = document.getElementById('currentTime');
+const totalTimeDisplay = document.getElementById('totalTime');
+const volumeSlider = document.getElementById('volumeSlider');
+function formatTime(seconds) {
+  const minutes = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+  return `${minutes}:${secs.toString().padStart(2, '0')}`;
+}
+
+.addEventListener('click', () => {
+  if (audio.pausplayPauseBtned) {
+    audio.play();
+    playPauseBtn.innerHTML = '<i class="fas fa-pause"></i>';
+  } else {
+    audio.pause();
+    playPauseBtn.innerHTML = '<i class="fas fa-play"></i>';
+  }
+});
+
+audio.addEventListener("timeupdate",()=>{
+    let current = audio.currentTime;
+    let duration = audio.duration;
+    const percent = (current / duration) * 100;
+    progressBar.style.width = percent + '%';
+    totalTimeDisplay.textContent = formatTime(audio.duration)
+    currentTimeDisplay.textContent = formatTime(audio.currentTime);
+})
+progressContainer.addEventListener('click', (e) => {
+  const width = progressContainer.offsetWidth;     // total width in pixels
+  const clickPosition = e.offsetX;                 // where user clicked
+  const percentageClicked = clickPosition / width; // 0 → 1
+  const newTime = audio.duration * percentageClicked;
+
+  audio.currentTime = newTime;
+});
+volumeSlider.addEventListener('click',(e)=>{
+    audio.volume = e.target.value;    
+})
+
+
+</script>
+</body>
+</html>

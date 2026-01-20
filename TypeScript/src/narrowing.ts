@@ -1,0 +1,85 @@
+function calculte(params:string|number) {
+    if(typeof params == 'string' ){
+        // so now we narrow the string case and will get all methood related to string
+        return `we narrowed string : ${params}`
+    }
+    return `we naroowd number : ${params}`
+}
+
+function orderChai(size:"medium"|'small'|'large'|number) {
+    if(size === 'small'){
+        return `Add a small copy`
+    }
+    if (size === 'medium' || size ==='large') {
+        return `Add up Extra`
+    }
+    return `size in number ${size}`
+}
+
+class haldiChai {
+    serve() {
+        return `Surving Chai pleases`
+    }
+}
+class adrakChai {
+    serve() {
+        return `Surving Chai pleases`
+    }
+}
+function clientChai(chai:haldiChai|adrakChai) {
+    if(chai instanceof haldiChai){
+        return `fucking haldi boys`;
+    }
+    return `ohh! again ${adrakChai}`
+}
+
+type Order = {
+    type :string
+    sugar:number
+}
+
+function chaiOrder(obj:any):obj is Order  {
+    return(
+        typeof obj === 'object'      &&
+        typeof obj.type === "string" &&
+        typeof obj.sugar ==='number' &&
+        obj != null 
+    )
+}
+
+function chaiSurving(chai:Order | string) {
+    if(chaiOrder(chai)){
+        return `we are surving chai please`;
+    }
+    return `custom chai`
+}
+
+type masalaChai = {type:"masala",masalaLevel:number};
+type gingarChai = {type:"gingar",gingerLevel:number};
+type adraksChai =  {type:"adrak",adrakLevel:number};
+type customChai = {type:string,adraklevel:150};
+
+function customerChai(chai:masalaChai|gingarChai|adraksChai|customChai) {
+    switch (chai.type) {
+        case "masala":
+            return `masala`
+            break;
+    
+        case "adrak":
+            return `adrak`
+            break;
+    
+        case "gingar":
+            return `ginagar`
+            break;
+    
+        case 'string':
+            return `custom`
+            break;
+    
+        default:
+            break;
+    }
+}
+let chai:customChai = {type:'string',adraklevel:150};
+console.log(customerChai(chai));
