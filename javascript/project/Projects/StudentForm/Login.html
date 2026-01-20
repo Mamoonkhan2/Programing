@@ -48,21 +48,23 @@
         let check = CheckUp();
         if(!check) return alert("empty field");
         console.log("done");
-        let checkobj = Dataobj.filter(element => (element.password == uPassword.value && element.name == uName.value));
-        if(checkobj.length == 0){
+        let checkName = Dataobj.some(userName => userName.name == uName.value);
+        let checkPass = Dataobj.some(userPass => userPass.name == uPassword.value);
+        if(checkName && checkPass){
+            alert("login succses ful");
             ClearEverything()
-            return alert('not found')
+            setTimeout(()=>{
+               window.location.href = "http://127.0.0.1:5500/Programing/javascript/project/Projects/StudentForm/home.html"
+            },1500)
         }
-        else{
-            document.querySelector(".search").style.display = 'block';
-            document.querySelector('.signup').disabled = true;
-            document.querySelector('.signup').style.display = 'none';
-            uName.disabled = true;
-            uPassword.disabled = true;
-            submit.disabled = true;
-            ClearEverything()
+        else if(!checkName){
+            alert("name Not found");
+            ClearEverything();
         }
-        
+        else {
+            alert("password not found");
+            uPassword.value = '';
+        }
     }
     submit.addEventListener('click',UpdateData);
 
