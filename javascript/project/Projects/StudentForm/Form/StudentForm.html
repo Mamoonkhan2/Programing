@@ -20,7 +20,9 @@
                 <input type="number" id="Age" placeholder="Enter your age" ><br>
                 <Label>Password</Label><br>
                 <input type="text" id="Password" placeholder="Enter your password"><br>
-                <br>
+                <label >ImgPath</label><br>
+                <input type="text" id="src" placeholder="give the path of img"><br><br>
+                
                 <button id="Submit">SignUp</button>
             </form>
         </div>
@@ -30,6 +32,7 @@
     let uName = document.getElementById('Name')
     let uAge  = document.getElementById('Age')
     let uPassword =  document.getElementById('Password')
+    let imgSrc = document.querySelector("#src")
     let submit = document.getElementById('Submit')
     let STORAGE_KEY = "StudentFormData"
     let dataObj = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
@@ -64,7 +67,8 @@
         let userObj = {
             name: uName.value,
             age : uAge.value,
-            password:uPassword.value
+            password:uPassword.value,
+            src : imgSrc.value
         }
         dataObj.unshift(userObj);
         SaveData()
@@ -76,7 +80,7 @@
         uAge.value = '';
         uPassword.value = '';
         setTimeout(()=>{
-             window.location.href = "http://127.0.0.1:5500/Programing/javascript/project/Projects/StudentForm/Login.html"
+             window.location.href = "http://127.0.0.1:5500/Programing/javascript/project/Projects/StudentForm/Form/Login.html"
         },1000)
     }
     submit.addEventListener('click',Submit);

@@ -8,20 +8,20 @@
 <body>
     <div class="contaner">
         <div class="login">
+         
             <form>
                 <label>Username</label><br>
                 <input type="text" id="name" placeholder="Enter your username"><br>
                 <label>Password</label><br>
                 <input type="text" id="Password" placeholder="enter your Password"><br>
+                <label >ImgPath</label><br>
+                <input type="text" id="src" placeholder="give the path of img"><br><br>
                 <button id="submit">Submit</button><br>
             </form>
         </div><br>
         <div class="signup">
-            <button><a href="./StudentForm.html">signup</a></button>
+            <button><a href="../Form/StudentForm.html">signup</a></button>
         </div><br>        
-        <div class="search" style="display: none">
-            <button><a href="./search.html">search</a></button>
-        </div>
     </div>
 
 </body>
@@ -29,6 +29,7 @@
     let uName = document.querySelector("#name")
     let uPassword = document.querySelector("#Password")
     let submit = document.querySelector("#submit")
+    let newDataObj = JSON.parse(localStorage.getItem('CurrentUser')) || [];
     let STORAGE_KEY = "StudentFormData"
     let Dataobj = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
     function CheckUp() {
@@ -49,12 +50,23 @@
         if(!check) return alert("empty field");
         console.log("done");
         let checkName = Dataobj.some(userName => userName.name == uName.value);
-        let checkPass = Dataobj.some(userPass => userPass.name == uPassword.value);
+        let checkPass = Dataobj.some(userPass => userPass.password == uPassword.value);
+
+        console.log(Dataobj);
+        console.log(uName.value);
+        console.log(uPassword.value);
+        console.log(checkName);
+        console.log(checkPass);
+        
+        
+        
         if(checkName && checkPass){
+            newDataObj = Dataobj.filter(username => username.name === uName.value);
+            localStorage.setItem('CurrentUser',JSON.stringify(newDataObj));
             alert("login succses ful");
-            ClearEverything()
             setTimeout(()=>{
-               window.location.href = "http://127.0.0.1:5500/Programing/javascript/project/Projects/StudentForm/home.html"
+                // ClearEverything()
+                window.location.href = "http://127.0.0.1:5500/Programing/javascript/project/Projects/StudentForm/Home/home.html"
             },1500)
         }
         else if(!checkName){

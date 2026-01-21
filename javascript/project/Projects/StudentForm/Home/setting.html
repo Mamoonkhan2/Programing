@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="main">
+        <button id="show-info">Show info</button>
+        <div class="info" style="display: none;"> <br>
+        <label >name</label>
+        <input type="text"> <button id="ename">Edit</button>  <br> 
+
+        <label >age</label>
+        <input type="text"> <button id="eage">Edit</button>   <br>
+
+        <label >password</label>
+        <input type="text"> <button id="epass">Edit</button>   <br>
+
+        <label >Image Path</label>
+        <input type="text"> <button id="eimg">Edit</button>   <br>
+
+        </div>
+    </div>
+</body>
+<script>
+    // loading Data
+    let STORAGE_KEY = "StudentFormData"
+    let CurrentUserKey = 'CurrentUser';
+    let UserInfoObj = JSON.parse(localStorage.getItem('CurrentUser')) || [];
+    let LogDataInfo = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    
+    // Dom Element
+    let shwoInfoBtn = document.querySelector("#show-info");
+    
+    
+
+
+
+
+    // click event
+    shwoInfoBtn.addEventListener('click',click)
+
+
+    // function
+    function click() {
+        let displayValue = document.querySelector('.info').style.display
+        switch (displayValue) {
+            case 'none':
+                 document.querySelector('.info').style.display = 'block'
+                break;
+            case 'block':
+                 document.querySelector('.info').style.display = 'none'
+                break;
+            default:
+                break;
+        }
+    }
+</script>
+</html>

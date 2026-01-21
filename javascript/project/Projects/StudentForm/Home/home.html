@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+</head>
+<body>
+    <header>
+        <ul>
+            <li><a href="">Settings</a></li>
+            <li><a href="./detail.html">Detail</a></li>
+            <li><a href="">About</a></li>
+        </ul>
+    </header>
+    <div id="main">
+        Welcome To Home Page
+        <div class="img">
+
+        </div>
+    </div>
+</body>
+<script>
+    // loading Data
+    let STORAGE_KEY = "StudentFormData"
+    let CurrentUserKey = 'CurrentUser';
+    let UserInfoObj = JSON.parse(localStorage.getItem('CurrentUser')) || [];
+    let LogDataInfo = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    
+    let divI = document.querySelector(".img");
+
+    let img = document.createElement("img");
+    img.src = UserInfoObj[0].src;
+    divI.appendChild(img);
+
+</script>
+</html>
