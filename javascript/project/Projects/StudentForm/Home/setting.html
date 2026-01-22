@@ -7,22 +7,24 @@
 </head>
 <body>
     <div class="main">
-        <button id="show-info">Show info</button>
+        <button id="show-info12">Show info</button>
         <div class="info" style="display: none;"> <br>
+      
         <label >name</label>
-        <input type="text"> <button id="ename">Edit</button>  <br> 
-
+        <input type="text" placeholder="enter the name" id="nameTextField"> <button id="ename">Edit</button><br> 
+        
         <label >age</label>
-        <input type="text"> <button id="eage">Edit</button>   <br>
-
+        <input type="text" placeholder="enter the name" id="ageTextField"> <button id="eage">Edit</button> <br>
+        
         <label >password</label>
-        <input type="text"> <button id="epass">Edit</button>   <br>
-
+        <input type="text" placeholder="enter the name" id="passTextField"> <button id="epass">Edit</button><br>
+        
         <label >Image Path</label>
-        <input type="text"> <button id="eimg">Edit</button>   <br>
-
-        </div>
+        <input type="text" placeholder="enter the name" id="imgTextField"> <button id="eimg">Edit</button><br>
+        <button id="submit">submit</button>
+   
     </div>
+</div>
 </body>
 <script>
     // loading Data
@@ -32,18 +34,60 @@
     let LogDataInfo = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
     
     // Dom Element
-    let shwoInfoBtn = document.querySelector("#show-info");
     
+    //button feild
+    let shwoInfoBtn = document.querySelector("#show-info12");
+    let textinputbtn = document.querySelector("#ename")
+    let ageinputbtn = document.querySelector("#eage")
+    let passinputbtn = document.querySelector("#epass")
+    let Imginputbtn = document.querySelector("#eimg")
     
+    //txt filed of Dom element
 
+    let nameValue = document.querySelector("#nameTextField")    
+    let ageValue = document.querySelector("#ageTextField")    
+    let passValue = document.querySelector("#passTextField")    
+    let imgSrcValue = document.querySelector("#imgTextField")    
+    //by defalut the input feild is disabled 
 
+    nameValue.disabled = true
+    ageValue.disabled = true
+    passValue.disabled = true
+    imgSrcValue.disabled = true
+    
+    // will check to edit the field
 
-
+    textinputbtn.addEventListener('click',editBtn(nameValue))
+    ageinputbtn.addEventListener('click',editBtn(ageValue))
+    passinputbtn.addEventListener('click',editBtn(passValue))
+    Imginputbtn.addEventListener('click',editBtn(imgSrcValue))
+    
     // click event
     shwoInfoBtn.addEventListener('click',click)
-
-
+    
+    
     // function
+    function switchcondition(nameValue) {
+         switch (nameValue) {
+            case true:
+               return false;
+                
+                break;
+        
+            case false:
+                return true;
+                
+                break;
+        
+            default:
+                break;
+        }
+
+    }
+    function editBtn(value) {
+
+         return function(){  value.disabled = switchcondition(value.disabled)}
+    }
     function click() {
         let displayValue = document.querySelector('.info').style.display
         switch (displayValue) {
@@ -57,5 +101,7 @@
                 break;
         }
     }
+
+
 </script>
 </html>
