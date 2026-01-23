@@ -1,4 +1,7 @@
 // infrence mean typescript will assign the data type to it
+type n = number ;
+type s = string ;
+type b = boolean;
 
 let name = "mamoonkhan";
 let age  = 18;
@@ -164,3 +167,18 @@ type values =  string | number | null | undefined ;
 let value: values;
 value = null;
 console.log(value);
+
+// classes 
+
+class cars {
+    constructor(public name:string,public tairSize:number){}
+    gretting():string {
+        return `hello your car model ${this.name}`
+    }
+    ValueOfThis(){
+        return this.name
+    }
+
+}
+let Marcadies = new cars("marcedes",54);
+console.log(Marcadies.ValueOfThis());

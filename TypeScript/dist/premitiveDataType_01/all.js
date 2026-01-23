@@ -1,5 +1,4 @@
 "use strict";
-// infrence mean typescript will assign the data type to it
 Object.defineProperty(exports, "__esModule", { value: true });
 let name = "mamoonkhan";
 let age = 18;
@@ -86,4 +85,21 @@ let anotherAge = 132;
 let value;
 value = null;
 console.log(value);
+// classes 
+class cars {
+    name;
+    tairSize;
+    constructor(name, tairSize) {
+        this.name = name;
+        this.tairSize = tairSize;
+    }
+    gretting() {
+        return `hello your car model ${this.name}`;
+    }
+    ValueOfThis() {
+        return this.name;
+    }
+}
+let Marcadies = new cars("marcedes", 54);
+console.log(Marcadies.ValueOfThis());
 //# sourceMappingURL=all.js.map
