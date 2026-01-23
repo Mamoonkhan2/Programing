@@ -14,8 +14,8 @@
                 <input type="text" id="name" placeholder="Enter your username"><br>
                 <label>Password</label><br>
                 <input type="text" id="Password" placeholder="enter your Password"><br>
-                <label >ImgPath</label><br>
-                <input type="text" id="src" placeholder="give the path of img"><br><br>
+                <!-- <label >ImgPath</label><br>
+                <input type="text" id="src" placeholder="give the path of img"><br><br> -->
                 <button id="submit">Submit</button><br>
             </form>
         </div><br>
@@ -29,9 +29,11 @@
     let uName = document.querySelector("#name")
     let uPassword = document.querySelector("#Password")
     let submit = document.querySelector("#submit")
-    let newDataObj = JSON.parse(localStorage.getItem('CurrentUser')) || [];
+    // loading data 
     let STORAGE_KEY = "StudentFormData"
-    let Dataobj = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    let CurrentUser = JSON.parse(localStorage.getItem('CurrentUser')) || [];
+    let AllUserData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    // function
     function CheckUp() {
         if(!uName.value || !uPassword.value )
         {
@@ -49,10 +51,10 @@
         let check = CheckUp();
         if(!check) return alert("empty field");
         console.log("done");
-        let checkName = Dataobj.some(userName => userName.name == uName.value);
-        let checkPass = Dataobj.some(userPass => userPass.password == uPassword.value);
-
-        console.log(Dataobj);
+        let checkName = AllUserData.some(userName => userName.name == uName.value.trim());
+        let checkPass = AllUserData.some(userPass => userPass.password == uPassword.value);
+        
+        console.log(AllUserData);
         console.log(uName.value);
         console.log(uPassword.value);
         console.log(checkName);
@@ -61,13 +63,13 @@
         
         
         if(checkName && checkPass){
-            newDataObj = Dataobj.filter(username => username.name === uName.value);
-            localStorage.setItem('CurrentUser',JSON.stringify(newDataObj));
+            CurrentUser = AllUserData.filter(username => (username.name === uName.value));
             alert("login succses ful");
             setTimeout(()=>{
-                // ClearEverything()
+                ClearEverything()
+                localStorage.setItem('CurrentUser',JSON.stringify(CurrentUser));
                 window.location.href = "http://127.0.0.1:5500/Programing/javascript/project/Projects/StudentForm/Home/home.html"
-            },1500)
+            },500)
         }
         else if(!checkName){
             alert("name Not found");
@@ -78,6 +80,7 @@
             uPassword.value = '';
         }
     }
+    // event listener
     submit.addEventListener('click',UpdateData);
 
 </script>

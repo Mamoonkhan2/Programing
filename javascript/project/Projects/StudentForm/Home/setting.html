@@ -21,7 +21,7 @@
         
         <label >Image Path</label>
         <input type="text" placeholder="enter the name" id="imgTextField"> <button id="eimg">Edit</button><br>
-        <button id="submit">submit</button>
+        <button id="submit-Sec-1">submit</button>
    
     </div>
 </div>
@@ -30,78 +30,122 @@
     // loading Data
     let STORAGE_KEY = "StudentFormData"
     let CurrentUserKey = 'CurrentUser';
-    let UserInfoObj = JSON.parse(localStorage.getItem('CurrentUser')) || [];
+    let UserInfoObj = JSON.parse(localStorage.getItem(CurrentUserKey)) || [];
     let LogDataInfo = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
     
     // Dom Element
     
     //button feild
-    let shwoInfoBtn = document.querySelector("#show-info12");
-    let textinputbtn = document.querySelector("#ename")
-    let ageinputbtn = document.querySelector("#eage")
-    let passinputbtn = document.querySelector("#epass")
-    let Imginputbtn = document.querySelector("#eimg")
+    let shwoInfoBtn  = document.querySelector("#show-info12");
+    let textinputbtn = document.querySelector("#ename");
+    let ageinputbtn  = document.querySelector("#eage");
+    let passinputbtn = document.querySelector("#epass");
+    let Imginputbtn  = document.querySelector("#eimg");
+    let submitbtn    = document.querySelector("#submit-Sec-1");
     
     //txt filed of Dom element
 
-    let nameValue = document.querySelector("#nameTextField")    
-    let ageValue = document.querySelector("#ageTextField")    
-    let passValue = document.querySelector("#passTextField")    
-    let imgSrcValue = document.querySelector("#imgTextField")    
+    let nameValue = document.querySelector("#nameTextField") ;   
+    let ageValue = document.querySelector("#ageTextField")    ;
+    let passValue = document.querySelector("#passTextField")  ;  
+    let imgSrcValue = document.querySelector("#imgTextField") ;   
     //by defalut the input feild is disabled 
 
-    nameValue.disabled = true
-    ageValue.disabled = true
-    passValue.disabled = true
-    imgSrcValue.disabled = true
+    nameValue.disabled = true;
+    ageValue.disabled = true;
+    passValue.disabled = true;
+    imgSrcValue.disabled = true;
     
     // will check to edit the field
-
-    textinputbtn.addEventListener('click',editBtn(nameValue))
-    ageinputbtn.addEventListener('click',editBtn(ageValue))
-    passinputbtn.addEventListener('click',editBtn(passValue))
-    Imginputbtn.addEventListener('click',editBtn(imgSrcValue))
+    console.log("hello wordl");
     
     // click event
-    shwoInfoBtn.addEventListener('click',click)
+    textinputbtn.addEventListener('click',EditBtn(nameValue));
+    ageinputbtn.addEventListener('click',EditBtn(ageValue));
+    passinputbtn.addEventListener('click',EditBtn(passValue));
+    Imginputbtn.addEventListener('click',EditBtn(imgSrcValue));
+    shwoInfoBtn.addEventListener('click',Click); 
     
     
-    // function
-    function switchcondition(nameValue) {
-         switch (nameValue) {
-            case true:
-               return false;
-                
-                break;
-        
-            case false:
-                return true;
-                
-                break;
-        
-            default:
-                break;
+// function
+function Switchcondition(nameValue) {
+        switch (nameValue) {
+        case true:
+            return false;
+            
+            break;
+    
+        case false:
+            return true;
+            
+            break;
+    
+        default:
+            break;
+    }
+
+}
+function EditBtn(value) {
+
+        return function(){  value.disabled = Switchcondition(value.disabled)}
+}
+function Click() {
+LoadDefalut();
+
+    let displayValue = document.querySelector('.info').style.display
+    switch (displayValue) {
+        case 'none':
+                document.querySelector('.info').style.display = 'block'
+            break;
+        case 'block':
+                document.querySelector('.info').style.display = 'none'
+            break;
+        default:
+            break;
+    }
+}
+function Check(input) {
+        if(!input.value){
+                console.log("not a value");
+            return false; 
         }
-
+        return true
     }
-    function editBtn(value) {
+function ClearEveything(){
+    nameValue.disabled = true;
+    ageValue.disabled = true;
+    passValue.disabled = true;
+    imgSrcValue.disabled = true;
+    nameValue.value   = '';
+    ageValue.value    = '';
+    passValue.value   = '';
+    imgSrcValue.value = '';
+}
+function SaveData(UserInfoObj) {
+    this.UserInfoObj = UserInfoObj 
+    localStorage.setItem('CurrentUser',JSON.stringify(this.UserInfoObj));
+}
+function LoadDefalut() {
+    nameValue.value   = UserInfoObj[0].name;
+    ageValue.value    = UserInfoObj[0].age;
+    passValue.value   = UserInfoObj[0].password;
+    imgSrcValue.value = UserInfoObj[0].src;
+}
+function Submit(e) {
+    
+        e.preventDefault();
+        UserInfoObj[0].name     = nameValue.value;
+        UserInfoObj[0].age      = ageValue.value;
+        UserInfoObj[0].password = passValue.value;
+        UserInfoObj[0].src      = imgSrcValue.value;
+        SaveData(UserInfoObj)
+        ClearEveything()
+        LoadDefalut() 
+    
 
-         return function(){  value.disabled = switchcondition(value.disabled)}
-    }
-    function click() {
-        let displayValue = document.querySelector('.info').style.display
-        switch (displayValue) {
-            case 'none':
-                 document.querySelector('.info').style.display = 'block'
-                break;
-            case 'block':
-                 document.querySelector('.info').style.display = 'none'
-                break;
-            default:
-                break;
-        }
-    }
+}
 
+submitbtn.addEventListener('click',Submit)
 
 </script>
 </html>
