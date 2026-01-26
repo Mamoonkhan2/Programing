@@ -28,61 +28,61 @@
         </div>
     </div>
 </body>
-<script>
-    let uName = document.getElementById('Name')
-    let uAge  = document.getElementById('Age')
-    let uPassword =  document.getElementById('Password')
-    let imgSrc = document.querySelector("#src")
-    let submit = document.getElementById('Submit')
-    let STORAGE_KEY = "StudentFormData"
-    let dataObj = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-    function CheckUp() {
-        if(!uName.value || !uAge.value || !uPassword.value )
-        {
-            return false;
-        }
-        return true   
+<script >
+let uName = document.getElementById('Name')
+let uAge  = document.getElementById('Age')
+let uPassword =  document.getElementById('Password')
+let imgSrc = document.querySelector("#src")
+let submit = document.getElementById('Submit')
+let STORAGE_KEY = "StudentFormData"
+let dataObj = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+function CheckUp() {
+    if(!uName.value || !uAge.value || !uPassword.value )
+    {
+        return false;
     }
-    function SaveData() {
-        localStorage.setItem(STORAGE_KEY,JSON.stringify(dataObj));
-    }
-    function Submit(e) {
-        e.preventDefault() 
-        let check = CheckUp();
-        console.log();
+    return true   
+}
+function SaveData() {
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(dataObj));
+}
+function Submit(e) {
+    e.preventDefault() 
+    let check = CheckUp();
+    console.log();
+    
+    if(!check) return alert("Empty Feild");
+    let existUser = dataObj.some(users => users.name == uName.value)
+    console.log(existUser);
+    
+    if(existUser)   {
         
-        if(!check) return alert("Empty Feild");
-        let existUser = dataObj.some(users => users.name == uName.value)
-        console.log(existUser);
-        
-        if(existUser)   {
-            
-            setTimeout(()=>{
-                window.location.href = "http://127.0.0.1:5500/Programing/javascript/project/Projects/StudentForm/Login.html"
-            },1000)
-
-            
-            return alert("userExist Login Please");
-        }
-        let userObj = {
-            name: uName.value,
-            age : uAge.value,
-            password:uPassword.value,
-            src : imgSrc.value
-        }
-        dataObj.unshift(userObj);
-        SaveData()
-        ClearEverything()
-        alert("Create New Account Please Login For ConFirmation");
-    }
-    function ClearEverything() {
-        uName.value = '';
-        uAge.value = '';
-        uPassword.value = '';
         setTimeout(()=>{
-             window.location.href = "http://127.0.0.1:5500/Programing/javascript/project/Projects/StudentForm/Form/Login.html"
+            window.location.href = "http://127.0.0.1:5500/StudentForm/Form/Login.html"
         },1000)
+
+        
+        return alert("userExist Login Please");
     }
-    submit.addEventListener('click',Submit);
+    let userObj = {
+        name: uName.value,
+        age : uAge.value,
+        password:uPassword.value,
+        src : imgSrc.value
+    }
+    dataObj.unshift(userObj);
+    SaveData()
+    ClearEverything()
+    alert("Create New Account Please Login For ConFirmation");
+}
+function ClearEverything() {
+    uName.value = '';
+    uAge.value = '';
+    uPassword.value = '';
+    setTimeout(()=>{
+        window.location.href = "http://127.0.0.1:5500/StudentForm/Form/Login.html"
+    },1000)
+}
+submit.addEventListener('click',Submit);
 </script>
 </html>

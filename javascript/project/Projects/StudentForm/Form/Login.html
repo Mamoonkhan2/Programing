@@ -50,15 +50,14 @@
         e.preventDefault()
         let check = CheckUp();
         if(!check) return alert("empty field");
-        console.log("done");
         let checkName = AllUserData.some(userName => userName.name == uName.value.trim());
-        let checkPass = AllUserData.some(userPass => userPass.password == uPassword.value);
+        let checkPass = AllUserData.some(userPass => (userPass.password == uPassword.value));
         
-        console.log(AllUserData);
+        console.log(AllUserData[1].password);
         console.log(uName.value);
         console.log(uPassword.value);
-        console.log(checkName);
-        console.log(checkPass);
+        console.log('asdfasdfas',checkName);
+        console.log('asdf',checkPass);
         
         
         
@@ -68,7 +67,7 @@
             setTimeout(()=>{
                 ClearEverything()
                 localStorage.setItem('CurrentUser',JSON.stringify(CurrentUser));
-                window.location.href = "http://127.0.0.1:5500/Programing/javascript/project/Projects/StudentForm/Home/home.html"
+                window.location.href = "http://127.0.0.1:5500/StudentForm/Home/home.html"
             },500)
         }
         else if(!checkName){
