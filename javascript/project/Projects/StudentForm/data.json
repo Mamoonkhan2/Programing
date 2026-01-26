@@ -1,4 +1,5 @@
 [
+<<<<<<< HEAD
     {
         "name": "maoonkhan",
         "age": 324
@@ -19,4 +20,28 @@
         "name": "maoonkhan",
         "age": 324
     }
+=======
+{
+    "name" : "mamoonkhan",
+    "age"  : 20
+}
+,{
+    "name" : "asdf",
+    "age"  : 20
+}
+,{
+    "name" : "ghj",
+    "age"  : 20
+}
+,{
+    "name" : "asdf",
+    "age"  : 20
+}
+,{
+    "name" : "asdfasdfasdg",
+    "age"  : 20
+}
+
+
+>>>>>>> 9d60d312ec4bc6d52c1522ba63bc35651aea9880
 ]
