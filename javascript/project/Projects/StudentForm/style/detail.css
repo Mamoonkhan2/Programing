@@ -1,0 +1,38 @@
+*{
+    
+    margin:0;
+    padding: 0;
+    font-family: 'Courier New', Courier, monospace;
+}
+body{
+    background-color: cadetblue;
+}
+.detailcontaner{
+    display: flex;
+    margin-top: 31vh;
+    /* background-color: aqua; */
+    width: 50%;
+    margin-left: 31vh;
+    /* border : 3px solid rebeccapurple ; */
+}
+.img{
+    width: 100px;
+    background-color: #87cefa ;
+    border-radius: 38%;
+    padding: 10px;
+}
+img{
+    width: 80px;
+    height: 70px;
+}
+.info{
+    width: 500px;
+    background-color: antiquewhite;
+    margin-left: 28px;
+    padding: 10px;
+    border-radius: 10px;
+
+}
+/* .info:first-child{
+    marg
+} */
