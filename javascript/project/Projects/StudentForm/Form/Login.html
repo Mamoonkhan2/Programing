@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style/login.css">
     <title></title>
 </head>
 <body>
@@ -11,16 +12,16 @@
          
             <form>
                 <label>Username</label><br>
-                <input type="text" id="name" placeholder="Enter your username"><br>
+                <input class="input" type="text" id="name" placeholder="Enter your username"><br>
                 <label>Password</label><br>
-                <input type="text" id="Password" placeholder="enter your Password"><br>
+                <input class="input" type="password" id="Password" placeholder="enter your Password"><br>
                 <!-- <label >ImgPath</label><br>
                 <input type="text" id="src" placeholder="give the path of img"><br><br> -->
-                <button id="submit">Submit</button><br>
+                <button class="Submit">Submit</button><br>
             </form>
         </div><br>
         <div class="signup">
-            <button><a href="../Form/StudentForm.html">signup</a></button>
+            <button class="Submit"><a href="../Form/StudentForm.html">signup</a></button>
         </div><br>        
     </div>
 
@@ -28,7 +29,7 @@
 <script>
     let uName = document.querySelector("#name")
     let uPassword = document.querySelector("#Password")
-    let submit = document.querySelector("#submit")
+    let submit = document.querySelector(".Submit")
     // loading data 
     let STORAGE_KEY = "StudentFormData"
     let CurrentUser = JSON.parse(localStorage.getItem('CurrentUser')) || [];
@@ -50,8 +51,8 @@
         e.preventDefault()
         let check = CheckUp();
         if(!check) return alert("empty field");
-        let checkName = AllUserData.some(userName => userName.name == uName.value.trim());
-        let checkPass = AllUserData.some(userPass => (userPass.password == uPassword.value));
+        let checkName = AllUserData.some(userName =>userName.name == uName.value)
+        let checkPass = AllUserData.some(userPass =>userPass.password == uPassword.value)
         
         console.log(uName.value);
         console.log(uPassword.value);
@@ -79,7 +80,27 @@
         }
     }
     // event listener
-    submit.addEventListener('click',UpdateData);
+  function Switchcondition(nameValue) {
+        switch (nameValue.type) {
+        case "text":
+            return "password";
+            
+            break;
+    
+        case "password":
+            return "text";
+            
+            break;
+    
+        default:
+            break;
+    }
 
+}
+    submit.addEventListener('click',UpdateData);
+    uPassword.addEventListener('click',(e)=>{
+        uPassword.type = Switchcondition(uPassword);
+        
+    })
 </script>
 </html>

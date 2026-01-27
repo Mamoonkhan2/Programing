@@ -28,46 +28,48 @@
 </div>
 </body>
 <script>
-    // loading Data
-    let STORAGE_KEY = "StudentFormData"
-    let CurrentUserKey = 'CurrentUser';
-    let UserInfoObj = JSON.parse(localStorage.getItem(CurrentUserKey)) || [];
-    let LogDataInfo = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-    
-    // Dom Element
-    
-    //button feild
-    let shwoInfoBtn  = document.querySelector("#show-info12");
-    let textinputbtn = document.querySelector("#ename");
-    let ageinputbtn  = document.querySelector("#eage");
-    let passinputbtn = document.querySelector("#epass");
-    let Imginputbtn  = document.querySelector("#eimg");
-    let submitbtn    = document.querySelector("#submit-Sec-1");
-    
-    //txt filed of Dom element
+// loading Data
+let STORAGE_KEY = "StudentFormData"
+let CurrentUserKey = 'CurrentUser';
+let UserInfoObj = JSON.parse(localStorage.getItem(CurrentUserKey)) || [];
+let LogDataInfo = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
 
-    let nameValue = document.querySelector("#nameTextField") ;   
-    let ageValue = document.querySelector("#ageTextField")    ;
-    let passValue = document.querySelector("#passTextField")  ;  
-    let imgSrcValue = document.querySelector("#imgTextField") ;   
-    //by defalut the input feild is disabled 
+// Dom Element
 
-    nameValue.disabled = true;
-    ageValue.disabled = true;
-    passValue.disabled = true;
-    imgSrcValue.disabled = true;
-    
-    // will check to edit the field
-    console.log("hello wordl");
-    
-    // click event
-    textinputbtn.addEventListener('click',EditBtn(nameValue));
-    ageinputbtn.addEventListener('click',EditBtn(ageValue));
-    passinputbtn.addEventListener('click',EditBtn(passValue));
-    Imginputbtn.addEventListener('click',EditBtn(imgSrcValue));
-    shwoInfoBtn.addEventListener('click',Click); 
-    
-    
+//button feild
+let shwoInfoBtn  = document.querySelector("#show-info12");
+let textinputbtn = document.querySelector("#ename");
+let ageinputbtn  = document.querySelector("#eage");
+let passinputbtn = document.querySelector("#epass");
+let Imginputbtn  = document.querySelector("#eimg");
+let submitbtn    = document.querySelector("#submit-Sec-1");
+
+//txt filed of Dom element
+
+let nameValue = document.querySelector("#nameTextField") ;   
+let ageValue = document.querySelector("#ageTextField")    ;
+let passValue = document.querySelector("#passTextField")  ;  
+let imgSrcValue = document.querySelector("#imgTextField") ;   
+//by defalut the input feild is disabled 
+
+nameValue.disabled = true;
+ageValue.disabled = true;
+passValue.disabled = true;
+imgSrcValue.disabled = true;
+
+// will check to edit the field
+console.log("hello wordl");
+
+// click event
+
+textinputbtn.addEventListener('click',EditBtn(nameValue));
+ageinputbtn.addEventListener('click',EditBtn(ageValue));
+passinputbtn.addEventListener('click',EditBtn(passValue));
+Imginputbtn.addEventListener('click',EditBtn(imgSrcValue));
+shwoInfoBtn.addEventListener('click',Click); 
+submitbtn.addEventListener('click',Submit)
+
+
 // function
 function Switchcondition(nameValue) {
         switch (nameValue) {
@@ -92,7 +94,8 @@ function EditBtn(value) {
 }
 function Click() {
    LoadDefalut();
-
+    console.log("hello world");
+    
     let displayValue = document.querySelector('.info').style.display
     switch (displayValue) {
         case 'none':
@@ -122,9 +125,8 @@ function ClearEveything(){
     passValue.value   = '';
     imgSrcValue.value = '';
 }
-function SaveData(UserInfoObj) {
-    this.UserInfoObj = UserInfoObj 
-    localStorage.setItem('CurrentUser',JSON.stringify(this.UserInfoObj));
+function SaveData() {
+    localStorage.setItem('CurrentUser',JSON.stringify(UserInfoObj));
 }
 function LoadDefalut() {
     nameValue.value   = UserInfoObj[0].name;
@@ -139,13 +141,12 @@ function Submit(e) {
         UserInfoObj[0].age      = ageValue.value;
         UserInfoObj[0].password = passValue.value;
         UserInfoObj[0].src      = imgSrcValue.value;
-        SaveData(UserInfoObj)
+        SaveData()
         ClearEveything()
         LoadDefalut() 
 
 }
 
-submitbtn.addEventListener('click',Submit)
 
 </script>
 </html>
