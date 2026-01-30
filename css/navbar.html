@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NavBar</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    a{
+        margin-right: 200px;
+        text-decoration: none;
+        color: white;
+    }
+    #logo{
+        text-decoration: none;
+        color: #f08804;
+        font-size: 25px;
+    }
+    button{
+        background-color: #f08804;
+        color: white;
+    }
+    .header{
+        padding-top: 5px;
+        color: white;
+        background-color: #232F3E;
+        display: flex;
+        /* justify-content: space-between; */
+        height: 60px;
+    }
+    .innner{
+        /* margin-right: 100px; */
+        
+    }
+    .trafic{
+        background-color: #232F3E;
+        width:  100px;
+        height: 260px;
+        margin: 200px;
+        padding: 10px;
+    }
+    .red{
+        background-color: red;
+        margin: 25px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+    .green{
+        background-color: rgb(6, 245, 74);
+        margin: 25px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+    .yellow{
+        background-color: rgb(228, 240, 0);
+        margin: 25px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+    }
+    /* .search{
+        margin-right: 200px;
+    } */
+</style>
+<body>
+    <header>
+        <div class="header">
+            <h3><a id="logo" href="amazon.com">amazon.in</a></h3>
+            <h3 class="innner"><a href="amazon.com">About</a></h3>
+            <h3 class="innner"><a href="amazon.com">My Cart</a></h3>
+            <div class="search">
+                <input type="text" placeholder="Search">
+                <button >Search</button>
+            </div>
+        </div>
+   <div class="trafic">
+       <div class="red"   ></div>
+       <div class="green" ></div>
+        <div class="yellow"></div>
+   </div>
+</body>
+<script>
+    let red = document.querySelector('.red')
+    let green = document.querySelector('.green')
+    let yellow = document.querySelector('.yellow')
+    red.onclick= (e)=>{
+        document.body.style.backgroundColor = e.target.className;  
+    } 
+    green.onclick= (e)=>{
+        document.body.style.backgroundColor = e.target.className;  
+    }
+    yellow.onclick= (e)=>{
+        document.body.style.backgroundColor = e.target.className;  
+    }
+</script>
+</html>
