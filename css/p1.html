@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        margin:  0;
+        padding: 0;
+    }
+    html,body{
+        width: 100%;
+        height: 100%;
+    }
+    ul{
+        padding-inline-start: 10px;
+        display: flex;
+    }
+    li{
+        margin-right:200px;
+        text-decoration: none;
+        list-style-type: none;
+    }
+    .header1{
+        background-color: aqua;
+    }
+    .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px; /* Define a fixed height for the footer */
+    background-color: #333;
+    color: white;
+    text-align: center;
+    line-height: 60px; /* Vertically centers text if height is fixed */
+    }
+    .one{
+        background-color: rgba(245, 45, 58, 0.3);
+        margin: 1px;
+        padding-inline-start: 5px;
+        padding-block-start: 5px;
+        width: 100px;
+        height: 100px;
+    }
+    .contantArea{
+        display: flex;
+        margin-block-start: 10px;
+        padding-inline-start: 10px;
+        /* padding-block-start: 10px; */
+    }
+</style>
+<body>
+    <header class="header1">
+        <ul>
+            <li>about</li>
+            <li>setting</li>
+            <li>contant Us</li>
+        </ul>
+    </header>
+    <div class="contantArea">
+        <div class="one">box1</div>
+        <div class="one">box2</div>
+        <div class="one">box3</div>
+    </div>
+    <footer class="footer">sdf</footer>
+</body>
+</html>
