@@ -32,7 +32,7 @@
     let submit = document.querySelector(".Submit")
     // loading data 
     let STORAGE_KEY = "StudentFormData"
-    let CurrentUser = JSON.parse(localStorage.getItem('CurrentUser')) || [];
+    let CurrentUser = JSON.parse(localStorage.getItem('CurrentUser')) || {};
     let AllUserData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
     // function
     function CheckUp() {
@@ -66,8 +66,14 @@
             alert("login succses ful");
             setTimeout(()=>{
                 ClearEverything()
-                localStorage.setItem('CurrentUser',JSON.stringify(CurrentUser));
-                window.location.href = "http://127.0.0.1:5500/StudentForm/Home/home.html"
+                let loginuser = {
+                    name:CurrentUser[0].name,
+                    age:CurrentUser[0].age,
+                    src:CurrentUser[0].src,
+                    password:CurrentUser[0].password
+                }
+                localStorage.setItem('CurrentUser',JSON.stringify(loginuser));
+                window.location.href = "http://127.0.0.1:5500/javascript/project/Projects/StudentForm/Home/home.html"
             },500)
         }
         else if(!checkName){
