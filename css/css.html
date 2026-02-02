@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Complete Practice HTML</title>
+
+  <!-- External CSS file link -->
+  <!-- <link rel="stylesheet" href="style.css"> -->
+
+  <!-- Internal CSS (only for demo if needed) -->
+  <style>
+    /* You can paste the CSS you already have here */
+  /* ===============================
+   LEVEL 1 – CSS BASICS
+================================ */
+
+/* Syntax: selector { property: value; } */
+h1 {
+  color: blue; /* sets text color */
+}
+
+/* Including CSS:
+   - inline (not here)
+   - internal (in <style>)
+   - external (this file.css) */
+
+/* Color systems */
+p {
+  color: red;              /* named color */
+  background-color: #f0f0f0; /* hex color */
+}
+
+span {
+  color: rgb(255, 0, 0);     /* RGB */
+}
+
+div {
+  color: rgba(0, 0, 0, 0.7); /* RGBA with opacity */
+}
+
+/* Color palette (reusing colors) */
+:root {
+  --primary: #3498db;
+  --secondary: #2ecc71;
+}
+
+button {
+  background-color: var(--primary);
+  color: white;
+}
+
+/* Selectors */
+#main { }        /* id selector */
+.box { }         /* class selector */
+ul li { }        /* descendant selector */
+input[type="text"] { } /* attribute selector */
+
+/* Text */
+p {
+  text-align: center;      /* alignment */
+  text-decoration: underline;
+  text-transform: uppercase;
+  line-height: 1.5;
+  font-size: 16px;
+}
+
+/* Units */
+.small {
+  font-size: 12px; /* px = fixed */
+}
+
+.large {
+  font-size: 2em;  /* relative to parent */
+}
+
+/* ===============================
+   LEVEL 2 – BOX MODEL
+================================ */
+
+/* Box model: content + padding + border + margin */
+.card {
+  width: 300px;           /* width */
+  height: 200px;          /* height */
+  border: 2px solid black;/* border */
+  padding: 20px;          /* space inside */
+  margin: 10px;           /* space outside */
+}
+
+/* Display property */
+.inline {
+  display: inline;        /* no width/height */
+}
+
+.block {
+  display: block;         /* full width */
+}
+
+.inline-block {
+  display: inline-block;  /* width/height allowed */
+}
+
+/* Visibility */
+.hidden {
+  visibility: hidden; /* invisible but space remains */
+}
+
+/* Alpha / opacity */
+.fade {
+  opacity: 0.5; /* transparency */
+}
+
+/* ===============================
+   LEVEL 3 – UNITS & POSITION
+================================ */
+
+/* Percentage */
+.container {
+  width: 80%; /* relative to parent */
+}
+
+/* rem = relative to root font-size */
+html {
+  font-size: 16px;
+}
+
+.title {
+  font-size: 2rem; /* 32px */
+}
+
+/* vh & vw */
+.full-screen {
+  width: 100vw; /* viewport width */
+  height: 100vh;/* viewport height */
+}
+
+/* Position */
+.static {
+  position: static; /* default */
+}
+
+.relative {
+  position: relative;
+  top: 10px; /* moves from original place */
+}
+
+.absolute {
+  position: absolute;
+  top: 0;
+  right: 0; /* relative to nearest positioned parent */
+}
+
+.fixed {
+  position: fixed;
+  bottom: 0;
+  right: 0; /* fixed on screen */
+}
+
+.sticky {
+  position: sticky;
+  top: 0; /* sticks after scroll */
+}
+
+/* z-index */
+.layer1 {
+  position: relative;
+  z-index: 1;
+}
+
+.layer2 {
+  position: relative;
+  z-index: 2; /* appears on top */
+}
+
+/* Background image */
+.hero {
+  background-image: url("image.jpg");
+  background-size: cover;   /* fit image */
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* ===============================
+   LEVEL 4 – FLEXBOX
+================================ */
+
+/* Flex container */
+.flex-container {
+  display: flex;
+  flex-direction: row;        /* row | column */
+  justify-content: center;    /* horizontal alignment */
+  align-items: center;        /* vertical alignment */
+  flex-wrap: wrap;            /* wrap items */
+}
+
+/* Flex items */
+.flex-item {
+  flex-grow: 1;   /* grows if space available */
+  flex-shrink: 1; /* shrinks if needed */
+}
+
+.special {
+  align-self: flex-end; /* override alignment */
+}
+
+/* Media queries */
+@media (max-width: 600px) {
+  .flex-container {
+    flex-direction: column; /* responsive layout */
+  }
+}
+
+/* ===============================
+   LEVEL 5 – TRANSITION & ANIMATION
+================================ */
+
+/* Transition */
+.box {
+  transition: all 0.3s ease; /* smooth change */
+}
+
+.box:hover {
+  transform: scale(1.1); /* zoom on hover */
+}
+
+/* Transform */
+.rotate {
+  transform: rotate(45deg);
+}
+
+.move {
+  transform: translate(20px, 10px);
+}
+
+.skew {
+  transform: skew(10deg);
+}
+
+/* Animation */
+@keyframes slide {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(100px); }
+}
+
+.animate {
+  animation: slide 2s infinite alternate; /* shorthand */
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- ===============================
+       LEVEL 1 – BASIC CSS
+  ================================ -->
+
+  <h1>CSS Basics Heading</h1>
+
+  <p>This is a paragraph to test text, color and background.</p>
+
+  <span>RGB / RGBA Color Example</span>
+
+  <br><br>
+
+  <button>Primary Button</button>
+
+  <hr>
+
+  <!-- Selectors -->
+  <div id="main">ID Selector Example</div>
+  <div class="box">Class Selector Example</div>
+
+  <ul>
+    <li>List Item 1</li>
+    <li>List Item 2</li>
+  </ul>
+
+  <input type="text" placeholder="Attribute selector input">
+
+  <hr>
+
+  <!-- ===============================
+       LEVEL 2 – BOX MODEL
+  ================================ -->
+
+  <div class="card">
+    Box Model Card<br>
+    Width, Height, Padding, Border, Margin
+  </div>
+
+  <div class="inline">Inline</div>
+  <div class="inline">Inline</div>
+
+  <br><br>
+
+  <div class="inline-block">Inline-Block</div>
+  <div class="inline-block">Inline-Block</div>
+
+  <br><br>
+
+  <div class="hidden">You should not see this text</div>
+
+  <div class="fade">Opacity Example</div>
+
+  <hr>
+
+  <!-- ===============================
+       LEVEL 3 – POSITION & UNITS
+  ================================ -->
+
+  <div class="container">
+    Container with % width
+  </div>
+
+  <h2 class="title">REM Unit Title</h2>
+
+  <div class="full-screen">
+    Full Screen Section (vh / vw)
+  </div>
+
+  <div class="relative">
+    Relative Box
+    <div class="absolute">Absolute Box</div>
+  </div>
+
+  <div class="fixed">Fixed Button</div>
+
+  <div class="sticky">Sticky Header</div>
+
+  <div class="layer1">Layer 1</div>
+  <div class="layer2">Layer 2 (on top)</div>
+
+  <div class="hero">
+    Background Image Section
+  </div>
+
+  <hr>
+
+  <!-- ===============================
+       LEVEL 4 – FLEXBOX
+  ================================ -->
+
+  <div class="flex-container">
+    <div class="flex-item">Item 1</div>
+    <div class="flex-item special">Item 2</div>
+    <div class="flex-item">Item 3</div>
+  </div>
+
+  <hr>
+
+  <!-- ===============================
+       LEVEL 5 – TRANSITION & ANIMATION
+  ================================ -->
+
+  <div class="box">Hover Me (Transition)</div>
+
+  <div class="rotate">Rotate</div>
+  <div class="move">Translate</div>
+  <div class="skew">Skew</div>
+
+  <div class="animate">Animation Box</div>
+
+</body>
+</html>

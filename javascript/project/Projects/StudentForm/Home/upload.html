@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        color: black;
+        text-decoration: none;
+    }
+    ul{
+        display: flex;
+        background-color: bisque;
+    }
+    li{
+        list-style-type: none;
+    }
+    .navigation{
+        margin-left: 50px;
+    }
+    .mian{
+        width: 100vw;
+        height: 100vh;
+    }
+    .contaner{
+        position: relative;
+        display: inline-block;
+        width: 300px;
+        height: 300px;
+        top: 100px;
+        left: 100px;
+    }
+    img{
+        width: 100px;
+    }
+    input{
+        display: block;
+        margin: 10px;
+    }
+    textarea{
+        
+        margin: 10px;
+    }
+</style>
+<body>
+    <header>
+        <ul>
+            <li class="navigation"><a href="./home.html">Home</a></li>
+            <li class="navigation"><a href="./upload.html">Upload Notes</a></li>
+            <li class="navigation"><a href="./detail.html">Detail</a></li>
+            <li class="navigation"><a href="./setting.html">Settings</a></li>
+            <li class="navigation"><a href="">About</a></li>
+        </ul>
+    </header>
+    <div class="mian">
+        <div class="contaner">
+            <img src="../img/clear.png" alt="" srcset="">
+            <input type="text" placeholder="enter your name">
+            <input type="text" placeholder="enter the title">
+            <textarea name="contant" id="decription">
+                
+            </textarea>
+            <button style="display: block; margin: 10px;">Submit</button>
+        </div>
+    </div>
+</body>
+</html>
