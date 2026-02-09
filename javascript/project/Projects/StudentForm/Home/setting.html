@@ -28,9 +28,10 @@
         <input type="text" placeholder="enter the name" id="imgTextField" />
         <button id="eimg">Edit</button><br />
         <button id="submit-Sec-1">submit</button>
+        <button id="submit-Sec-1" class="loginbtn"style="display: none;"><a href="../Form/Login.html">Login</a></button>
+        <p class="resluts" style="color:red">you have left <span id="reslut"></span> </p>
       </div>
     </div>
-    <div class="result" style="display: none"></div>
   </body>
   <script type="module">
     // loading Data
@@ -40,6 +41,7 @@
     let CurrentUserKey = "CurrentUser";
     let UserInfoObj = JSON.parse(localStorage.getItem(CurrentUserKey)) || {};
     let LogDataInfo = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    
     // Dom Element
 
     //button feild
@@ -49,7 +51,7 @@
     let passinputbtn = document.querySelector("#epass");
     let Imginputbtn = document.querySelector("#eimg");
     let submitbtn = document.querySelector("#submit-Sec-1");
-    let result = document.querySelector(".result");
+    let result = document.querySelector(".reslut");
 
     //txt filed of Dom element
 
@@ -149,6 +151,28 @@
         shwoInfoBtn.disabled = true;
         
     }
+function timeouts(remainingTime){
+        let h3 = document.createElement('p');
+        let secoundLeft = Math.floor(remainingTime/1000); // convert like 10000/1000 = 10sec
+        h3.style.display = 'inline-block'
+        
+        let interval = setInterval(() =>
+        {
+          if(secoundLeft<=0){// condition when the time is out 
+            clearInterval(interval);
+            h3.innerHTML = "Plase login";
+            document.querySelector(".loginbtn").style.display = 'block'
+            // console.log(secoundLeft)
+            return;
+          }
+          h3.innerHTML=`${secoundLeft}`;              
+          secoundLeft--;
+        
+        }
+        ,1000)
+        
+        return h3;
+   }
 
     function LoadDefalut() {
       if (Object.keys(UserInfoObj).length == 0) {
@@ -160,27 +184,14 @@
         };
         AssignValueToInputFeild(UserInfoObj.name,UserInfoObj.age,UserInfoObj.password,UserInfoObj.src)
         DisabledAllEdit()
-        submitbtn.style.display = "none";
-        
-        setTimeout(() => {
-          result.style.display = "block";
-
-          let setime = 10000; // 10sec
-          let pakege = new std(setime);
-          let div = pakege.timoutFun();
-
-          result.appendChild(div);
-
-          setTimeout(() => {
-            window.location.href =
-              "http://127.0.0.1:5501/javascript/project/Projects/StudentForm/Form/Login.html";
-          }, setime+2000);
-
-          document.querySelector(".main").style.display = "none";
-        }, 1000);
+        submitbtn.disabled = true;
+        let setime = 3000; // 3sec
+        let div = timeouts(setime);
+        let finalspan = document.querySelector('span')
+        finalspan.appendChild(div);
       } else {
         AssignValueToInputFeild(UserInfoObj.name,UserInfoObj.age,UserInfoObj.password,UserInfoObj.src)
-      }
+      } 
     }
     function AssignValueToUserObj(name,age,pass,src) {
         UserInfoObj.name = name;

@@ -47,6 +47,21 @@ function CheckUp() {
 function SaveData() {
     localStorage.setItem(STORAGE_KEY,JSON.stringify(dataObj));
 }
+function getUniqueRandomIntegers(count, min, max) {
+  const uniqueNumbers = new Set();
+  // Ensure the range is large enough to pick 'count' unique numbers
+  if (max - min + 1 < count) {
+    console.error("Range is too small to generate unique numbers");
+    return [];
+  }
+
+  while (uniqueNumbers.size < count) {
+    const randomInt = Math.floor(Math.random() * (max - min + 1)) + min;
+    uniqueNumbers.add(randomInt);
+  }
+
+  return Array.from(uniqueNumbers);
+}
 function Submit(e) {
     e.preventDefault() 
     let check = CheckUp();
@@ -59,13 +74,15 @@ function Submit(e) {
     if(existUser)   {
         
         setTimeout(()=>{
-            window.location.href = "http://127.0.0.1:5500/StudentForm/Form/Login.html"
+            window.location.href = "./Login.html"
         },1000)
-
+        ClearEverything()
         
         return alert("userExist Login Please");
     }
+    let random = getUniqueRandomIntegers(7,1,90000000)
     let userObj = {
+        key : random[0],
         name: uName.value,
         age : uAge.value,
         password:uPassword.value,
@@ -82,7 +99,7 @@ function ClearEverything() {
     uPassword.value = '';
     
     setTimeout(()=>{
-        window.location.href = "http://127.0.0.1:5500/javascript/project/Projects/StudentForm/Form/Login.html"
+        window.location.href = "./Login.html"
     },1000)
 }
 submit.addEventListener('click',Submit);

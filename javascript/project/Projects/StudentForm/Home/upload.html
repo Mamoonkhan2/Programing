@@ -22,28 +22,51 @@
     .navigation{
         margin-left: 50px;
     }
-    .mian{
-        width: 100vw;
-        height: 100vh;
+     .main {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
-    .contaner{
-        position: relative;
-        display: inline-block;
-        width: 300px;
-        height: 300px;
-        top: 100px;
-        left: 100px;
+
+    .container {
+      background: #ffffff;
+      padding: 20px;
+      width: 300px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
-    img{
-        width: 100px;
+
+    .container img {
+      width: 80px;
+      display: block;
+      margin: 0 auto 15px;
     }
-    input{
-        display: block;
-        margin: 10px;
+
+    .container input,
+    .container textarea {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
     }
-    textarea{
-        
-        margin: 10px;
+
+    .container button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .container button:hover {
+      background-color: #0056b3;
+    }
+    .error{
+        color: red;
     }
 </style>
 <body>
@@ -56,16 +79,112 @@
             <li class="navigation"><a href="">About</a></li>
         </ul>
     </header>
-    <div class="mian">
-        <div class="contaner">
-            <img src="../img/clear.png" alt="" srcset="">
-            <input type="text" placeholder="enter your name">
-            <input type="text" placeholder="enter the title">
-            <textarea name="contant" id="decription">
-                
-            </textarea>
-            <button style="display: block; margin: 10px;">Submit</button>
-        </div>
-    </div>
+    <div class="main">
+    <form class="container">
+        <img src="../img/clear.png" alt="Form Image">
+
+        <p class="error name-error" >name error</p>
+        <input type="text" id="name" name="name" placeholder="Enter your name" required  onkeyup="validateName()">
+        <p class="error title-error">name error</p>
+        <input type="text" name="title" placeholder="Enter the title" required id="titl" onkeyup="validatetitle()">
+        <p class="error description-error">sdf</p>
+        <textarea 
+        name="description" 
+        id="description" 
+        placeholder="Enter description" 
+        rows="4" 
+        onkeyup="validateDescription()"
+        ></textarea>
+        <p id = 'charcount'></p>
+        <p class="error contant-error">name error</p>
+        <textarea 
+        name="content" 
+        id="contant"
+        placeholder="Enter contant"
+        rows="4"
+        required
+        onkeyup="validateContant()"
+        ></textarea>
+
+        <p class="error submit-error">name error</p>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
 </body>
+<script>
+    //key
+    let STORAGE_KEY = "StudentFormData";
+    let CURRETN_USER_KEY = "CurrentUser";
+    let NOTES_KEY  = "NOTESDATA"
+    //data loading
+    let CurrentUserObj = JSON.parse(localStorage.getItem(CURRETN_USER_KEY)) || {};
+    let LogDataInfo    = JSON.parse(localStorage.getItem(STORAGE_KEY))      || [];     ;
+    let NotesDataObj   = JSON.parse(localStorage.getItem(NOTES_KEY))        || [];
+    //dom
+       // ===== Error Elements =====
+    const nameError = document.querySelector('.name-error');
+    const titleError = document.querySelector('.title-error');
+    const descriptionError = document.querySelector(".description-error")
+    const contentError = document.querySelector('.contant-error');
+    const submitError = document.querySelector('.submit-error');
+    // ===== Input Elements =====
+    const nameInput = document.getElementById('name');
+    const charCount = document.querySelector("#charcount");
+    
+    nameInput.value = CurrentUserObj.name;
+    nameInput.disabled = true;
+    
+    function validatetitle() {
+        const titleInput = document.getElementById('titl');
+        if (titleInput.value.trim().length < 3) {
+            titleError.innerHTML = "Title must be at least 3 characters";
+            titleError.style.color = "red";
+            titleError.style.display = 'block'
+            return false;
+        }
+        titleError.innerHTML = "✓";
+        titleError.style.color = "green";
+        setTimeout(()=>titleError.style.display = 'none',2000)
+        return true;
+    }
+    const maxLength = 381  ;   // Change limit here
+    function validateDescription() {
+        let descriptionInput = document.getElementById("description")
+        let currentLength = descriptionInput.value.length;
+
+        // Character Counter
+        charCount.innerHTML = currentLength + " / " + maxLength + " characters";
+
+        if (currentLength < 20) {
+            descriptionError.innerHTML = "Description must be at least 20 characters";
+            descriptionError.style.color = "red";
+            descriptionError.style.display = 'block'
+            return false;
+        }
+        if (currentLength > maxLength) {
+            descriptionError.innerHTML = "Maximum limit reached";
+            descriptionError.style.color = "red";
+            return false;
+        }
+        descriptionError.innerHTML = "✓ ";
+        descriptionError.style.color = "green";
+        setTimeout(()=>descriptionError.style.display = 'none',2000)
+        return true;
+    }
+    function validateContant() {
+        const contantInput = document.querySelector("#contant");
+        const currentLength = contantInput.value.trim().length
+        if(currentLength<25){
+            contentError.innerHTML = "contant must be at least 20 characters"
+            contentError.style.display = 'block'
+            return false;
+        }
+        contentError.innerHTML = "✓ ";
+        contentError.style.color = "green";
+        setTimeout(()=>contentError.style.display = 'none',2000)
+        return true;
+    }
+
+</script>
 </html>

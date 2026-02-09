@@ -29,18 +29,30 @@
     let infoElement = document.querySelector(".info");
 
     // loading detail now
-    let name = CurrentUser.name;
-    let age =  CurrentUser.age;
-    let src =  CurrentUser.src;
-    // create new element
+    if(Object.keys(CurrentUser).length == 0){
+        
+        let name = "please fill the data form";
+        let age =  "please fill the data form";
+        let src =  "please fill the data form";
+        
+        let h3 = document.createElement('div');
+        h3.innerHTML = `<h3>Name : ${name}</h3><br><h3>age : ${age}</h3>`;
+        infoElement.appendChild(h3);
+    }
+    else{
+        // create new element2
+        let name = CurrentUser.name;
+        let age =  CurrentUser.age;
+        let src =  CurrentUser.src;
+        let h3 = document.createElement('div');
+        h3.innerHTML = `<h3>Name : ${name}</h3><br><h3>age : ${age}</h3>`;
+        infoElement.appendChild(h3);
+    }
     let img = document.createElement('img');
     img.src = src;
     img.alt = "Please enter Src";
     imgElement.appendChild(img);
     
-    let h3 = document.createElement('div');
-    h3.innerHTML = `<h3>Name : ${name}</h3><br><h3>age : ${age}</h3>`;
 
-    infoElement.appendChild(h3);
 </script>
 </html>

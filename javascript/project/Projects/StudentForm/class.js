@@ -1,10 +1,10 @@
 export class std {
     constructor(remainingTime) {
-        this.remainingTime = remainingTime;
+        this.remainingTime = 10000;
     }
    timoutFun(){
         let div = document.createElement('div');
-        let h3 = document.createElement('h3');
+        let h3 = document.createElement('p');
         // setting atttribute
         div.setAttribute('class',"timeout")
         h3.setAttribute("id","sec-dis")
@@ -25,7 +25,7 @@ export class std {
                 secoundLeft--;
             }
             ,1000)
-
+            console.log(div)
         return div;
    }
 }
