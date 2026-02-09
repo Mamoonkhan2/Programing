@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>__Dark__Theme__</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main">
+        <div class="headings">
+            <img id="img-logo" src="./images-fotor-bg-remover-20260208164243.png">
+                <ul>
+                    <li>Home</li>
+                    <li>About</li>
+                    <li>Service</li>
+                    <li>Hire Me</li>
+                    <img src="./waning-gibbous-moon-svgrepo-com.svg" id="icons">
+                </ul>
+        </div>
+        <div class="datas">
+            <div class="info">
+                <div class="innerarea">
+                    <h1>i'm <span style="color: orange;">Mamoonkhan</span></h1>
+                    <p>This page let you through my programing juerney Lorem, ipsum dolor Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi unde officia ut nihil laudantium natus velit explicabo labore dicta.</p>
+                    <button>Download CV</button>
+                </div>
+            </div>
+            <div class="picture" >
+                <img src="./download (1).jpg" id="profile-pic">
+            </div>
+        </div>
+    </div>
+    <!-- <script type="module" src="./main.js"></script> -->
+</body>
+<script>
+    let icons = document.querySelector("#icons");
+    icons.onclick = function () {
+        document.body.classList.toggle("dark-theme")
+        if(document.body.classList.contains('dark-theme')){
+            icons.src = './waning-gibbous-moon-svgrepo-com.svg'
+        }
+        else{
+            icons.src = './waxing-crescent-moon-svgrepo-com.svg'
+
+        }
+    } 
+</script>
+</html>

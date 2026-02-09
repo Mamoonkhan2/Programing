@@ -1,14 +1,16 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp } from "firebase/app"; // initialize firease project
 import {
-  getFirestore,
-  collection,
-  getDocs,
-  addDoc,
-  deleteDoc,
-  doc,
-  onSnapshot,
-  query,
-  where
+  getFirestore, // will get the firestore through configuration obj
+  collection, // will get a collection 
+  getDocs, // will get the document only the page reloads 
+  addDoc, // will add a custom document
+  deleteDoc,// will delete a document
+  doc, // doc will refrece to our element through id's
+  onSnapshot,// will show a realtime data change in our project
+  query,// querey allow us to do querys on collection 
+  where,// find the element by conditionalizeing it
+  orderBy,// order a document in ase decs
+  serverTimestamp, // for creating a current time as we do in date.now() 
 } from "firebase/firestore";
 
 // // Initialize Firebase
@@ -83,7 +85,7 @@ let db = getFirestore(app) ;
 
 let collRef = collection(db,'users');
 
-let q = query(collRef,where("password","==","mamoonkhan"))
+let q = query(collRef,where("password","==","mamoonkhan"),orderBy('createdAt'))
 
 let dataObj = [] ;
 
@@ -116,7 +118,8 @@ updating.addEventListener('submit',(e)=>{
     let pass = document.querySelector("#ageU").value.trim()
   addDoc(collRef,{
     name:name,
-    password:pass
+    password:pass,
+    createdAt:serverTimestamp()
   })
   .then(()=>{
     updating.reset()

@@ -1,0 +1,88 @@
+*{
+    padding: 0;
+    margin: 0;
+    font-weight: 100;
+}
+:root{
+    --primerly-color:##edf2fc;
+    --secondery-color:#212121;
+}
+.dark-theme{ 
+    --primerly-color:#000106;
+    --secondery-color:#fff;
+}
+body{
+    background-color: var(--primerly-color);
+}
+.main{
+    width: 100%;
+    height: 100%;
+    background-color: var(--primerly-color);
+
+}
+.headings{
+    display: flex;
+}
+ul{
+    display: flex;
+    /* background-color: black; */
+    width: 100%;
+    height: 50px;
+    justify-content: flex-end;
+    margin-top: 40px;
+}
+li{
+    color: var(--secondery-color);
+    margin-inline-end: 50px;
+    list-style-type: none;
+}
+li:hover{
+    color: orange;
+}
+#img-logo{
+    /* display: inline-block; */
+    position: relative;
+    top: -18px;
+    width: 150px;
+    height: 100px;
+    display: block;
+    background-color:var(--primerly-color);
+}
+.datas{
+    display: flex;
+    width: 100%;
+    height: 600px;
+
+}
+.info{
+    width: 50%;
+    height: 100%;
+}
+button{
+    padding: 8px;
+    border-radius: 10px;
+    margin-block-start: 10px;
+} 
+.picture{
+    width: 50%;
+    height: 100%;
+    /* background-color: red; */
+}
+.innerarea{
+    color: var(--secondery-color);
+    padding: 10px;
+    position: relative;
+    top:50%;
+    line-height: 29px;
+} 
+#profile-pic{
+    position: relative;
+    left:150px;
+    width:600px;
+    height: 100%;
+}
+#icons{
+    width: 50px;
+    height: 20px;
+    cursor: pointer;
+}
