@@ -91,7 +91,7 @@
         <textarea 
         name="description" 
         id="description" 
-        placeholder="Enter description" 
+        placeholder="Enter descriasdption" 
         rows="4" 
         onkeyup="validateDescription()"
         ></textarea>
@@ -118,9 +118,11 @@
     let CURRETN_USER_KEY = "CurrentUser";
     let NOTES_KEY  = "NOTESDATA"
     //data loading
+    let AllUserData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
     let CurrentUserObj = JSON.parse(localStorage.getItem(CURRETN_USER_KEY)) || {};
-    let LogDataInfo    = JSON.parse(localStorage.getItem(STORAGE_KEY))      || [];     ;
-    let NotesDataObj   = JSON.parse(localStorage.getItem(NOTES_KEY))        || [];
+    let LogDataInfo    = JSON.parse(localStorage.getItem(STORAGE_KEY))  || [];     ;
+    let NotesDataObj   = JSON.parse(localStorage.getItem(NOTES_KEY)) || [];
+    
     //dom
        // ===== Error Elements =====
     const nameError = document.querySelector('.name-error');
@@ -197,9 +199,51 @@
         const titleInput = document.getElementById('titl');
         const descriptionInput = document.getElementById("description")
         const contantInput = document.querySelector("#contant");
+        let random = getUniqueRandomIntegers(7,1,1598746)
+        let newNotesObj = {
+            key:CurrentUserObj.key,
+            id:random[0],
+            name:CurrentUserObj.name,
+            title:titleInput.value.trim(),
+            description:descriptionInput.value.trim(),
+            contantInput:contantInput.value.trim(),
+            like:0,
+        }
+        let updateUserINLoginObj = AllUserData.filter(user => user.key == CurrentUserObj.key);
+        updateUserINLoginObj[0].notes.push(random[0]);
+        CurrentUserObj.notes.push(random[0]);
         
-        setTimeout(()=>submitError.style.display = 'none',1000)
-    })
 
+
+        console.log(random[0]);
+        console.log(CurrentUserObj.notes);
+        console.log(AllUserData);
+        console.log(newNotesObj);
+        NotesDataObj.push(newNotesObj);
+        SaveData(NotesDataObj);
+
+        setTimeout(()=>submitError.style.display = 'none',1000)
+        setTimeout(()=>{
+            window.location.href = './home.html'
+        },1500)
+    })
+    function SaveData(obj){
+        localStorage.setItem(NOTES_KEY,JSON.stringify(obj))
+    }
+    function getUniqueRandomIntegers(count, min, max) {
+    const uniqueNumbers = new Set();
+    // Ensure the range is large enough to pick 'count' unique numbers
+    if (max - min + 1 < count) {
+        console.error("Range is too small to generate unique numbers");
+        return [];
+    }
+
+    while (uniqueNumbers.size < count) {
+        const randomInt = Math.floor(Math.random() * (max - min + 1)) + min;
+        uniqueNumbers.add(randomInt);
+    }
+
+    return Array.from(uniqueNumbers);
+    }
 </script>
 </html>

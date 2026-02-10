@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Examination Management System</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background-color: #f5f5f5;
+    }
+    .card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+    }
+    .card h2 {
+      margin: 0;
+      font-size: 24px;
+      color: #333;
+    }
+    .card p {
+      margin: 10px 0;
+      color: #555;
+    }
+    .btn {
+      display: inline-block;
+      padding: 8px 12px;
+      margin-right: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      color: #fff;
+    }
+    .like-btn {
+      background-color: #28a745;
+    }
+    .edit-btn {
+      background-color: #007bff;
+    }
+    ul{
+    display: flex;
+    background-color: bisque;
+    
+}
+.navigation{
+    margin-left: 50px;
+} 
+li{
+        list-style-type: none;
+}
+  </style>
+</head>
+<body>
+    <header>
+        <ul>
+            <li class="navigation"><a href="./home.html">Home</a></li>
+            <li class="navigation"><a href="./upload.html">Upload Notes</a></li>
+            <li class="navigation"><a href="./detail.html">Detail</a></li>
+            <li class="navigation"><a href="./setting.html">Settings</a></li>
+            <li class="navigation"><a href="">About</a></li>
+        </ul>
+    </header>
+
+</body>
+<script>
+    // Keys
+    let STORAGE_KEY = "StudentFormData"
+    let CurrentUserKey = 'CurrentUser';
+    let NOTES_KEY  = "NOTESDATA"
+    const CURRENT_KEY = "CurrentNotes";
+    //loading Data
+    let userInfoObj = JSON.parse(localStorage.getItem('CurrentUser')) || [];
+    let logDataInfo = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    let notesDataObj   = JSON.parse(localStorage.getItem(NOTES_KEY)) || [];
+    let currentNotesObj = JSON.parse(localStorage.getItem(CURRENT_KEY)) || {};
+    console.log(currentNotesObj);
+    let div = document.createElement("div");
+    div.setAttribute('class',"card");
+    div.innerHTML = 
+    `
+      <div class="card">
+    <!-- Edit button on top -->
+    <button class="btn edit-btn">Edit</button>
+
+    <h2 id="title">${currentNotesObj.title}</h2>
+    <p><strong>Name:</strong>${currentNotesObj.name} </p>
+    <p><strong>ID:</strong>${currentNotesObj.id}  </p>
+    <p><strong>Description:</strong> <span id="innerDescriptoin"> ${currentNotesObj.description} </span></p>
+    <div>
+        <h3 style="text-align: center;"><strong>Contant</strong></h3>
+        <p><span id="contant"> ${currentNotesObj.contantInput}</span></p>
+    </div>
+    <!-- Like Button -->
+    <button class="btn like-btn" onclick="checkForLike()">Like <span id="likes">${currentNotesObj.like}</span></button>
+  
+    </div>
+
+    `
+    document.body.appendChild(div);
+    function checkForLike(e) {
+        let id = currentNotesObj.id;
+        let updateLike = notesDataObj.filter(notes => notes.id == id);
+        let like = document.querySelector("#likes");
+        updateLike[0].like++;
+        currentNotesObj.like = updateLike[0].like; 
+        SaveDataC(currentNotesObj);
+        SaveData(notesDataObj);
+        like.innerHTML = updateLike[0].like;
+    }
+    function SaveDataC(obj){
+        localStorage.setItem(CURRENT_KEY,JSON.stringify(obj))
+    }
+    function SaveData(obj){
+        localStorage.setItem(NOTES_KEY,JSON.stringify(obj))
+    }
+</script>
+</html>
