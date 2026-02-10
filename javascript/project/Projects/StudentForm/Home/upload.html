@@ -107,7 +107,7 @@
         ></textarea>
 
         <p class="error submit-error">name error</p>
-        <button type="submit">Submit</button>
+        <button type="submit" id="submit">Submit</button>
     </form>
 </div>
 
@@ -185,6 +185,21 @@
         setTimeout(()=>contentError.style.display = 'none',2000)
         return true;
     }
+    let submit = document.querySelector("#submit");
+    submit.addEventListener('click',(e)=>{
+        e.preventDefault();
+        if(!validatetitle()||!validateDescription()||!validateDescription()){
+            submitError.innerHTML = `error in feild fill the feild`;
+            submitError.style.display = 'block'
+            return false;
+        }
+        const nameInput = document.getElementById('name');
+        const titleInput = document.getElementById('titl');
+        const descriptionInput = document.getElementById("description")
+        const contantInput = document.querySelector("#contant");
+        
+        setTimeout(()=>submitError.style.display = 'none',1000)
+    })
 
 </script>
 </html>
