@@ -33,9 +33,8 @@
       </div>
     </div>
   </body>
-  <script type="module">
+  <script >
     // loading Data
-    import { std } from "../class.js";
 
     let STORAGE_KEY = "StudentFormData";
     let CurrentUserKey = "CurrentUser";
@@ -158,10 +157,11 @@ function timeouts(remainingTime){
         
         let interval = setInterval(() =>
         {
-          if(secoundLeft<=0){// condition when the time is out 
+          if(secoundLeft<=-1){// condition when the time is out 
             clearInterval(interval);
             h3.innerHTML = "Plase login";
             document.querySelector(".loginbtn").style.display = 'block'
+            document.querySelector(".resluts").style.display = 'none'
             // console.log(secoundLeft)
             return;
           }
@@ -187,8 +187,9 @@ function timeouts(remainingTime){
         submitbtn.disabled = true;
         let setime = 3000; // 3sec
         let div = timeouts(setime);
-        let finalspan = document.querySelector('span')
+        let finalspan = document.querySelector('#reslut')
         finalspan.appendChild(div);
+        console.log(finalspan);
       } else {
         AssignValueToInputFeild(UserInfoObj.name,UserInfoObj.age,UserInfoObj.password,UserInfoObj.src)
       } 

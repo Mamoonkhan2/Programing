@@ -1,58 +1,116 @@
-<!DOCTYPE html>
+    <!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../style/detail.css">
-    <title>Detail</title>
-</head>
-<body>
-    <div class="detailcontaner">
-        <div class="img">
-            <!-- load img here -->
+  <head>
+    <meta charset="UTF-8" />
+    <title>Student Detail</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../style/detail.css" />
+  </head>
+  <body>
+    <div class="detail-container">
+      <div class="profile-card">
+        <div class="profile-image">
+          
         </div>
-        <div class="info">
-            <!-- load information here -->
+        <div class="profile-info">
+          
         </div>
     </div>
-</body>
-<script>
-    // loading Data
-    let STORAGE_KEY = "StudentFormData"
-    let CurrentUserKey = 'CurrentUser';
-    let CurrentUser = JSON.parse(localStorage.getItem('CurrentUser')) || [];
-    let LogDataInfo = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    <div class="notes-section">
+      <h3 class="section-title">Notes</h3>
+
+      <div class="notes-container" id="notesContainer">
+        <!-- Notes cards will be inserted here dynamically -->
+
+        <!-- Example Static Card -->
+                   
+        </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script>
+
+    // Key
     
-    // loading html Dom element
+    let CURRETN_USER_KEY = "CurrentUser";
+    let NOTES_KEY  = "NOTESDATA"
+    
+    //Data loading
+    
+    let currentUserObj = JSON.parse(localStorage.getItem(CURRETN_USER_KEY)) || {};
+    let notesDataObj   = JSON.parse(localStorage.getItem(NOTES_KEY)) || [];
+    
+    let profileImg = document.querySelector(".profile-image");
+    let profile_info = document.querySelector(".profile-info");
+    let notesContainer = document.getElementById("notesContainer");
 
-    let imgElement  = document.querySelector(".img");
-    let infoElement = document.querySelector(".info");
 
-    // loading detail now
-    if(Object.keys(CurrentUser).length == 0){
+
+  if(Object.keys(currentUserObj).length == 0){
         
         let name = "please fill the data form";
         let age =  "please fill the data form";
         let src =  "please fill the data form";
         
         let h3 = document.createElement('div');
-        h3.innerHTML = `<h3>Name : ${name}</h3><br><h3>age : ${age}</h3>`;
-        infoElement.appendChild(h3);
+         h3.setAttribute("class",'profile-info');
+       h3.innerHTML = `
+        <h2 id="name">Student Name</h2>
+          <p><strong>Age:</strong> <span id="age">--</span></p>
+          <p><strong>Email:</strong> <span id="email">--</span></p>
+          <p><strong>Description:</strong></p>
+          <p class="description" id="description">
+           please login so the detail should show to you 
+          </p>
+          `;
+        profile_info.appendChild(h3);
     }
     else{
         // create new element2
-        let name = CurrentUser.name;
-        let age =  CurrentUser.age;
-        let src =  CurrentUser.src;
+        let name = currentUserObj.name;
+        let age =  currentUserObj.age;
+        let src =  currentUserObj.src;
         let h3 = document.createElement('div');
-        h3.innerHTML = `<h3>Name : ${name}</h3><br><h3>age : ${age}</h3>`;
-        infoElement.appendChild(h3);
+        h3.setAttribute("class",'profile-info');
+        h3.innerHTML = `
+        <h2 id="name">${currentUserObj.name}</h2>
+          <p><strong>Age:</strong> <span id="age">${currentUserObj.age}</span></p>
+          <p class="description" id="description">
+            Student detail which you can change from any where
+          </p>
+          `;
+        profile_info.appendChild(h3);
     }
-    let img = document.createElement('img');
-    img.src = src;
+    let img = document.createElement("img");
+    img.setAttribute("id",'profileImg')
+    img.src = currentUserObj.src;
     img.alt = "Please enter Src";
-    imgElement.appendChild(img);
-    
+    profileImg.appendChild(img);
 
-</script>
+    notesDataObj.forEach(element => {
+        if(element.key == currentUserObj.key){
+            let div = document.createElement("div");
+            div.setAttribute('class','note-card');
+            div.innerHTML = `
+            <div class="note-info">
+                <h4 class="note-title">${element.title}</h4>
+                <p class="note-likes">Likes: <span>${element.like}</span></p>
+                <p class="note-likes">Id: <span>${element.id}</span></p>
+            </div>
+            `
+            notesContainer.appendChild(div);
+        }
+    });
+
+
+
+
+
+
+
+
+  </script>
 </html>
+
+

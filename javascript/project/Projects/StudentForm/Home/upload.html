@@ -220,14 +220,15 @@
         console.log(AllUserData);
         console.log(newNotesObj);
         NotesDataObj.push(newNotesObj);
-        SaveData(NotesDataObj);
-
+        SaveData(NOTES_KEY,NotesDataObj);
+        SaveData(CURRETN_USER_KEY,CurrentUserObj)
+        SaveData(STORAGE_KEY,AllUserData)
         setTimeout(()=>submitError.style.display = 'none',1000)
         setTimeout(()=>{
             window.location.href = './home.html'
         },1500)
     })
-    function SaveData(obj){
+    function SaveData(NOTES_KEY,obj){
         localStorage.setItem(NOTES_KEY,JSON.stringify(obj))
     }
     function getUniqueRandomIntegers(count, min, max) {
