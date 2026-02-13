@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=500px, initial-scale=1.0"> -->
+    <title>Document</title>
+</head>
+<style>
+    *{
+        padding: 0;
+        margin: 0;
+    }
+    .box{
+        width: 100px;
+        height: 100px;
+        /* flex-shrink: 0; */
+        flex-grow: 0;
+    }
+    .contaner{
+        width: 700px;
+        height: 500px;
+        background-color: rgb(15, 237, 81);
+        display: flex;
+        /* flex-wrap: wrap; */
+        /* flex-direction: column-reverse; */
+        justify-content:center;
+        align-items: flex-start;
+        /* justify-content: space-c; */
+        /* align-content:flex-start; */
+    }
+    .box1{
+        background-color: rgb(250, 215, 215);
+        flex-grow: 1;
+        /* align-self:flex-end; */
+    }
+    .box2{
+        background-color: rgb(31, 222, 152);
+        flex-grow: 1;
+        height: 200px;
+    }
+    .box3{
+        background-color: rgb(97, 15, 240);
+    }
+    .box4{
+        /* align-self:flex-end; */
+        background-color: rgb(118, 6, 54);
+    }
+    @media(min-width :300px) and (max-width:400px) {
+        .contaner{
+            width: 500px;
+            background-color: rgb(201, 15, 142);
+        }
+  
+}
+    @media(min-width :400px) and (max-width:600px) {
+        .contaner{
+            width: 500px;
+            background-color: rgb(255, 0, 0);
+        }
+  
+}
+    @media(min-width :600px){
+        .contaner{
+            width: 500px;
+            background-color: rgb(21, 172, 227);
+        }
+  
+}
+</style>
+<body style="background-color: black;">
+    <div class="contaner">
+        <div class="box1 box">box1</div>
+        <div class="box2 box">box2</div>
+        <div class="box3 box">box3</div>
+        <div class="box4 box">box4</div>
+    </div>
+    <div>
+        lasdjflasdfj
+    </div>
+</body>
+</html>

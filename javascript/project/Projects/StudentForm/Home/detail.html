@@ -96,13 +96,19 @@
             <div class="note-info">
                 <h4 class="note-title">${element.title}</h4>
                 <p class="note-likes">Likes: <span>${element.like}</span></p>
-                <p class="note-likes">Id: <span>${element.id}</span></p>
+                <p class="note-likes">Id: <span id="idis">${element.id}</span></p>
             </div>
             `
             notesContainer.appendChild(div);
         }
     });
-
+    let idBtn = document.querySelector("#idis");
+    idBtn.addEventListener("click",(e)=>{
+      let id = Number(idBtn.innerText)
+      let updateLike = notesDataObj.filter(notes => notes.id == id);
+      localStorage.setItem("CurrentNotes", JSON.stringify(...updateLike));
+      window.location.href = './notes.html';
+    })
 
 
 

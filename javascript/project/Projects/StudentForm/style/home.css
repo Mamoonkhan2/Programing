@@ -20,8 +20,8 @@ ul{
     justify-content: center;
     padding: 12px 0;
     gap: 20px;
+    list-style-type: none;
 }
-
 .navigation a{
     color: #333;
     font-weight: bold;
