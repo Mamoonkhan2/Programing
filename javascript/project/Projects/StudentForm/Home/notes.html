@@ -52,6 +52,131 @@
 li{
         list-style-type: none;
 }
+#noteCard {
+  max-width: 720px;
+  margin: 40px auto;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* VIEW MODE */
+#viewForm {
+  position: relative;
+}
+
+#viewForm h2 {
+  text-align: center;
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+#viewForm p {
+  margin: 10px 0;
+  font-size: 15px;
+  color: #444;
+}
+
+#viewForm strong {
+  color: #000;
+}
+
+/* CONTENT AREA */
+#content {
+  display: block;
+  margin-top: 12px;
+  padding: 15px;
+  background: #f4f6f8;
+  border-radius: 10px;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+/* EDIT BUTTON */
+.edit-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: #0d6efd;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.edit-btn:hover {
+  background: #084298;
+}
+
+/* EDIT MODE */
+#editForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+#editForm input,
+#editForm textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  resize: vertical;
+}
+
+#editForm textarea {
+  min-height: 90px;
+}
+
+#editForm input:focus,
+#editForm textarea:focus {
+  outline: none;
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 2px rgba(13, 110, 253, 0.2);
+}
+
+/* ACTION BUTTONS */
+#saveBtn {
+  background: #198754;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+#cancelBtn {
+  background: #dc3545;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+#saveBtn:hover {
+  background: #146c43;
+}
+
+#cancelBtn:hover {
+  background: #b02a37;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  #noteCard {
+    margin: 15px;
+    padding: 20px;
+  }
+
+  .edit-btn {
+    padding: 6px 12px;
+  }
+}
   </style>
 </head>
 <body>
@@ -64,6 +189,39 @@ li{
             <li class="navigation"><a href="">About</a></li>
         </ul>
     </header>
+    <div id="noteCard">
+
+  <!-- VIEW MODE -->
+  <form class="edit" id="viewForm">
+    <button type="button" class="btn edit-btn" id="editBtn">Edit</button>
+
+    <h2 id="title"></h2>
+    <p><strong>Name:</strong> <span id="name"></span></p>
+    <p><strong>ID:</strong> <span id="noteId"></span></p>
+
+    <p>
+      <strong>Description:</strong>
+      <span id="innerDescription"></span>
+    </p>
+
+    <h3 style="text-align:center;"><strong>Content</strong></h3>
+    <p><span id="content"></span></p>
+  </form>
+
+  <!-- EDIT MODE -->
+  <form id="editForm" style="display:none;">
+    <input type="text" id="editTitle" placeholder="Title" />
+    <input type="text" id="editName" placeholder="Name" />
+
+    <textarea id="editDescription" placeholder="Description"></textarea>
+    <textarea id="editContent" placeholder="Content"></textarea>
+
+    <button type="button" id="saveBtn">Save</button>
+    <button type="button" id="cancelBtn">Cancel</button>
+  </form>
+
+</div>
+    <!-- Edit button on top -->
 
 </body>
 <script>
@@ -77,12 +235,15 @@ li{
     let logDataInfo = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
     let notesDataObj   = JSON.parse(localStorage.getItem(NOTES_KEY)) || [];
     let currentNotesObj = JSON.parse(localStorage.getItem(CURRENT_KEY)) || {};
-    console.log(currentNotesObj);
+    //dom
     let div = document.createElement("div");
+
     div.setAttribute('class',"card");
+    
     div.innerHTML = 
+    
     `
-      <div class="card">
+      <div class="card datainfo">
     <!-- Edit button on top -->
     <button class="btn edit-btn">Edit</button>
 
@@ -100,16 +261,96 @@ li{
     </div>
 
     `
+    
     document.body.appendChild(div);
+    
+    let likeBtn = document.querySelector('.like-btn');
+    let cardDiv = document.querySelector(".datainfo");
+
+    const title = document.getElementById("title");
+const name = document.getElementById("name");
+const noteId = document.getElementById("noteId");
+const innerDescription = document.getElementById("innerDescription");
+const content = document.getElementById("content");
+
+// EDIT DOM
+const viewForm = document.getElementById("viewForm");
+const editForm = document.getElementById("editForm");
+
+const editBtn = document.getElementById("editBtn");
+const saveBtn = document.getElementById("saveBtn");
+const cancelBtn = document.getElementById("cancelBtn");
+
+const editTitle = document.getElementById("editTitle");
+const editName = document.getElementById("editName");
+const editDescription = document.getElementById("editDescription");
+const editContent = document.getElementById("editContent");
+
+// RENDER VIEW
+function renderView() {
+  title.textContent = currentNotesObj.title;
+  name.textContent = currentNotesObj.name;
+  noteId.textContent = currentNotesObj.id;
+  innerDescription.textContent = currentNotesObj.description;
+  content.textContent = currentNotesObj.contantInput;
+}
+renderView();
+
+// EDIT BUTTON
+editBtn.addEventListener("click", () => {
+  editTitle.value = currentNotesObj.title;
+  editName.value = currentNotesObj.name;
+  editDescription.value = currentNotesObj.description;
+  editContent.value = currentNotesObj.contantInput;
+
+  viewForm.style.display = "none";
+  editForm.style.display = "block";
+});
+
+// SAVE BUTTON
+saveBtn.addEventListener("click", () => {
+  currentNotesObj.title = editTitle.value;
+  currentNotesObj.name = editName.value;
+  currentNotesObj.description = editDescription.value;
+  currentNotesObj.contantInput = editContent.value;
+
+  renderView();
+
+  editForm.style.display = "none";
+  viewForm.style.display = "block";
+});
+
+// CANCEL BUTTON
+cancelBtn.addEventListener("click", () => {
+  editForm.style.display = "none";
+  viewForm.style.display = "block";
+});
+    let isLike = true;
     function checkForLike(e) {
-        let id = currentNotesObj.id;
-        let updateLike = notesDataObj.filter(notes => notes.id == id);
-        let like = document.querySelector("#likes");
-        updateLike[0].like++;
-        currentNotesObj.like = updateLike[0].like; 
-        SaveDataC(currentNotesObj);
-        SaveData(notesDataObj);
-        like.innerHTML = updateLike[0].like;
+      let like = document.querySelector("#likes");
+      console.log(like.parentElement.disabled)
+      let id = currentNotesObj.id;
+      let updateLike = notesDataObj.filter(notes => notes.id == id);
+      switch (isLike){
+          case true:
+            updateLike[0].like++;
+            currentNotesObj.like = updateLike[0].like; 
+            SaveDataC(currentNotesObj);
+            SaveData(notesDataObj);
+            like.innerHTML = updateLike[0].like;
+            console.log('ture case',isLike)
+            isLike = false;
+            break;
+            default:
+            updateLike[0].like--;
+            currentNotesObj.like = updateLike[0].like; 
+            SaveDataC(currentNotesObj);
+            SaveData(notesDataObj);
+            like.innerHTML = updateLike[0].like;
+            console.log('false case',isLike)
+            isLike = true;
+            break;
+        }
     }
     function SaveDataC(obj){
         localStorage.setItem(CURRENT_KEY,JSON.stringify(obj))

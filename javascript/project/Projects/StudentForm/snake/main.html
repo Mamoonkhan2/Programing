@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Snake Game</title>
+</head>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    /* box-sizing: border-box; */
+    font-family: Arial, sans-serif;
+}
+
+body {
+    height: 100vh;
+    background: #111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
+.game-container {
+    text-align: center;
+    width: 100%;
+}
+
+h1 {
+    margin-bottom: 10px;
+}
+
+.score-board {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.game-board {
+    margin-left: 10px;
+    width:400px;
+    height:400px;
+    background: #000;
+    border: 4px solid #00ff88;
+    display: grid;
+    flex-wrap: wrap;
+    /* align-content: flex-start; */
+    grid-template-columns: repeat(auto-fill,minmax(30px,1fr));
+    grid-template-rows: repeat(auto-fill,minmax(30px,1fr));
+}
+
+/* Snake body */
+.snake {
+    background-color: #00ff88;
+    border-radius: 4px;
+}
+.block{
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    /* background-color: rgb(255, 10, 10); */
+    flex-shrink: 0;
+    /* flex-grow: 1; */
+    /* border: 1px solid blue;d */
+}
+/* Snake head */
+.snake-head {
+    background-color: #00cc6a;
+}
+
+/* Food */
+.food {
+    background-color: red;
+    border-radius: 50%;
+}
+
+.controls {
+    margin-top: 10px;
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+</style>
+<body id="main" onkeydown=" press(event)">
+
+<div class="game-container">
+    <h1>🐍 Snake Game</h1>
+
+    <div class="score-board">
+        Score: <span id="score">0</span>
+    </div>
+
+    <div class="game-board">
+        <!-- Snake & food will be added via JS later -->
+    </div>
+
+    <div class="controls">
+        <p>Use Arrow Keys ⬅️ ⬆️ ⬇️ ➡️</p>
+    </div>
+</div>
+
+</body>
+<script>
+    const scores = document.querySelector("#score");
+    const board = document.querySelector(".game-board");
+    const width =  30;
+    const height = 30;
+    const cols = Math.floor(board.clientWidth/width);
+    const rows = Math.floor(board.clientHeight/height);
+    let blocks = [];
+    let snake=[
+        {x:2,y:3},
+        // ((Math.random()*cols)+1)
+        // ((Math.random()*rows)+1)
+    ];
+    let score = 0;
+    // console.log(rows,cols)
+    let food = {x:Math.floor((Math.random()*rows)+1),y:Math.floor((Math.random()*cols)+1)};
+    for (let row = 0; row <rows; row++) {
+        for (let col = 0; col <cols; col++) {
+            let block = document.createElement('div');
+            block.classList.add('block');
+            board.appendChild(block);
+            blocks[`${row}-${col}`] = block;
+        }
+    }
+    let direction = undefined;
+    function press(e) {
+        console.log(e.key);
+        if(e.key==='w'){
+            direction = 'up'
+        }
+        else if(e.key=='a'){
+            direction ='left'
+        }
+        else if(e.key=='d'){
+            direction ='right'
+        }
+        else if(e.key=='s'){
+            direction ='down'
+        }
+        
+    }
+    function render() {
+        snake.forEach(block=>{
+            blocks[`${block.x}-${block.y}`].classList.add('snake-head');
+        })
+        
+    }
+    let interval = setInterval(()=>{
+        let head = null;
+        if(direction=='left'){        
+            head = {x:snake[0].x,y:snake[0].y-1};
+            if (head.x < 0 || head.y < 0 || head.x >= rows || head.y >= cols) {
+                alert("Game Over!");
+                clearInterval(interval);
+                score=0;
+                return
+                // Insert logic to stop the game loop here
+            }
+            else if(head.x == food.x && head.y == food.y){
+                snake.unshift(head);
+                blocks[`${food.x}-${food.y}`].classList.remove('food');
+                food = {x:Math.floor((Math.random()*rows)+1),y:Math.floor((Math.random()*cols)+1)};
+                blocks[`${food.x}-${food.y}`].classList.add('food');
+                score+=5;
+                scores.innerHTML = `${score}`
+            }
+            snake.unshift(head);
+            
+        }        
+        else if(direction=='right'){        
+            head = {x:snake[0].x,y:snake[0].y+1};
+            if (head.x < 0 || head.y < 0 || head.x >= rows || head.y >= cols) {
+                alert("Game Over!");
+                clearInterval(interval);
+                return
+                // Insert logic to stop the game loop here
+            }
+            else if(head.x == food.x && head.y == food.y){
+                snake.unshift(head);
+                blocks[`${food.x}-${food.y}`].classList.remove('food');
+                food = {x:Math.floor((Math.random()*rows)+1),y:Math.floor((Math.random()*cols)+1)};
+                blocks[`${food.x}-${food.y}`].classList.add('food');
+                score+=5;
+                scores.innerHTML = `${score}`
+                
+            }
+            snake.unshift(head);
+        }        
+        else if(direction=='up'){        
+            head = {x:snake[0].x-1,y:snake[0].y};
+            if (head.x < 0 || head.y < 0 || head.x >= rows || head.y >= cols) {
+                alert("Game Over!");
+                clearInterval(interval);
+                return
+                // Insert logic to stop the game loop here
+            }
+            else if(head.x == food.x && head.y == food.y){
+                snake.unshift(head);
+                blocks[`${food.x}-${food.y}`].classList.remove('food');
+                food = {x:Math.floor((Math.random()*rows)+1),y:Math.floor((Math.random()*cols)+1)};
+                blocks[`${food.x}-${food.y}`].classList.add('food');
+                score+=5;
+                scores.innerHTML = `${score}`
+                
+            }
+            snake.unshift(head);
+        }        
+        else if(direction == 'down'){        
+            head = {x:snake[0].x+1,y:snake[0].y};
+            if (head.x < 0 || head.y < 0 || head.x >= rows || head.y >= cols) {
+                alert("Game Over!");
+                clearInterval(interval);
+                return
+                // Insert logic to stop the game loop here
+            }
+            else if(head.x == food.x && head.y == food.y){
+                snake.unshift(head);
+                blocks[`${food.x}-${food.y}`].classList.remove('food');
+                food = {x:Math.floor((Math.random()*rows)+1),y:Math.floor((Math.random()*cols)+1)};
+                blocks[`${food.x}-${food.y}`].classList.add('food');
+                score+=5;
+                scores.innerHTML = `${score}`
+                
+            }
+            snake.unshift(head);
+        }        
+        
+        
+        
+        snake.forEach(block=>{
+            blocks[`${block.x}-${block.y}`].classList.remove('snake-head');
+        })
+        snake.pop();
+        blocks[`${food.x}-${food.y}`].classList.add('food');
+        render();
+    },300)
+</script>
+</html>
