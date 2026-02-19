@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p class="value"></p>
+    <button onclick="update()">update <span class="value"></span></button>
+    <button onclick="decrease()">decrease <span class="value"></span></button>
+    <p>footer <span class="value"></span></p>
+</body>
+<script>
+    let count = 5;
+    let countPara = document.querySelectorAll(".value");
+    countPara.forEach(element=>{
+        element.innerHTML = count        
+    })
+    function update(params) {
+        
+        count++
+        countPara.forEach(element=>{
+            element.innerHTML = count        
+        })
+
+    }
+    function decrease(params) {
+        
+        count--;
+        countPara.forEach(element=>{
+            element.innerHTML = count        
+        })
+
+    }
+
+</script>
+</html>

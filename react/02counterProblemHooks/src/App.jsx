@@ -1,27 +1,28 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
-  let counterValue = 5;
+ let [counterValue, setstate] = useState(5);
+  if(counterValue < 0){
+   setstate(0)
+  }else if(counterValue>10){
+    setstate(10)
+ }
   return (
     <>
-      <h1>Counter</h1>
+      <h1>Counter {counterValue}</h1>
        <h2>value {counterValue}</h2>
       <button
       onClick={()=>{
-        counterValue+=1;
-        console.log(counterValue)
 
+        setstate(++counterValue);
       }}
       >
         Update
       </button><br />
       <button
         onClick={()=>{
-          counterValue-=1;
-          console.log(counterValue)
+          setstate(--counterValue);
         }}
       >
         decrease
