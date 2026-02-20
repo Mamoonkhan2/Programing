@@ -11,19 +11,14 @@ function App() {
   return (
     <>
       <h1>Counter {counterValue}</h1>
-       <h2>value {counterValue}</h2>
+      <h2>value {counterValue}</h2>
       <button
-      onClick={()=>{
-
-        setstate(++counterValue);
-      }}
+      onClick={()=>setstate(++counterValue)}
       >
         Update
       </button><br />
       <button
-        onClick={()=>{
-          setstate(--counterValue);
-        }}
+        onClick={()=>setstate(--counterValue)}
       >
         decrease
       </button>
