@@ -5,12 +5,7 @@
   padding: 2rem;
   text-align: center;
 }
-*{
-  transition-duration: 1s;
-  transition-property: all;
-  transition-delay: 1s;
-  transition-timing-function: ease;
-}
+
 .logo {
   height: 6em;
   padding: 1.5em;
