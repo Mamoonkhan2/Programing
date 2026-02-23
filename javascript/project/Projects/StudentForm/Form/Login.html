@@ -30,9 +30,9 @@
     let uName = document.querySelector("#name")
     let uPassword = document.querySelector("#Password")
     let submit = document.querySelector(".Submit")
+    
     // loading data 
     let STORAGE_KEY = "StudentFormData"
-    let CurrentUser = JSON.parse(localStorage.getItem('CurrentUser')) || {};
     let AllUserData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
     // function
     function CheckUp() {
@@ -49,44 +49,36 @@
     }
     function UpdateData(e){
         e.preventDefault()
-        let check = CheckUp();
-        if(!check) return alert("empty field");
-        let checkName = AllUserData.some(userName =>userName.name == uName.value)
-        let checkPass = AllUserData.some(userPass =>userPass.password == uPassword.value)
         
-        console.log(uName.value);
-        console.log(uPassword.value);
-        console.log('asdfasdfas',checkName);
-        console.log('asdf',checkPass);
+        if (!CheckUp()) return alert("empty field");    
         
-        
-        
-        if(checkName && checkPass){
-            CurrentUser = AllUserData.filter(username => (username.name === uName.value));
-            alert("login succses ful");
-            console.log(CurrentUser[0].key)
-            setTimeout(()=>{
-                ClearEverything()
-                let loginuser = {
-                    key:CurrentUser[0].key,
-                    name:CurrentUser[0].name,
-                    password:CurrentUser[0].password,
-                    age:CurrentUser[0].age,
-                    src:CurrentUser[0].src,
-                    notes:CurrentUser[0].notes,
-                }
-                localStorage.setItem('CurrentUser',JSON.stringify(loginuser));
-                window.location.href = "../Home/home.html"
-            },500)
+        console.log("hello from bug");
+        let user = AllUserData.find(
+        u => u.name === uName.value && u.password === uPassword.value
+        );
+
+        if (!user) {
+        alert("Invalid username or password");
+        return;
         }
-        else if(!checkName){
-            alert("name Not found");
-            ClearEverything();
-        }
-        else {
-            alert("password not found");
-            uPassword.value = '';
-        }
+
+        alert("login successful");
+
+        let loginUser = {
+        key: user.key,
+        name: user.name,
+        age: user.age,
+        src: user.src,
+        notes: user.notes
+        };
+
+        // 🔥 STORE CURRENT USER (ONE PLACE ONLY)
+        localStorage.setItem('CurrentUser', JSON.stringify(loginUser));
+
+        setTimeout(() => {
+        ClearEverything();
+        window.location.href = "../Home/home.html";
+        }, 500);
     }
     // event listener
   function Switchcondition(nameValue) {

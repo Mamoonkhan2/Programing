@@ -206,6 +206,7 @@ li{
 
     <h3 style="text-align:center;"><strong>Content</strong></h3>
     <p><span id="content"></span></p>
+    <button class="btn like-btn" onclick="checkForLike()">Like <span id="likess"></span></button>
   </form>
 
   <!-- EDIT MODE -->
@@ -225,49 +226,21 @@ li{
 
 </body>
 <script>
-    // Keys
-    let STORAGE_KEY = "StudentFormData"
-    let CurrentUserKey = 'CurrentUser';
-    let NOTES_KEY  = "NOTESDATA"
-    const CURRENT_KEY = "CurrentNotes";
-    //loading Data
-    let userInfoObj = JSON.parse(localStorage.getItem('CurrentUser')) || [];
-    let logDataInfo = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-    let notesDataObj   = JSON.parse(localStorage.getItem(NOTES_KEY)) || [];
-    let currentNotesObj = JSON.parse(localStorage.getItem(CURRENT_KEY)) || {};
-    //dom
-    let div = document.createElement("div");
+// Keys
+let STORAGE_KEY = "StudentFormData"
+let CurrentUserKey = 'CurrentUser';
+let NOTES_KEY  = "NOTESDATA"
+const CURRENT_KEY = "CurrentNotes";
+//loading Data
+let userInfoObj = JSON.parse(localStorage.getItem('CurrentUser')) || [];
+let logDataInfo = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+let notesDataObj   = JSON.parse(localStorage.getItem(NOTES_KEY)) || [];
+let currentNotesObj = JSON.parse(localStorage.getItem(CURRENT_KEY)) || {};
 
-    div.setAttribute('class',"card");
-    
-    div.innerHTML = 
-    
-    `
-      <div class="card datainfo">
-    <!-- Edit button on top -->
-    <button class="btn edit-btn">Edit</button>
+let likeBtn = document.querySelector('.like-btn');
+let cardDiv = document.querySelector(".datainfo");
 
-    <h2 id="title">${currentNotesObj.title}</h2>
-    <p><strong>Name:</strong>${currentNotesObj.name} </p>
-    <p><strong>ID:</strong>${currentNotesObj.id}  </p>
-    <p><strong>Description:</strong> <span id="innerDescriptoin"> ${currentNotesObj.description} </span></p>
-    <div>
-        <h3 style="text-align: center;"><strong>Contant</strong></h3>
-        <p><span id="contant"> ${currentNotesObj.contantInput}</span></p>
-    </div>
-    <!-- Like Button -->
-    <button class="btn like-btn" onclick="checkForLike()">Like <span id="likes">${currentNotesObj.like}</span></button>
-  
-    </div>
-
-    `
-    
-    document.body.appendChild(div);
-    
-    let likeBtn = document.querySelector('.like-btn');
-    let cardDiv = document.querySelector(".datainfo");
-
-    const title = document.getElementById("title");
+const title = document.getElementById("title");
 const name = document.getElementById("name");
 const noteId = document.getElementById("noteId");
 const innerDescription = document.getElementById("innerDescription");
@@ -319,44 +292,65 @@ saveBtn.addEventListener("click", () => {
   editForm.style.display = "none";
   viewForm.style.display = "block";
 });
-
+saveBtn.addEventListener('click',(event)=>{
+  let editNote = {
+    name:currentNotesObj.name,
+    title:editTitle.value,
+    id:currentNotesObj.id,
+    key:currentNotesObj.key,
+    description:editDescription.value,
+    contantInput:editContent.value,
+    likedBy:currentNotesObj.likedBy,
+    like:currentNotesObj.like,
+  }
+  currentNotesObj={...editNote};
+  let note = notesDataObj.find(n => n.id === noteId);
+  console.log("hello world")
+})
 // CANCEL BUTTON
 cancelBtn.addEventListener("click", () => {
   editForm.style.display = "none";
   viewForm.style.display = "block";
 });
-    let isLike = true;
-    function checkForLike(e) {
-      let like = document.querySelector("#likes");
-      console.log(like.parentElement.disabled)
-      let id = currentNotesObj.id;
-      let updateLike = notesDataObj.filter(notes => notes.id == id);
-      switch (isLike){
-          case true:
-            updateLike[0].like++;
-            currentNotesObj.like = updateLike[0].like; 
-            SaveDataC(currentNotesObj);
-            SaveData(notesDataObj);
-            like.innerHTML = updateLike[0].like;
-            console.log('ture case',isLike)
-            isLike = false;
-            break;
-            default:
-            updateLike[0].like--;
-            currentNotesObj.like = updateLike[0].like; 
-            SaveDataC(currentNotesObj);
-            SaveData(notesDataObj);
-            like.innerHTML = updateLike[0].like;
-            console.log('false case',isLike)
-            isLike = true;
-            break;
-        }
-    }
-    function SaveDataC(obj){
-        localStorage.setItem(CURRENT_KEY,JSON.stringify(obj))
-    }
-    function SaveData(obj){
-        localStorage.setItem(NOTES_KEY,JSON.stringify(obj))
-    }
+const likeEl = document.querySelector("#likess");
+likeEl.innerHTML = currentNotesObj.like;
+let isLike = true;
+function checkForLike() {
+  event.preventDefault()
+  const userKey = currentNotesObj.key;
+  const noteId = currentNotesObj.id;
+
+  let note = notesDataObj.find(n => n.id === noteId);
+  if (!note) return;
+
+  note.likedBy = note.likedBy || [];
+
+  const hasLiked = note.likedBy.includes(userKey);
+
+  if (!hasLiked) {
+    // 👍 LIKE
+    note.like++;
+    note.likedBy.push(userKey);
+  } else {
+    // 👎 UNLIKE
+    note.like--;
+    note.likedBy = note.likedBy.filter(k => k !== userKey);
+  }
+
+  // Sync current note
+  currentNotesObj.like = note.like;
+  currentNotesObj.likedBy = note.likedBy;
+
+  SaveDataC(currentNotesObj);
+  SaveData(notesDataObj);
+
+  likeEl.innerHTML = note.like;
+}
+function SaveDataC(obj){
+    localStorage.setItem(CURRENT_KEY,JSON.stringify(obj))
+}
+function SaveData(obj){
+    localStorage.setItem(NOTES_KEY,JSON.stringify(obj))
+}
 </script>
 </html>

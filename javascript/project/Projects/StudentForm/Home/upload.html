@@ -83,11 +83,11 @@
     <form class="container">
         <img src="../img/clear.png" alt="Form Image">
 
-        <p class="error name-error" >name error</p>
+        <p class="error name-error" ></p>
         <input type="text" id="name" name="name" placeholder="Enter your name" required  onkeyup="validateName()">
-        <p class="error title-error">name error</p>
+        <p class="error title-error"></p>
         <input type="text" name="title" placeholder="Enter the title" required id="titl" onkeyup="validatetitle()">
-        <p class="error description-error">sdf</p>
+        <p class="error description-error"></p>
         <textarea 
         name="description" 
         id="description" 
@@ -96,7 +96,7 @@
         onkeyup="validateDescription()"
         ></textarea>
         <p id = 'charcount'></p>
-        <p class="error contant-error">name error</p>
+        <p class="error contant-error"></p>
         <textarea 
         name="content" 
         id="contant"
@@ -106,7 +106,7 @@
         onkeyup="validateContant()"
         ></textarea>
 
-        <p class="error submit-error">name error</p>
+        <p class="error submit-error"></p>
         <button type="submit" id="submit">Submit</button>
     </form>
 </div>
@@ -215,10 +215,6 @@
         
 
 
-        console.log(random[0]);
-        console.log(CurrentUserObj.notes);
-        console.log(AllUserData);
-        console.log(newNotesObj);
         NotesDataObj.push(newNotesObj);
         SaveData(NOTES_KEY,NotesDataObj);
         SaveData(CURRETN_USER_KEY,CurrentUserObj)
