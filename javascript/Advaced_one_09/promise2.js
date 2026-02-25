@@ -91,16 +91,16 @@
 // console.log("hello world");
 
 
-async function getAllUsers (){
-    try {
-        const response = await fetch('https://jsonplaceholder.typicode.com/users')
-        const data = await response.json()
-        data.forEach(users => {
-            console.log(users.id);
-        });
+// async function getAllUsers (){
+//     try {
+//         const response = await fetch('https://jsonplaceholder.typicode.com/users')
+//         const data = await response.json()
+//         data.forEach(users => {
+//             console.log(users.id);
+//         });
         
-    } catch (err) {
-        console.log(err);
-    }
-}
-getAllUsers()
+//     } catch (err) {
+//         console.log(err);
+//     }
+// }
+// getAllUsers()

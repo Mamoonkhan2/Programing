@@ -21,9 +21,8 @@
     let main = document.querySelector(".mai");
     let first = document.querySelector("#fir")
     let secound = document.querySelector("#sec")
-    let url = 'https://jsonplaceholder.typicode.com/todos/1'
     let senddata = (e) => {
-        const data = xmlrequest(url,"GET").then((resolve)=>{
+        const data = xmlrequest('https://jsonplaceholder.typicode.com/todos/1',"GET").then((resolve)=>{
            first.innerHTML = `
            <img src = "${resolve.avatar_url}">
            <h3>Account_Name : ${resolve.title}</h3>
@@ -43,9 +42,8 @@
       
         
 }
-    secound.addEventListener('click',senddata);
-    
-    
+
+
     function xmlrequest(url,methood) {
     
         const myFirstPromise = new Promise((resolve, reject) => {
@@ -55,7 +53,7 @@
         xhr.open(methood,url);
 
         xhr.responseType = 'json';
-
+        
         xhr.onload = ()=>{
             resolve(xhr.response)
             console.log(xhr.response);
@@ -74,6 +72,7 @@
     
     return myFirstPromise;
 }
+secound.addEventListener('click',senddata);
 
 
 </script>

@@ -66,7 +66,7 @@ promiseFour
 
 async function name() {
     let promiseFive = new Promise((res,rej)=>{
-            setTimeout(() => {
+        setTimeout(() => {
     
             let error = false
             if(error){
