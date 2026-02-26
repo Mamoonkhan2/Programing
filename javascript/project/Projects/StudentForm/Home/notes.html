@@ -293,6 +293,7 @@ saveBtn.addEventListener("click", () => {
   viewForm.style.display = "block";
 });
 saveBtn.addEventListener('click',(event)=>{
+  
   let editNote = {
     name:currentNotesObj.name,
     title:editTitle.value,
@@ -304,8 +305,12 @@ saveBtn.addEventListener('click',(event)=>{
     like:currentNotesObj.like,
   }
   currentNotesObj={...editNote};
-  let note = notesDataObj.find(n => n.id === noteId);
-  console.log("hello world")
+  const index = notesDataObj.findIndex(item => item.key == currentNotesObj.key)
+  notesDataObj[index] = currentNotesObj;
+  console.log(notesDataObj[index]);
+  SaveDataC(currentNotesObj);
+  SaveData(notesDataObj);
+
 })
 // CANCEL BUTTON
 cancelBtn.addEventListener("click", () => {

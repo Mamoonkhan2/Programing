@@ -96,7 +96,10 @@
             <div class="note-info">
                 <h4 class="note-title">${element.title}</h4>
                 <p class="note-likes">Likes: <span>${element.like}</span></p>
-                <p class="note-likes">Id: <span id="idis">${element.id}</span></p>
+                <button id="idis">
+                  <p style="display:none">${element.id}</p>
+                  Veiw
+                  </button>
             </div>
             `
             notesContainer.appendChild(div);
@@ -104,7 +107,7 @@
     });
     let idBtn = document.querySelector("#idis");
     idBtn.addEventListener("click",(e)=>{
-      let id = Number(idBtn.innerText)
+      let id = Number(idBtn.firstElementChild.innerHTML)
       let updateLike = notesDataObj.filter(notes => notes.id == id);
       localStorage.setItem("CurrentNotes", JSON.stringify(...updateLike));
       window.location.href = './notes.html';
