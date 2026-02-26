@@ -1,14 +1,21 @@
 
 function InputBox({
     label,
+    //for usergiven amount
     amount,
+    //for setting the amout
     setAmount,
+    //disabling feild
     amountDisabled=false,
     curencyDisabled=false,
+    // curenct selected curency
     currentCurency = 'usd',
+    // onchagning curency
     onCurencyChange,
-    curencyOptions = ["usd","pkr"],
-    className = "usd",
+    // for curency option
+    curencyOptions = [],
+    // for adding custom css 
+    className = "",
 }) {
    
 
@@ -23,6 +30,7 @@ function InputBox({
                     className="outline-none w-full bg-transparent py-1.5"
                     type="number"
                     placeholder="Amount"
+                    
                     value={amount}
                     disabled={amountDisabled}
                     onChange={(e)=> setAmount && setAmount(Number(e.target.value))}
