@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link,NavLink } from "react-router-dom";
 export default function Footer() {
     return (
         <footer className="bg-white border-y">
@@ -16,18 +16,39 @@ export default function Footer() {
                     <div className="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
                         <div>
                             <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">Resources</h2>
-                            <ul className="text-gray-500 font-medium">
-                                <li className="mb-4">
-                                    <Link to="/" className="hover:underline">
-                                        Home
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to="/about" className="hover:underline">
-                                        About
-                                    </Link>
-                                </li>
-                            </ul>
+                            <ul className=" text-black flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+                        <li>
+                            <NavLink
+                                to="" // Added missing path
+                                className={({ isActive }) => // Destructured isActive
+                                    `block py-2 pr-4 pl-3 duration-200 ${isActive ? "text-orange-700" : "text-black"} border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0`
+                                }
+                            >
+                                Home
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                to="/about" // Added missing path
+                                className={({ isActive }) => 
+                                    `duration-200 ${isActive ? "text-orange-700" : "text-black"} `
+                                }
+                            >
+                                About
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink
+                                to="/github" // Added missing path
+                                className={({ isActive }) => 
+                                    `${isActive ? "text-orange-700" : "text-black"} `
+                                }
+                            >
+                                Github
+                            </NavLink>
+                        </li>
+        
+                        </ul>
                         </div>
                         <div>
                             <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase">Follow us</h2>

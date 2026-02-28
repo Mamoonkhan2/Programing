@@ -1,30 +1,47 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-import Layout from './component/Layout' // Import your Layout component
-
-import './index.css'
-import Home from './component/Home'
-import About from './component/About/About'
-const route = createBrowserRouter([
-  {
-    path: "/",
-    element: <Layout />,
-    children: [
-      {
-        path: "", // This renders Home at the "/" path
-        element: <Home />
-      },
-      {
-        path: "about",
-        element: <About /> // Uncomment when ready
-      }
-    ]
-  }
-])
-
+import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
+import { About, GithubInfo, Home, Layout,Githubreturn } from './component'
+import "./index.css"
+import User from './component/User/User'
+// const route = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: <Layout />,
+//     children: [
+//       {
+//         path: "", // This renders Home at the "/" path
+//         element: <Home />
+//       },
+//       {
+//         path: "about",
+//         element: <About /> // Uncomment when ready
+//       }
+//     ]
+//   }
+// ])
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path='/' element={<Layout/>}>
+      <Route path='' element={<Home/>}
+  loader={()=>{
+    let data = {
+      name:"mamoonkhan",
+      age:50
+    }
+    return data
+  }}
+/>
+      <Route path='about' element={<About/>}/>
+      <Route 
+      loader={()=>Githubreturn()}
+      path='github' element={<GithubInfo/>}/>
+      <Route path='user/:userid' element={<User/>}/>
+    </Route>
+  )
+)
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={route} />
+    <RouterProvider router={router} />
   </StrictMode>,
 )
