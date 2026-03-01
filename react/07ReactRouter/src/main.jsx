@@ -3,7 +3,9 @@ import { createRoot } from 'react-dom/client'
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
 import { About, GithubInfo, Home, Layout,Githubreturn } from './component'
 import "./index.css"
+import Login from './component/Login'
 import User from './component/User/User'
+import UserContextProvider from './Context/UserContextProvider'
 // const route = createBrowserRouter([
 //   {
 //     path: "/",
@@ -37,11 +39,14 @@ const router = createBrowserRouter(
       loader={()=>Githubreturn()}
       path='github' element={<GithubInfo/>}/>
       <Route path='user/:userid' element={<User/>}/>
+      <Route path='login' element={<Login/>}/>
     </Route>
   )
 )
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+    <UserContextProvider>
     <RouterProvider router={router} />
+    </UserContextProvider>
   </StrictMode>,
 )
