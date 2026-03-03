@@ -1,12 +1,13 @@
 import './App.css'
-import Login from './Compunent/Login'
-import Profile from './Compunent/Profile'
 import UserContextProvider from './Context/UserContextProvider'
+import Login from './Compunent/Login.jsx'
+import Profile from './Compunent/Profile.jsx'
 function App() {
 
   return (
     <>
-      <UserContextProvider/>
+    <Login/>
+    <Profile/>
     </>
   )
 }

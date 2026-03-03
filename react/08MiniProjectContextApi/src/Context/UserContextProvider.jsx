@@ -1,14 +1,12 @@
 import React, { useState } from 'react'
 import UserContext from './UserContext'
-import Login from '../Compunent/Login';
-import Profile from '../Compunent/Profile';
-
-function UserContextProvider() {
-  const [User, setUser] = useState(null);
+import Login from "../Compunent/Login.jsx"
+import Profile from "../Compunent/Profile.jsx"
+function UserContextProvider({Children}) {
+  const [User, setUser] = useState({name:"fuck you"});
   return (
    <UserContext.Provider value={{User,setUser}}>
-    <Login/>
-    <Profile/>
+   {Children}
    </UserContext.Provider>
   )
 }
