@@ -1,21 +1,60 @@
+import { useEffect, useState } from 'react'
 import './App.css'
 import TodoForm from './Compunent/TodoForm'
+import { TodoProvider } from './Context/TodoContext'
+import TodoItem from './Compunent/TodoItem'
+const TODO_KEY = "TODOLIST"
 function App() {
+    const [todos, setTodos] = useState([{id:Date.now(),todo:"dsadf",completed:false  }])
 
-  return (
-    <>
- <div className="bg-[#172842] min-h-screen py-8">
+    const addTodo = (todo) => {
+        setTodos(prev => [...prev,{id:Date.now(),...todo}] )
+    }
+   
+    const deleteTodo = (id) => {
+        setTodos(prev => prev.filter(todos => todos.id != id))
+    }
+   
+    const updateTodoMsg = (id,todo) => {
+        setTodos(prev => 
+            prev.map(todoObj => (todoObj.id === id ? {...todoObj,todo} : todoObj) )
+        )
+    }
+   
+    const toggleCompleted = (id) => {
+        setTodos(prev => (prev.map( obj => ( obj.id === id ? {...obj,completed:!obj.completed} : obj ) )))
+    }
+    
+    useEffect(() => {
+        const storedTodos = JSON.parse(localStorage.getItem(TODO_KEY));
+        if (storedTodos && storedTodos.length > 0) {
+            setTodos(storedTodos);
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem(TODO_KEY, JSON.stringify([ ...todos]));
+    }, [todos])
+
+    return (
+    <TodoProvider value={{todos,addTodo,deleteTodo,toggleCompleted,updateTodoMsg}}>
+        <div className="bg-[#172842] min-h-screen py-8">
                 <div className="w-full max-w-2xl mx-auto shadow-md rounded-lg px-4 py-3 text-white">
                     <h1 className="text-2xl font-bold text-center mb-8 mt-2">Manage Your Todos</h1>
                     <div className="mb-4">
                         <TodoForm/>
                     </div>
                     <div className="flex flex-wrap gap-y-3">
-                        {/*Loop and Add TodoItem here */}
+                    {todos.map(todo => (
+                        <div className='w-full'>
+
+                            <TodoItem key={todo.id} todo={todo}/>
+                        </div>
+                            ))}    
                     </div>
                 </div>
             </div>
-    </>
+    </TodoProvider>
   )
 }
 
