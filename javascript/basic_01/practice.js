@@ -1,3 +1,32 @@
-let Aboolean = 1; // string convertion dt string | '1' number converstion number | 1 boolean converstion boolean | true
-let Bboolean = "helo";// number --> Nan  boolean --> true;
-let cboolean = '' ; // number --> Nan   boolean --> false;
+const account = [{
+	name:"fuckyou:",
+	isVeg:true
+},
+{
+	name:"fuckyou:1",
+	isVeg:false
+},
+{
+	name:"fuckyou:2",
+	isVeg:true
+	
+}
+,
+{
+	name:"fuckyou:3",
+	isVeg:false
+	
+}
+]
+
+let reduceM = account.reduce((detail,item)=>{
+	const category = item.isVeg ? 'veg' : 'nonveg' ;
+	console.log(category)
+	detail[category].push(item.name)
+	return detail
+},{
+	veg:[],
+	nonveg:[]
+})
+
+console.log(reduceM)
