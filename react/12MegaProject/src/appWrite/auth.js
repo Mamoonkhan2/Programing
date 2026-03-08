@@ -1,15 +1,18 @@
-import conf from '../conf'
+import conf from '../conf/confi'
 import { Account , ID, Client } from 'appwrite'
 
 
-export class AppriteService {
-    client = new Client()
+class AppriteService {
+    client;
     account;
     constructor(){
+   this.client = new Client(); // Initialize client here
         this.client
             .setEndpoint(conf.apiUrl)
-            .setProject(conf.projectId)
-        this.account(this.client)
+            .setProject(conf.projectId);
+        
+        // Initialize this.account as an instance of the Appwrite Account service
+        this.account = new Account(this.client); 
     }
     async createAcount({email,password,name}){
         try {
@@ -56,5 +59,5 @@ export class AppriteService {
         }
     }
 };
-const appriteService = new AppriteService();
-export default  appriteService;
+const service = new AppriteService();
+export default service;
