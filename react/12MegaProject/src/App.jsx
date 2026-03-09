@@ -1,6 +1,6 @@
 import { useState,useEffect } from 'react';
 import {  useDispatch} from 'react-redux';
-import service from './appWrite/auth'
+import {service} from './appWrite/auth'
 import {Login,LogOut} from './store/authSlice'
 import {Header,Footer} from './compounents'
 import {Outlet} from 'react-router-dom'
@@ -11,7 +11,7 @@ function App() {
   const dispatch = useDispatch()
   
   useEffect(() => {
-    service.CurrentUSer()
+    service.CurrentUser()
     .then((userData)=>{
       console.log('error in App.jsx useeffect appwriteservice',userData)
       if(userData){

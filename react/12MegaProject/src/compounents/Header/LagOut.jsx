@@ -1,13 +1,13 @@
 import React from 'react'
 import  { useDispatch } from 'react-redux';
-import { LagOut  } from '../../store/authSlice';
-import {service} from '../../appWrite/auth'
+import { LogOut  } from '../../store/authSlice';
+import { service } from '../../appWrite/auth'
 function Lagout() {
     const dispatch = useDispatch()
     const HandleClick = ()=>{
         service.LogoutUser()
         .then(()=>{
-            dispatch(LagOut());
+            dispatch(LogOut());
         })
         .catch((e)=>{
             console.log('error in LagOut.jsx',e)

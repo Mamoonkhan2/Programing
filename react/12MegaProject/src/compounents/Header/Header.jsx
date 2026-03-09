@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import {Container}  from '..';
+import {Container}  from '../index';
 import Lagout from './LagOut';
 function Header() {
   let navigate = useNavigate();

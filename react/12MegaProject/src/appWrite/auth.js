@@ -2,7 +2,7 @@ import conf from '../conf/confi'
 import { Account , ID, Client } from 'appwrite'
 
 
-class AppriteService {
+export class AppriteService {
     client;
     account;
     constructor(){
@@ -41,7 +41,7 @@ class AppriteService {
             throw error;
         }
     }
-    async CurrentUSer(){
+    async CurrentUser(){
         try{
             return await this.account.get();
         }
@@ -59,5 +59,4 @@ class AppriteService {
         }
     }
 };
-const service = new AppriteService();
-export default service;
+export const service = new AppriteService();

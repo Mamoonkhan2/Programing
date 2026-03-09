@@ -1,0 +1,82 @@
+import React from 'react'
+import {Logo,InputBtn,Button} from './index'
+import { service } from '../appWrite/auth'
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useForm } from 'react-hook-form';
+import { Login as authLogin } from '../store/authSlice';
+function Login() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { register, handleSubmit } = useForm();
+
+  const [error,seterror] = React.useState('');
+    const handleLogin = async (userdata) => {
+        try {
+            seterror('');
+            const session = await service.LoginUser(userdata)
+            if (session) {
+                const user = await service.CurrentUser();
+                if (user) {
+                    dispatch(authLogin(user));
+                }
+                navigate('/');
+            }
+        } catch (error) {
+            console.error('Login failed:', error);
+            seterror('Login failed. Please try again.');
+        }
+    }
+        return (
+            <div
+            className='flex items-center justify-center w-full' 
+            >
+                <div  className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}>
+                     <div className="mb-2 flex justify-center">
+                        <span className="inline-block w-full max-w-25">
+                            <Logo width="100%" />
+                        </span>
+                    </div>
+                </div>
+                <h1>Sign in And Create New account</h1>
+                <p>
+                    dont have an account? 
+                    <span className='font-medium text-primary transition-all duration-200 hover:underline' onClick={()=>navigate('/signup')}>
+                        Sign up
+                    </span>
+                </p>
+                {error && <p className='text-red-500'>{error}</p>}
+                <form onSubmit={handleSubmit(handleLogin)}>
+                    <InputBtn
+                        label="Email: "
+                        type="email"
+                        placeholder='Enter your email'
+                        className='mb-4'
+                        name='email'
+                        {...register('email',{ 
+                            required: true,
+                           matchPatern: (value) => /^\w+([-] \w+)*@\w+([-]?\w+)*(\.\w{2,3})+$/
+                                                    .test(value) || "Email address must be a valid address"
+
+                         })}  
+                    />
+                    <InputBtn
+                       label="Password: "
+                        type="password"
+                        placeholder='Enter your password'
+                        className='mb-4'
+                        name='password'
+                        
+                    />
+                    <Button
+                        type='submit'
+                        classname='w-full'
+                    >
+                        Sign in
+                    </Button>
+                </form>
+            </div>
+        )
+     }
+
+export default Login

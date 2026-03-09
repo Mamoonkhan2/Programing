@@ -1,5 +1,12 @@
 import Header from './Header/Header'
 import Footer from './Footer/Footer'
-import Contaner from './Container/Container'
+import Container from './Container/Container'
 import Logo from './Logo'
-export {Header,Footer,Contaner,Logo}
+import InputBtn from './InputBtn'
+import Login from './Login'
+import Select from './Select'
+import Button from './Button'
+import PostCard from './PostCard'
+import SignUp from './SignUp'
+
+export {Header,Footer,Container,Logo,InputBtn,Login,Select,Button,PostCard,SignUp}
