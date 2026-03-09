@@ -22,6 +22,7 @@ function App() {
       }
     })
     .catch((e)=>{
+      console.log('error in App.jsx useeffect appwriteservice',e)
     })
     .finally(()=>{
       setloading(false)
