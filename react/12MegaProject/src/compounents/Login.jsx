@@ -13,14 +13,15 @@ function Login() {
     const handleLogin = async (data) => {
         setError('');
         try {
-            const response = await service.LoginUser(data)
+            const response = await service.LoginUser(data);
             if(response){
-                const user = await service.getCurrentUser();
+                const user = await service.CurrentUser();
                 if (user) dispatch(authLogin(user));
                 navigate('/');
             }
         } catch (error) {
             setError("Login failed. Please try again.", error.message);
+            throw error;
         }
     }
         return (

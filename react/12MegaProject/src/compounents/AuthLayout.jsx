@@ -15,8 +15,7 @@ function AuthLayout({children,authentication=true}) {
         }
         setloading(false)
     },[status,authentication,navigate])
-    if(loading) return (<Loader/>)
-    else return ({children})
+    loading ? <Loader/> : <>{children}</> 
 }
 
 export default AuthLayout
