@@ -29,8 +29,11 @@ export class AppriteService {
             throw e;
         }
     }
+
     async LoginUser({email,password}){
         try {
+            // will check for the accoutnt and then if it exist it will create a session for the user
+            // and return the session data
             return await this.account.createEmailPasswordSession(
                email,
                password
@@ -42,6 +45,7 @@ export class AppriteService {
         }
     }
     async CurrentUser(){
+        // it will give the current user data if the user is logged in otherwise it will throw an error
         try{
             return await this.account.get();
         }

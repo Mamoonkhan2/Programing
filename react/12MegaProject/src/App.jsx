@@ -2,7 +2,7 @@ import { useState,useEffect } from 'react';
 import {  useDispatch} from 'react-redux';
 import {service} from './appWrite/auth'
 import {Login,LogOut} from './store/authSlice'
-import {Header,Footer} from './compounents'
+import {Header,Footer, Loader} from './compounents'
 import {Outlet} from 'react-router-dom'
 import './App.css'
 
@@ -25,7 +25,9 @@ function App() {
       console.log('error in App.jsx useeffect appwriteservice',e)
     })
     .finally(()=>{
-      setloading(false)
+        setTimeout(() => {
+          setloading(false)
+        }, 1000);
     })
   },[])
   // loading ?  (
@@ -41,7 +43,11 @@ function App() {
   // )  
   // : <h1 className='text-4xl'>Loading...</h1>
   if(loading){
-    return <h1 className='text-4xl'>Loading...</h1>
+    return (
+      <div className='h-screen bg-gray-500 flex content-between  justify-center items-center '>
+        <Loader/>
+      </div >
+    )
   }
   return (
     <div className='min-h-screen bg-gray-500 flex flex-wrap content-between justify-center '>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-function PostCard({$id,title,featureImage}) {
+function PostCard({$id,title,featureImage}) { // featureImage it is the name of the field in the database that contains the URL of the image
 
   return (
     <Link to={`/post/${$id}`} className='border border-gray-300 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow duration-300'>

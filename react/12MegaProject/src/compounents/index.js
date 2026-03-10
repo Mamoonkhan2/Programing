@@ -8,5 +8,9 @@ import Select from './Select'
 import Button from './Button'
 import PostCard from './PostCard'
 import SignUp from './SignUp'
+import Loader from './Loader'
+import AuthLayout from './AuthLayout'
 
-export {Header,Footer,Container,Logo,InputBtn,Login,Select,Button,PostCard,SignUp}
+export {
+    Header,Footer,Container,Logo,InputBtn,Login,Select,Button,PostCard,SignUp,Loader,AuthLayout
+}

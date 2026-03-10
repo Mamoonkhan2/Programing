@@ -6,25 +6,21 @@ import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { Login as authLogin } from '../store/authSlice';
 function Login() {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { register, handleSubmit } = useForm();
-
-  const [error,seterror] = React.useState('');
-    const handleLogin = async (userdata) => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const { register, handleSubmit } = useForm();
+    const [error, setError] = React.useState(null);
+    const handleLogin = async (data) => {
+        setError('');
         try {
-            seterror('');
-            const session = await service.LoginUser(userdata)
-            if (session) {
-                const user = await service.CurrentUser();
-                if (user) {
-                    dispatch(authLogin(user));
-                }
+            const response = await service.LoginUser(data)
+            if(response){
+                const user = await service.getCurrentUser();
+                if (user) dispatch(authLogin(user));
                 navigate('/');
             }
         } catch (error) {
-            console.error('Login failed:', error);
-            seterror('Login failed. Please try again.');
+            setError("Login failed. Please try again.", error.message);
         }
     }
         return (
