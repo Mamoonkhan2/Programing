@@ -7,11 +7,13 @@ import { BrowserRouter, createBrowserRouter, createRoutesFromElements, Route, Ro
 import { Provider } from 'react-redux'
 import store from './Store/store.js'
 import Home from './compunents/Home.jsx'
+import ControllerT from './compunents/ControllerT.jsx'
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<App/>}>
-      <Route path='/'     element={<Home/>} />
+      <Route path=''     element={<Home/>} />
       <Route path='/singup'     element={<SignUp/>} />
+      <Route path='/cont'     element={<ControllerT/>} />
     </Route>
 
   )

@@ -56,15 +56,16 @@ function Input() {
             // setValue("conformPass", result);
             // console.log(result)
             return result; 
-    },[])
+        },[])
     useEffect(( )=>{
-     const values = watch((value, { name, type }) => {
-    // 'value' contains all form values
-    // 'name' is the field that triggered the change
-    if (name === 'conformPass') {
-      setValue('password',fun(value.conformPass))
-    }
-  });
+        const values = watch((value, { name, type }) => {
+        // 'value' contains all form values
+        // 'name' is the field that triggered the change
+        if (name === 'conformPass') {
+          setValue('password',fun(value.conformPass))
+        }
+      });
+      return values.unsubscribe
     },[watch()])
     return (
       <>

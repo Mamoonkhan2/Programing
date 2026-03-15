@@ -3,62 +3,60 @@ import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { appConfig } from '../../appWrite/config';
 import { useForm } from 'react-hook-form';
-
+import Button from '../Button';
+import Select from '../Select';
 function PostForm({post}) {
-
-    const navigate = useNavigate()
-    const userData = useSelector(state=>state.auth.userData);
-    const {register,handleSubmit,watch,control,setValue,} = useForm({
+    const navigate = useNavigate();
+    const {register,handleSubmit,setValue,getValues,control} = useForm({
         defaultValues:{
-            id:post?.$id||'',
-            title:post?.title||'',
-            contant:post?.contant||'',
-            status:post?.status||'',
-            slug:post?.slug || ''
+            title:post?.title||"",
+            content:post?.content||"",
+            status:post?.status||"Active",
+            featureImage:post?.featureImage||"",
+            slug:post?.slug||"",
         }
-    })
+    });
+    const userData = useSelector((state)=>state.auth.userData);
     const submit = async (data)=>{
         if(post){
-            const file = data.image[0] ?  appConfig.uploadFile(data.image[0]) : null;
-            if(file){
-                appConfig.deleteFile(post.image[0])
+            const imageUpdate = data.image[0] ? await appConfig.uploadFile(data.image[0]) : null   ;
+            if(imageUpdate){
+                appConfig.deleteFile(post.featureImage);
             }
-            const dbupdateimage = await appConfig.updateFile(data.$id,{
-                ...data,
-                featureImage: file ? file.$id : undefined
-            })
-            if(dbupdateimage) navigate(`/post/${dbupdateimage.$id}`)
-        }else{
-            const uploadImage = await appConfig.uploadFile(data.image[0])
-            if(uploadImage){
-            const fileId = uploadImage.$id;
-            data.featureImage = fileId;
-            const updatePost = await appConfig.createTable({
-                ...data,
-                slug:userData.$id,
-            })
-            if(updatePost) navigate(`post/${updatePost.$id}`)}
+            const updatePost = await appConfig.updatePost(post.$id,{...data,featureImage:imageUpdate?.$id?imageUpdate.$id:undefined});
+            if(updatePost) navigate(`/post/${updatePost.slug}`);
+        }
+        else{
+            const imageUpload = await appConfig.uploadFile(data.image[0]);
+            if(imageUpload){
+                const fileId = imageUpload.$id;
+                data.featureImage = fileId;
+                const createPost = await appConfig.createTable({...data,UserId:userData.$id});
+                if(createPost) navigate(`/post/${createPost.$id}`);
+            }
         }
     }
-    const slugTransform = useCallback((value)=>{
-            if (value && typeof value === 'string')
+     const slugTransform = useCallback((value) => {
+        if (value && typeof value === "string")
             return value
-            .trim()
-            .toLowerCase()
-            .replace(/^[a-zA-Z\d\s]+/g, '-')
-            .replace(/\s/g, '-')
-            return " "  
-    },[])
-    useEffect(()=>{
-        const { unsubscribe } = watch((value,{name}) =>{
-            if (name=="title") {
-                setValue('slug',slugTransform(value.title))
+                .trim()
+                .toLowerCase()
+                .replace(/[^a-zA-Z\d\s]+/g, "-")
+                .replace(/\s/g, "-");
+
+        return "";
+    }, []);
+
+    useEffect(() => {
+        const subscription = watch((value, { name }) => {
+            if (name === "title") {
+                setValue("slug", slugTransform(value.title), { shouldValidate: true });
             }
-        return () => unsubscribe();
-        }
-        )
-    },[watch,slugTransform,setValue])
-    return (
+        });
+
+        return () => subscription.unsubscribe();
+    }, [watch, slugTransform, setValue]);
+ return (
         <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
             <div className="w-2/3 px-2">
                 <Input
@@ -89,7 +87,7 @@ function PostForm({post}) {
                 {post && (
                     <div className="w-full mb-4">
                         <img
-                            src={appwriteService.getFilePreview(post.featuredImage)}
+                            src={appConfig.getFilePreview(post.featuredImage)}
                             alt={post.title}
                             className="rounded-lg"
                         />

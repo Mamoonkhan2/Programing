@@ -4,6 +4,11 @@ import { createSlice } from "@reduxjs/toolkit"
 const initialState = {
     status:false,
     userData:{},
+    post:{
+        title:"Live Preview",
+        name:"<h1>Live Preview</h1><p>Start typing...</p>",
+        contant:"<h1>Live Preview</h1><p>Start typing...</p>"
+    },
 }
 
 const signupSlice = createSlice({
@@ -20,10 +25,18 @@ const signupSlice = createSlice({
             state.userData = {};
             state.status = false;
             
+        },
+        setPost(state,action){
+            const {name,title,content} = action.payload
+            state.post.name = name;
+            state.post.title = title;
+            state.post.content = content;
+            console.log(state.post)
         }
+
     }
 })
 
-export const {setUser,setLagOut} = signupSlice.actions
+export const {setUser,setLagOut,setPost} = signupSlice.actions
 
 export default signupSlice.reducer
