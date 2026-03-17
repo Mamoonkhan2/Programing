@@ -1,6 +1,6 @@
 // now will create acount for user to sign up and then will create a login page for user to login and then will create a dashboard for user to see their profile and then will create a logout button for user to logout
 import React, { useState } from 'react'
-import {Button, InputBtn} from './index'
+import {Button, InputBtn,Logo} from './index'
 import { useNavigate } from 'react-router-dom'
 import {Login as storeLogin} from '../store/authSlice'
 import { useDispatch } from 'react-redux'
@@ -14,6 +14,7 @@ function SignUp() {
     const {register, handleSubmit} = useForm();
 
     const handleSignUp = async (userdata) => {
+        console.log(userdata)
         setError('');
         try {
             const user = await service.createAcount(userdata);

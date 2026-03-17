@@ -10,7 +10,8 @@ import PostCard from './PostCard'
 import SignUp from './SignUp'
 import Loader from './Loader'
 import AuthLayout from './AuthLayout'
-
+import PostForm from './Post-Form/PostForm'
+import RTC from './RTC'
 export {
-    Header,Footer,Container,Logo,InputBtn,Login,Select,Button,PostCard,SignUp,Loader,AuthLayout
+    RTC,Header,Footer,Container,Logo,InputBtn,Login,Select,Button,PostCard,SignUp,Loader,AuthLayout,PostForm
 }

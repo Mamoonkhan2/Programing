@@ -8,56 +8,45 @@ import './App.css'
 
 function App() {
   const [loading, setloading] = useState(true);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   
   useEffect(() => {
     service.CurrentUser()
-    .then((userData)=>{
-      console.log('error in App.jsx useeffect appwriteservice',userData)
-      if(userData){
-        dispatch(Login(userData));
-      }
-      else{
+      .then((userData) => {
+        if (userData) {
+          dispatch(Login(userData));
+        } else {
+          dispatch(LogOut());
+        }
+      })
+      .catch((e) => {
+        console.error('Session check failed:', e);
         dispatch(LogOut());
-      }
-    })
-    .catch((e)=>{
-      console.log('error in App.jsx useeffect appwriteservice',e)
-    })
-    .finally(()=>{
-        setTimeout(() => {
-          setloading(false)
-        }, 1000);
-    })
-  },[])
-  // loading ?  (
-  //   <h1>hello</h1>
-  //   // <div className='min-h-screen bg-gray-500 flex flex-wrap content-between '>
-  //   //   <h1>hello</h1>
-  //   //   <div className='w-full block'>
-  //   //     <Header/>
-  //   //     Todo:{/* <Outlet/> */}
-  //   //     <Footer/>
-  //   //   </div>
-  //   // </div>
-  // )  
-  // : <h1 className='text-4xl'>Loading...</h1>
-  if(loading){
+      })
+      .finally(() => {
+        setloading(false);
+      });
+  }, [dispatch]);
+
+  if (loading) {
     return (
-      <div className='h-screen bg-gray-500 flex content-between  justify-center items-center '>
-        <Loader/>
-      </div >
-    )
+      <div className='h-screen bg-gray-500 flex justify-center items-center'>
+        <Loader />
+      </div>
+    );
   }
+
   return (
-    <div className='min-h-screen bg-gray-500 flex flex-wrap content-between justify-center '>
-      <div className='w-min block'>
-        <Header/>
-        <Outlet/>
-        <Footer/>
+    <div className='min-h-screen bg-gray-500 flex flex-wrap content-between'>
+      <div className='w-full block'> {/* Changed w-min to w-full */}
+        <Header />
+        <main>
+          <Outlet />
+        </main>
+        <Footer />
       </div>
     </div>
-  )
+  );
 }
 
 

@@ -1,8 +1,10 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import {Container}  from '../index';
+import {Container,Logo}  from '../index';
+import { Link,NavLink } from 'react-router-dom';
 import Lagout from './LagOut';
+
 function Header() {
   let navigate = useNavigate();
   let authStatus = useSelector((state)=>state.auth.status);
@@ -55,7 +57,7 @@ function Header() {
             )}
             {authStatus && (
               <li>
-                <LogoutBtn />
+                <Lagout />
               </li>
             )}
           </ul>

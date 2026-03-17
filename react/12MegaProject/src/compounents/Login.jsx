@@ -11,9 +11,10 @@ function Login() {
     const { register, handleSubmit } = useForm();
     const [error, setError] = React.useState(null);
     const handleLogin = async (data) => {
+        console.log(data)
         setError('');
         try {
-            const response = await service.LoginUser(data);
+            const response = await service.LoginUser({...data});
             if(response){
                 const user = await service.CurrentUser();
                 if (user) dispatch(authLogin(user));
@@ -63,6 +64,7 @@ function Login() {
                         placeholder='Enter your password'
                         className='mb-4'
                         name='password'
+                        {...register('password')}
                         
                     />
                     <Button

@@ -1,22 +1,26 @@
 import React, { useCallback, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { appConfig } from '../../appWrite/config';
+import appConfig from '../../appWrite/config';
 import { useForm } from 'react-hook-form';
 import Button from '../Button';
 import Select from '../Select';
+import { InputBtn as Input,RTC } from '..';
+
 function PostForm({post}) {
+    
     const navigate = useNavigate();
-    const {register,handleSubmit,setValue,getValues,control} = useForm({
+    const {register,reset,handleSubmit,setValue,getValues,control,watch} = useForm({
         defaultValues:{
-            title:post?.title||"",
-            content:post?.content||"",
-            status:post?.status||"Active",
+            title:post?.title,
+            contant:post?.contant,
+            status:post?.status,
             featureImage:post?.featureImage||"",
-            slug:post?.slug||"",
+            slug:post?.$id ||"",
         }
     });
     const userData = useSelector((state)=>state.auth.userData);
+
     const submit = async (data)=>{
         if(post){
             const imageUpdate = data.image[0] ? await appConfig.uploadFile(data.image[0]) : null   ;
@@ -24,14 +28,14 @@ function PostForm({post}) {
                 appConfig.deleteFile(post.featureImage);
             }
             const updatePost = await appConfig.updatePost(post.$id,{...data,featureImage:imageUpdate?.$id?imageUpdate.$id:undefined});
-            if(updatePost) navigate(`/post/${updatePost.slug}`);
+            if(updatePost) navigate(`/post/${updatePost.$id}`);
         }
         else{
             const imageUpload = await appConfig.uploadFile(data.image[0]);
             if(imageUpload){
                 const fileId = imageUpload.$id;
                 data.featureImage = fileId;
-                const createPost = await appConfig.createTable({...data,UserId:userData.$id});
+                const createPost = await appConfig.createTable({...data,UserId:userData.$id,contant:data.contant});
                 if(createPost) navigate(`/post/${createPost.$id}`);
             }
         }
@@ -46,7 +50,16 @@ function PostForm({post}) {
 
         return "";
     }, []);
-
+    useEffect(() => {
+        if (post) {
+            reset({
+                title: post.title,
+                slug: post.$id,
+                contant: post.contant,
+                status: post.status,
+            });
+        }
+    }, [post, reset]);
     useEffect(() => {
         const subscription = watch((value, { name }) => {
             if (name === "title") {
@@ -74,7 +87,7 @@ function PostForm({post}) {
                         setValue("slug", slugTransform(e.currentTarget.value), { shouldValidate: true });
                     }}
                 />
-                <RTE label="Content :" name="content" control={control} defaultValue={getValues("content")} />
+                <RTC label="Content :" name="contant" control={control} defaultValue={getValues("contant")} />
             </div>
             <div className="w-1/3 px-2">
                 <Input
@@ -83,11 +96,12 @@ function PostForm({post}) {
                     className="mb-4"
                     accept="image/png, image/jpg, image/jpeg, image/gif"
                     {...register("image", { required: !post })}
+                    
                 />
                 {post && (
                     <div className="w-full mb-4">
                         <img
-                            src={appConfig.getFilePreview(post.featuredImage)}
+                            src={appConfig.getFilePreview(post.featuredImage?post.featureImage:null)}
                             alt={post.title}
                             className="rounded-lg"
                         />
