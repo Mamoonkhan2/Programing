@@ -19,7 +19,7 @@ const router = createBrowserRouter(
       <Route path='/post/:slug' element={<Post />} />
       <Route path='/add-post' element={<AddPost />} />
       <Route path='/all-posts' element={<AllPost />}/>
-      <Route path='/signup' element={<SingUPPage />}/>
+      <Route path='/signup' element={()=><SingUPPage />}/>
       <Route path='/login' element={<LoginPage />}/>
       <Route path='/edit-post/:slug' element={<EditPost/>}/>
     </Route>
@@ -28,9 +28,7 @@ const router = createBrowserRouter(
 createRoot(document.getElementById('root')).render(
     <StrictMode>
       <Provider store={store}>
-        <RouterProvider router={router} >
-                <App/>
-        </RouterProvider>
+        <RouterProvider router={router} />
       </Provider>
     </StrictMode>,
 )
