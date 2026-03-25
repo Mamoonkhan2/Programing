@@ -6,7 +6,7 @@ function UserContextProvider({Children}) {
   const [User, setUser] = useState({name:"fuck you"});
   return (
    <UserContext.Provider value={{User,setUser}}>
-   {Children}
+      {Children}
    </UserContext.Provider>
   )
 }

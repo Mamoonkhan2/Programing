@@ -14,6 +14,7 @@ void printVector(vector<int> nums)
     }
     cout << endl;
 }
+
 bool student(vector<int> vec, int allowed, int student)
 {
     int ss = 1;
@@ -48,9 +49,29 @@ int main()
     // for (int i = 2; i < sqrt(n); i++) {
     //     if (n % i == 0) {
     //         cout << "it is not a prime number" << endl;
-    //         return 0;
+    //         return "not aprime";
     //     }
     // }
+    // int number;
+    // cout << "enter something which matter ";
+    // cin >> number;
+    // for (int i = 0; i < sqrt(number); i++)
+    // {
+    //     if (number % i == 0)
+    //     {
+    //         cout << "hello everyone it is an prime number " << endl;
+    //         break;
+    //     }
+    //     else
+    //     {
+    //         cout << "prime it is ";
+    //         break;
+    //     }
+    // }
+    vector<string> fucyou(3,"mamoon");
+    for(int v : fucyou){
+        cout<<v;
+    }     
     // cout << "it is a prime number" << endl;
     // finding the intersection of the two arrays
     // int a[] = {, 2, 3, 4, 5};
@@ -560,39 +581,39 @@ int main()
     //     }
     // }
 
-//     for (int i : arr)
-//     {
-//         cout << i;
-//     }
-//     return 0;
-// }
-bool canprint(vector<int> vec, int cow, int painters)
-{
-    int cows = 1;
-    int time = vec[0];
-    for (int i = 1; i < vec.size(); i++)
-    {
-        if (vec[i] - time >= cow)
-        {
-            cows++;
-            time = vec[i];
-        }
-    }
-    // cout<<cows;
-    return cows <= painters;
-}
-bool isCow(vector<int> stall, int cow, int allowedmidistance)
-{                                // this is to find that in how many distance the cow will not fight
-    int cows = 1;                // we will place the first cow on first distance;
-    int stalldistace = stall[0]; // from start we will place the first cow
-    for (int i = 1; i < stall.size(); i++)
-    {                                                     // now we will go from the starting distance to the ending to find the valid anser for the stall to place the cow that they don't fight
-        if (stall[i] - stalldistace >= allowedmidistance) // the condition will find teh distance is greater or equal to allowed distance if it is so then we will place the cow becase they will not fight at this distance
-        {
-            cows++;
-            stalldistace = stall[i];
-        }
-    }
-    return cows <= cow; // now we will se that the cows which we place in the feild are greater than the actual cow so then we will return false becase the allowed distance is larger we need low distance
-}
+    //     for (int i : arr)
+    //     {
+    //         cout << i;
+    //     }
+    //     return 0;
+    // }
+    // bool canprint(vector<int> vec, int cow, int painters)
+    // {
+    //     int cows = 1;
+    //     int time = vec[0];
+    //     for (int i = 1; i < vec.size(); i++)
+    //     {
+    //         if (vec[i] - time >= cow)
+    //         {
+    //             cows++;
+    //             time = vec[i];
+    //         }
+    //     }
+    //     // cout<<cows;
+    //     return cows <= painters;
+    // }
+    // bool isCow(vector<int> stall, int cow, int allowedmidistance)
+    // {                                // this is to find that in how many distance the cow will not fight
+    //     int cows = 1;                // we will place the first cow on first distance;
+    //     int stalldistace = stall[0]; // from start we will place the first cow
+    //     for (int i = 1; i < stall.size(); i++)
+    //     {                                                     // now we will go from the starting distance to the ending to find the valid anser for the stall to place the cow that they don't fight
+    //         if (stall[i] - stalldistace >= allowedmidistance) // the condition will find teh distance is greater or equal to allowed distance if it is so then we will place the cow becase they will not fight at this distance
+    //         {
+    //             cows++;
+    //             stalldistace = stall[i];
+    //         }
+    //     }
+    //     return cows <= cow; // now we will se that the cows which we place in the feild are greater than the actual cow so then we will return false becase the allowed distance is larger we need low distance
+    // }
 }
