@@ -1,0 +1,123 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+@import "tailwindcss";
+
+/* ====================== THEME CONFIG (from your old tailwind.config.js) ====================== */
+@theme {
+  /* Colors */
+  --color-primary-500: #877EFF;
+  --color-primary-600: #5D5FEF;
+  --color-secondary-500: #FFB620;
+  --color-off-white: #D0DFFF;
+  --color-red: #FF5A5A;
+
+  --color-dark-1: #000000;
+  --color-dark-2: #09090A;
+  --color-dark-3: #101012;
+  --color-dark-4: #1F1F22;
+
+  --color-light-1: #FFFFFF;
+  --color-light-2: #EFEFEF;
+  --color-light-3: #7878A3;
+  --color-light-4: #5C5C7B;
+
+  /* Breakpoints / Screens */
+  --breakpoint-xs: 480px;
+
+  /* Custom widths */
+  --width-420: 420px;
+  --width-465: 465px;
+
+  /* Font family */
+  --font-inter: "Inter", sans-serif;
+
+  /* Container (replaces old container config) */
+  --container-center: true;           /* not directly used, but kept for reference */
+  --container-padding: 2rem;
+  --container-2xl: 1400px;
+
+  /* Animations from tailwindcss-animate */
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+}
+
+/* ====================== BASE LAYER ====================== */
+@layer base {
+  * {
+    @apply box-border list-none p-0 m-0 scroll-smooth;
+  }
+
+  body {
+    @apply bg-dark-1 text-white min-h-screen font-inter;
+  }
+
+  /* Optional: Container utility (if you still want .container class) */
+  .container {
+    @apply mx-auto px-8;
+    max-width: var(--container-2xl, 1400px);
+  }
+}
+
+/* ====================== UTILITIES LAYER ====================== */
+@layer utilities {
+  /* Your existing typography and custom classes go here */
+  .h1-bold { @apply text-[36px] font-bold leading-[140%] tracking-tighter; }
+  .h1-semibold { @apply text-[36px] font-semibold leading-[140%] tracking-tighter; }
+  .h2-bold { @apply text-[30px] font-bold leading-[140%] tracking-tighter; }
+  .h3-bold { @apply text-[24px] font-bold leading-[140%] tracking-tighter; }
+
+  .base-semibold { @apply text-[16px] font-semibold leading-[140%] tracking-tighter; }
+  .base-medium   { @apply text-[16px] font-medium leading-[140%]; }
+  .base-regular  { @apply text-[16px] font-normal leading-[140%]; }
+
+  .body-bold    { @apply text-[18px] font-bold leading-[140%]; }
+  .body-medium  { @apply text-[18px] font-medium leading-[140%]; }
+
+  .small-semibold { @apply text-[14px] font-semibold leading-[140%] tracking-tighter; }
+  .small-medium   { @apply text-[14px] font-medium leading-[140%]; }
+  .small-regular  { @apply text-[14px] font-normal leading-[140%]; }
+
+  .subtle-semibold { @apply text-[12px] font-semibold leading-[140%]; }
+  .tiny-medium     { @apply text-[10px] font-medium leading-[140%]; }
+
+  /* Flex utilities */
+  .flex-center  { @apply flex justify-center items-center; }
+  .flex-between { @apply flex justify-between items-center; }
+  .flex-start   { @apply flex justify-start items-center; }
+
+  /* Custom scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+    border-radius: 2px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track { background: #09090a; }
+  .custom-scrollbar::-webkit-scrollbar-thumb { 
+    background: #5c5c7b; 
+    border-radius: 50px; 
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #7878a3; }
+
+  /* Add all your other utility classes here (common-container, post-card, etc.) */
+  /* ... paste the rest of your @layer utilities from previous version ... */
+}
+
+/* ====================== COMPONENTS LAYER ====================== */
+@layer components {
+  .shad-form_label { @apply text-white; }
+  .shad-form_message { @apply text-red; }
+
+  .shad-input {
+    @apply h-12 bg-dark-4 border-none placeholder:text-light-4 
+           focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3;
+  }
+
+  .shad-textarea {
+    @apply h-36 bg-dark-3 rounded-xl border-none 
+           focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3;
+  }
+
+  .shad-button_primary { @apply bg-primary-500 hover:bg-primary-600 text-light-1 flex gap-2; }
+  .shad-button_dark_4  { @apply h-12 bg-dark-4 px-5 text-light-1 flex gap-2; }
+  .shad-button_ghost   { @apply flex gap-4 items-center justify-start hover:bg-transparent hover:text-white; }
+}
