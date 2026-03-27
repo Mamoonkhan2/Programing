@@ -2,12 +2,13 @@ import { account } from "./appwriteConfig"
 import { ID } from "appwrite"
   async function  createAccount(data) {
     try {
-        const response = await account.create({
-            userId:ID.unique(),
-            email:data.email,
-            password:data.password,
-            name:data.name
-        })
+        const response = await account.create(
+            ID.unique(),
+            data.email,
+            data.password,
+            data.name,
+
+        )
         return response
     } catch (error) {
         return error

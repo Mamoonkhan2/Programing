@@ -23,7 +23,10 @@ function Signup() {
       const response = await createAccount(user);
       if (response) {
         console.log(response)
-        navigate('/profile');
+        setTimeout(() => {
+          navigate('/profile');
+          
+        }, 1000);
       }
     } catch (err) {
       setError(err.message || 'Something went wrong. Please try again.');
