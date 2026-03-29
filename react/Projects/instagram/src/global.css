@@ -1,123 +1,192 @@
+/* ====================== IMPORTS ====================== */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
-
 @import "tailwindcss";
 
-/* ====================== THEME CONFIG (from your old tailwind.config.js) ====================== */
+/* ====================== THEME (Custom colors, font, sizes) ====================== */
 @theme {
-  /* Colors */
-  --color-primary-500: #877EFF;
-  --color-primary-600: #5D5FEF;
-  --color-secondary-500: #FFB620;
-  --color-off-white: #D0DFFF;
-  --color-red: #FF5A5A;
+  --font-inter: "Inter", system-ui, sans-serif;
 
+  /* Colors */
   --color-dark-1: #000000;
   --color-dark-2: #09090A;
   --color-dark-3: #101012;
   --color-dark-4: #1F1F22;
-
   --color-light-1: #FFFFFF;
   --color-light-2: #EFEFEF;
   --color-light-3: #7878A3;
   --color-light-4: #5C5C7B;
-
-  /* Breakpoints / Screens */
-  --breakpoint-xs: 480px;
-
+  --color-primary-500: #877EFF;
+  --color-primary-600: #5D5FEF;
+  --color-secondary-500: #FFB620;
+  --color-offWhite: #D0DFFF;
+  --color-red: #FF5A5A;
+  --color-light-1: #FFFFFF;
   /* Custom widths */
   --width-420: 420px;
   --width-465: 465px;
 
-  /* Font family */
-  --font-inter: "Inter", sans-serif;
-
-  /* Container (replaces old container config) */
-  --container-center: true;           /* not directly used, but kept for reference */
-  --container-padding: 2rem;
-  --container-2xl: 1400px;
-
-  /* Animations from tailwindcss-animate */
-  --animate-accordion-down: accordion-down 0.2s ease-out;
-  --animate-accordion-up: accordion-up 0.2s ease-out;
+  /* Breakpoints */
+  --breakpoint-xs: 480px;
 }
 
-/* ====================== BASE LAYER ====================== */
+/* ====================== BASE ====================== */
 @layer base {
   * {
-    @apply box-border list-none p-0 m-0 scroll-smooth;
+    box-sizing: border-box;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-dark-1 text-white min-h-screen font-inter;
-  }
-
-  /* Optional: Container utility (if you still want .container class) */
-  .container {
-    @apply mx-auto px-8;
-    max-width: var(--container-2xl, 1400px);
+    background-color: #000000;
+    color: #ffffff;
+    min-height: 100vh;
+    font-family: var(--font-inter);
   }
 }
 
-/* ====================== UTILITIES LAYER ====================== */
+/* ====================== UTILITIES ====================== */
 @layer utilities {
-  /* Your existing typography and custom classes go here */
-  .h1-bold { @apply text-[36px] font-bold leading-[140%] tracking-tighter; }
-  .h1-semibold { @apply text-[36px] font-semibold leading-[140%] tracking-tighter; }
-  .h2-bold { @apply text-[30px] font-bold leading-[140%] tracking-tighter; }
-  .h3-bold { @apply text-[24px] font-bold leading-[140%] tracking-tighter; }
+  /* Typography - Defined with plain CSS to avoid @apply issues in v4 */
+  .h1-bold       { font-size: 36px; font-weight: 700; line-height: 1.4; letter-spacing: -0.02em; }
+  .h1-semibold   { font-size: 36px; font-weight: 600; line-height: 1.4; letter-spacing: -0.02em; }
+  .h2-bold       { font-size: 30px; font-weight: 700; line-height: 1.4; letter-spacing: -0.02em; }
+  .h3-bold       { font-size: 24px; font-weight: 700; line-height: 1.4; letter-spacing: -0.02em; }
 
-  .base-semibold { @apply text-[16px] font-semibold leading-[140%] tracking-tighter; }
-  .base-medium   { @apply text-[16px] font-medium leading-[140%]; }
-  .base-regular  { @apply text-[16px] font-normal leading-[140%]; }
+  .base-semibold { font-size: 16px; font-weight: 600; line-height: 1.4; letter-spacing: -0.02em; }
+  .base-medium   { font-size: 16px; font-weight: 500; line-height: 1.4; }
+  .base-regular  { font-size: 16px; font-weight: 400; line-height: 1.4; }
 
-  .body-bold    { @apply text-[18px] font-bold leading-[140%]; }
-  .body-medium  { @apply text-[18px] font-medium leading-[140%]; }
+  .body-bold     { font-size: 18px; font-weight: 700; line-height: 1.4; }
+  .body-medium   { font-size: 18px; font-weight: 500; line-height: 1.4; }
 
-  .small-semibold { @apply text-[14px] font-semibold leading-[140%] tracking-tighter; }
-  .small-medium   { @apply text-[14px] font-medium leading-[140%]; }
-  .small-regular  { @apply text-[14px] font-normal leading-[140%]; }
+  .small-semibold{ font-size: 14px; font-weight: 600; line-height: 1.4; letter-spacing: -0.02em; }
+  .small-medium  { font-size: 14px; font-weight: 500; line-height: 1.4; }
+  .small-regular { font-size: 14px; font-weight: 400; line-height: 1.4; }
 
-  .subtle-semibold { @apply text-[12px] font-semibold leading-[140%]; }
-  .tiny-medium     { @apply text-[10px] font-medium leading-[140%]; }
+  .subtle-semibold { font-size: 12px; font-weight: 600; line-height: 1.4; }
+  .tiny-medium   { font-size: 10px; font-weight: 500; line-height: 1.4; }
 
-  /* Flex utilities */
-  .flex-center  { @apply flex justify-center items-center; }
-  .flex-between { @apply flex justify-between items-center; }
-  .flex-start   { @apply flex justify-start items-center; }
+  /* Simple layout helpers */
+  .flex-center   { display: flex; justify-content: center; align-items: center; }
+  .flex-between  { display: flex; justify-content: space-between; align-items: center; }
+  .flex-start    { display: flex; justify-content: flex-start; align-items: center; }
 
-  /* Custom scrollbar */
+  /* Custom Scrollbar */
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #5c5c7b #09090a;
+  }
+
   .custom-scrollbar::-webkit-scrollbar {
     width: 3px;
     height: 3px;
     border-radius: 2px;
   }
-  .custom-scrollbar::-webkit-scrollbar-track { background: #09090a; }
-  .custom-scrollbar::-webkit-scrollbar-thumb { 
-    background: #5c5c7b; 
-    border-radius: 50px; 
-  }
-  .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #7878a3; }
 
-  /* Add all your other utility classes here (common-container, post-card, etc.) */
-  /* ... paste the rest of your @layer utilities from previous version ... */
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: #09090a;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #5c5c7b;
+    border-radius: 50px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #7878a3;
+  }
+
+  /* Common containers */
+  .common-container,
+  .home-container,
+  .explore-container,
+  .post_details-container,
+  .profile-container,
+  .saved-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: center;
+    gap: 2.5rem;
+    overflow: scroll;
+    padding: 2.5rem 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .common-container,
+    .home-container,
+    .explore-container,
+    .post_details-container,
+    .profile-container,
+    .saved-container {
+      padding: 2.5rem 2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .common-container,
+    .home-container,
+    .explore-container,
+    .post_details-container,
+    .profile-container,
+    .saved-container {
+      padding: 3.5rem;
+    }
+  }
+
+  /* Other common classes */
+  .post-card       { background-color: #09090A; border-radius: 1.875rem; border: 1px solid #1F1F22; padding: 1.25rem; width: 100%; max-width: 640px; }
+  .post-card_img   { height: 16rem; width: 100%; border-radius: 1.5rem; object-fit: cover; margin-bottom: 1.25rem; }
+
+  .leftsidebar     { display: none; }
+  @media (min-width: 768px) {
+    .leftsidebar   { display: flex; padding: 1.5rem 1.5rem; flex-direction: column; justify-content: space-between; min-width: 270px; background-color: #09090A; }
+  }
+
+  .leftsidebar-link { border-radius: 0.5rem; font-weight: 500; transition: background-color 0.2s; }
+  .leftsidebar-link:hover { background-color: #877EFF; }
+
+  .user-card       { display: flex; flex-direction: column; align-items: center; gap: 1rem; border: 1px solid #1F1F22; border-radius: 1.25rem; padding: 1.25rem 1.25rem; }
+
+  .grid-container  { width: 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.75rem; max-width: 1280px; }
 }
 
-/* ====================== COMPONENTS LAYER ====================== */
+/* ====================== COMPONENTS ====================== */
 @layer components {
-  .shad-form_label { @apply text-white; }
-  .shad-form_message { @apply text-red; }
+  .shad-form_label   { color: white; }
+  .shad-form_message { color: #FF5A5A; }
 
   .shad-input {
-    @apply h-12 bg-dark-4 border-none placeholder:text-light-4 
-           focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3;
+    height: 3rem;
+    background-color: #1F1F22;
+    border: none;
+    color: white;
+  }
+
+  .shad-input::placeholder {
+    color: #5C5C7B;
   }
 
   .shad-textarea {
-    @apply h-36 bg-dark-3 rounded-xl border-none 
-           focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-light-3;
+    height: 9rem;
+    background-color: #101012;
+    border-radius: 0.75rem;
+    border: none;
   }
 
-  .shad-button_primary { @apply bg-primary-500 hover:bg-primary-600 text-light-1 flex gap-2; }
-  .shad-button_dark_4  { @apply h-12 bg-dark-4 px-5 text-light-1 flex gap-2; }
-  .shad-button_ghost   { @apply flex gap-4 items-center justify-start hover:bg-transparent hover:text-white; }
+  .shad-button_primary {
+    background-color: #877EFF;
+    color: black;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .shad-button_primary:hover {
+    background-color: #877EFF;
+  }
 }

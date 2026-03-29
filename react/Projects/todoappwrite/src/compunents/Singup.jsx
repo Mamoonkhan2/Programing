@@ -16,9 +16,9 @@ function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     setError('');
-
+    setLoading(true);
+    
     try {
       const response = await createAccount(user);
       if (response) {
